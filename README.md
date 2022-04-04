@@ -5,7 +5,11 @@ Users are able to chat with others after they match and the app will suggest res
 
 # API used 
 Yelp
-
+<img   style = "height:200px; width: 200px;border: solid 2px; border-radius: 50px;" 
+       src="yelp.png" >
 Twitter
-
+<img   style = "height:200px; width: 200px;border: solid 2px; border-radius: 50px;" 
+       src="twitter.png" >
 SendBird
+<img   style = "height:200px; width: 200px;border: solid 2px; border-radius: 50px;" 
+       src="sendbird.png" >
