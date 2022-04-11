@@ -9,6 +9,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Yelp {
+    /*
+    This will mainly be used from outside, by calling Yelp(Base_URL), which creates a Yelp Retrofit object that consume API.
+    The only public function is searchRestaurants(API key, food, location) and returns a yelp result class
+     */
     private YelpSearchResults[] results;
     private String BASE_URL;
     private Retrofit retrofit;
@@ -25,7 +29,7 @@ public class Yelp {
                 .build();
         yp = retrofit.create(YelpService.class);
     }
-    public void searchRestaurants(String API_KEY, String food, String location){
+    public YelpSearchResults[] searchRestaurants(String API_KEY, String food, String location){
         callAsync = yp.searchRestaurants("Bearer " + API_KEY,food,location);
         callAsync.enqueue(new Callback<YelpDataClasses>() {
             @Override
@@ -47,6 +51,7 @@ public class Yelp {
                 Log.d("creation", "onFail " + t); //debug purpose
             }
         });
+        return results;
     }
     public YelpSearchResults[] getResults(){
         return results;

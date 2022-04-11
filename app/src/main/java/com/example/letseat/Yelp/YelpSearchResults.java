@@ -1,6 +1,7 @@
 package com.example.letseat.Yelp;
 
 public class YelpSearchResults {
+    //This class will be mainly used to read data from retrofit result and it is accessible from outside of the package
     private String name;
     private String rating;
     private String price;
