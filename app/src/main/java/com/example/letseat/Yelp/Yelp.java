@@ -14,7 +14,6 @@ public class Yelp {
     private Retrofit retrofit;
     private YelpService yp;
     private Call<YelpDataClasses> callAsync;
-    private String[] result;
     Yelp(String BASE_URL){
         this.BASE_URL = BASE_URL;
         setRetrofit();
@@ -24,6 +23,7 @@ public class Yelp {
                 .baseUrl(BASE_URL) //Base url, all Yelp fusion API endpoints
                 .addConverterFactory(GsonConverterFactory.create()) //This is the adapter that converts JSON data into GSON which can be read and write by Java(not the only way)
                 .build();
+        yp = retrofit.create(YelpService.class);
     }
     public void searchRestaurants(String API_KEY, String food, String location){
         callAsync = yp.searchRestaurants("Bearer " + API_KEY,food,location);
