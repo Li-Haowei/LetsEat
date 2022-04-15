@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -83,7 +84,7 @@ public class EditProfile extends AppCompatActivity {
                     Toast.makeText(EditProfile.this, "one or many field are empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
+                Toast.makeText(EditProfile.this, "Loading", Toast.LENGTH_SHORT).show();
                 final String email = profileEmail.getText().toString();
                 user.updateEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -91,17 +92,25 @@ public class EditProfile extends AppCompatActivity {
                         DocumentReference docRef = fStore.collection("users").document(user.getUid());
                         Map<String,Object> edited = new HashMap<>();
                         edited.put("email",email);
-                        edited.put("fName",profileFullName.getText().toString());
-                        edited.put("phone",profilePhone.getText().toString());
+                        edited.put("fName",(Object) profileFullName.getText().toString());
+                        edited.put("phone",(Object) profilePhone.getText().toString());
+                        docRef.update(edited);
+                        Toast.makeText(EditProfile.this, "Profile Updated", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        finish();
+                        /*
                         docRef.update(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
+                                Log.d("creation","succeed3");
                                 Toast.makeText(EditProfile.this, "Profile Updated", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
                                 finish();
                             }
                         });
-                        Toast.makeText(EditProfile.this, "email is changed", Toast.LENGTH_SHORT).show();
+
+                         */
+                        //Toast.makeText(EditProfile.this, "email is changed", Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -109,7 +118,6 @@ public class EditProfile extends AppCompatActivity {
                         Toast.makeText(EditProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-
             }
         });
 
