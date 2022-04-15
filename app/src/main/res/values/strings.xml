@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">LetsEat</string>
+    <string name="donthaveaccount">
+        Don\'t have account? Please <u>register</u>
+    </string>
+    <string name="login">
+        Already Have Account? Please <u>Log in</u>
+    </string>
 </resources>

@@ -98,7 +98,7 @@
         android:id="@+id/linktologinpage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Already Have Account? Please Log in"
+        android:text="@string/login"
         android:gravity="center"
         android:textColor="@color/white"/>
 
