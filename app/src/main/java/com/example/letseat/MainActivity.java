@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.letseat.restaurant.RestaurantSearch;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,8 +38,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
-    Button resendCode;
-    Button resetPassLocal;
+    Button resendCode, resetPassLocal, restaurantBtn;
     ImageView changeProfile;
     FirebaseUser user;
     ImageView profileImage;
@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         resetPassLocal = findViewById(R.id.resetPasswordLocal);
         profileImage = findViewById(R.id.profileImage);
         changeProfile = findViewById(R.id.changeProfile);
+        restaurantBtn = findViewById(R.id.restaurantSearchBtn);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -108,7 +109,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
+        restaurantBtn.setOnClickListener(view ->{
+            Intent i = new Intent(view.getContext(), RestaurantSearch.class);
+            i.putExtra("food", "BBQ");
+            i.putExtra("location","Boston");
+            startActivity(i);
+        });
         resetPassLocal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

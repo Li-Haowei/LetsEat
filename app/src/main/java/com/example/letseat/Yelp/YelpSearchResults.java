@@ -34,4 +34,5 @@ public class YelpSearchResults {
     public String getRating() {
         return rating;
     }
+
 }

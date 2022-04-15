@@ -1,6 +1,9 @@
 package com.example.letseat.Yelp;
 
+import android.os.AsyncTask;
 import android.util.Log;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,7 +21,7 @@ public class Yelp {
     private Retrofit retrofit;
     private YelpService yp;
     private Call<YelpDataClasses> callAsync;
-    Yelp(String BASE_URL){
+    public Yelp(String BASE_URL){
         this.BASE_URL = BASE_URL;
         setRetrofit();
     }
@@ -30,12 +33,30 @@ public class Yelp {
         yp = retrofit.create(YelpService.class);
     }
     public YelpSearchResults[] searchRestaurants(String API_KEY, String food, String location){
+/*
+        callAsync = yp.searchRestaurants("Bearer " + API_KEY,food,location);
+        try {
+            Response<YelpDataClasses> response = callAsync.execute();
+            for (int i = 0; i < response.body().restaurants.length; i++) {
+                results[i] = new YelpSearchResults(
+                        response.body().restaurants[i].name,
+                        response.body().restaurants[i].rating,
+                        response.body().restaurants[i].price,
+                        response.body().restaurants[i].location.address,
+                        response.body().restaurants[i].imageUrl
+                );
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        */
         callAsync = yp.searchRestaurants("Bearer " + API_KEY,food,location);
         callAsync.enqueue(new Callback<YelpDataClasses>() {
             @Override
             public void onResponse(Call<YelpDataClasses> call, Response<YelpDataClasses> response) {
                 results = new YelpSearchResults[response.body().restaurants.length];
                 for (int i = 0; i < response.body().restaurants.length; i++) {
+                    //if(i>1) Log.d("creation",results[i-1].getName());
                     results[i] = new YelpSearchResults(
                                 response.body().restaurants[i].name,
                                 response.body().restaurants[i].rating,
@@ -51,9 +72,13 @@ public class Yelp {
                 Log.d("creation", "onFail " + t); //debug purpose
             }
         });
+
+        //Log.d("creation","result first?");
         return results;
+
     }
     public YelpSearchResults[] getResults(){
         return results;
     }
+
 }
