@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -29,9 +30,11 @@ import java.util.concurrent.TimeUnit;
 
 public class RestaurantSearch extends AppCompatActivity {
     private ImageView backBtn, searchBtn, refreshBtn;
+    private String getFood, getLocation;
     private final List<RestaurantList> restaurantLists = new ArrayList<>();
     private RestaurantAdapter restaurantAdapter;
     private RecyclerView restaurantRecycleView;
+    private EditText searchField;
     private YelpSearchResults[] searchResults;
     private RelativeLayout topBar;
     private Yelp yelp = new Yelp("https://api.yelp.com/v3/");
@@ -40,14 +43,15 @@ public class RestaurantSearch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_search);
 
+        searchField = findViewById(R.id.searchField);
         backBtn = findViewById(R.id.backBtn);
         searchBtn = findViewById(R.id.searchBtn);
         refreshBtn = findViewById(R.id.refreshBtn);
         restaurantRecycleView = findViewById(R.id.restaurantRecyclerView);
         topBar = findViewById(R.id.topBar);
 
-        final String getFood = getIntent().getStringExtra("food");
-        final String getLocation = getIntent().getStringExtra("location");
+        getFood = getIntent().getStringExtra("food");
+        getLocation = getIntent().getStringExtra("location");
         searchResults = yelp.searchRestaurants(getString(R.string.yelpAPIKey), getFood, getLocation);
 
         restaurantRecycleView.setHasFixedSize(true);
@@ -85,31 +89,13 @@ public class RestaurantSearch extends AppCompatActivity {
         Toast.makeText(this,"Please press refresh page",Toast.LENGTH_SHORT).show();
 
         searchBtn.setOnClickListener(view -> {
-            /*
-            Spinner spinner = (Spinner) findViewById(R.id.spinner);
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                    R.array.foodOptions, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinner.setAdapter(adapter);
-
-            spinner.setVisibility(View.VISIBLE);
-
-             */
+            restaurantAdapter.clear();
+            getFood = searchField.getText().toString();
+            searchResults = yelp.searchRestaurants(getString(R.string.yelpAPIKey), getFood, getLocation);
+            bt.run();
         });
 
     }
-    class SpinnerActivity extends Activity implements AdapterView.OnItemSelectedListener {
-
-        public void onItemSelected(AdapterView<?> parent, View view,
-                                   int pos, long id) {
-            // An item was selected. You can retrieve the selected item using
-            // parent.getItemAtPosition(pos)
-        }
-        public void onNothingSelected(AdapterView<?> parent) {
-            // Another interface callback
-        }
-    }
-
     class BackThread implements Runnable {
         public void run(){
             searchResults = yelp.getResults();

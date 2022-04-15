@@ -58,6 +58,11 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
         this.restaurantLists= restaurantLists;
         notifyDataSetChanged();
     }
+    public void clear() {
+        int size = restaurantLists.size();
+        restaurantLists.clear();
+        notifyItemRangeRemoved(0, size);
+    }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 

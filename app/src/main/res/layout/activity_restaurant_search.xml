@@ -31,8 +31,8 @@
             android:layout_toEndOf="@+id/backBtn"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/name"
+            <EditText
+                android:id="@+id/searchField"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
@@ -42,18 +42,6 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/refreshBtn"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="60dp"
-            android:layout_toStartOf="@id/searchBtn"
-            android:background="@drawable/refresh"
-            android:paddingStart="12dp"
-            android:paddingEnd="2dp" />
 
         <ImageView
             android:id="@+id/searchBtn"
@@ -62,11 +50,26 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginTop="40dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="70dp"
+            android:layout_toStartOf="@id/refreshBtn"
             android:background="@drawable/round_back_light_10"
             android:paddingStart="12dp"
             android:paddingEnd="2dp"
+            android:scaleX="2"
+            android:scaleY="2"
             android:src="@drawable/search_icon" />
+
+        <ImageView
+            android:id="@+id/refreshBtn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/refresh"
+            android:paddingStart="12dp"
+            android:paddingEnd="2dp" />
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -74,15 +77,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/topBar" />
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="end"
-        android:theme="@style/AppThemeSpinner"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:visibility="invisible"
-        />
 
 </RelativeLayout>
