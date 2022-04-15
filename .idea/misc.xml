@@ -3,15 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/David Yan/AndroidStudioProjects/LetsEat/app/src/main/res/layout/activity_edit_profile.xml" value="0.5541666666666667" />
-        <entry key="..\:/Users/David Yan/AndroidStudioProjects/LetsEat/app/src/main/res/layout/activity_login.xml" value="0.5541666666666667" />
-        <entry key="..\:/Users/David Yan/AndroidStudioProjects/LetsEat/app/src/main/res/layout/activity_main.xml" value="0.5541666666666667" />
-        <entry key="..\:/Users/David Yan/AndroidStudioProjects/LetsEat/app/src/main/res/layout/activity_register.xml" value="0.5541666666666667" />
-        <entry key="..\:/Users/David Yan/AndroidStudioProjects/LetsEat1/app/src/main/res/layout/activity_edit_profile.xml" value="0.5541666666666667" />
-        <entry key="..\:/Users/David Yan/AndroidStudioProjects/LetsEat1/app/src/main/res/layout/activity_login.xml" value="0.5541666666666667" />
-        <entry key="..\:/Users/David Yan/AndroidStudioProjects/LetsEat1/app/src/main/res/layout/activity_main.xml" value="0.55" />
-        <entry key="..\:/Users/David Yan/AndroidStudioProjects/LetsEat1/app/src/main/res/layout/activity_register.xml" value="0.55" />
+        <entry key="..\:/Users/Haowei Li/AndroidStudioProjects/LetsEat/app/src/main/res/drawable/backbtn.xml" value="0.1985" />
+        <entry key="..\:/Users/Haowei Li/AndroidStudioProjects/LetsEat/app/src/main/res/drawable/circularbtn.xml" value="0.1985" />
+        <entry key="..\:/Users/Haowei Li/AndroidStudioProjects/LetsEat/app/src/main/res/drawable/my_msg_back.xml" value="0.1985" />
+        <entry key="..\:/Users/Haowei Li/AndroidStudioProjects/LetsEat/app/src/main/res/drawable/opo_msg_back.xml" value="0.137" />
+        <entry key="..\:/Users/Haowei Li/AndroidStudioProjects/LetsEat/app/src/main/res/drawable/round_back_light_10.xml" value="0.137" />
+        <entry key="..\:/Users/Haowei Li/AndroidStudioProjects/LetsEat/app/src/main/res/drawable/round_back_theme.xml" value="0.137" />
+        <entry key="..\:/Users/Haowei Li/AndroidStudioProjects/LetsEat/app/src/main/res/drawable/round_back_white_10.xml" value="0.137" />
+        <entry key="..\:/Users/Haowei Li/AndroidStudioProjects/LetsEat/app/src/main/res/drawable/search_icon.xml" value="0.137" />
+        <entry key="..\:/Users/Haowei Li/AndroidStudioProjects/LetsEat/app/src/main/res/layout/activity_edit_profile.xml" value="0.18568840579710144" />
+        <entry key="..\:/Users/Haowei Li/AndroidStudioProjects/LetsEat/app/src/main/res/layout/activity_login.xml" value="0.18568840579710144" />
         <entry key="..\:/Users/Haowei Li/AndroidStudioProjects/LetsEat/app/src/main/res/layout/activity_main.xml" value="0.1265625" />
+        <entry key="..\:/Users/Haowei Li/AndroidStudioProjects/LetsEat/app/src/main/res/layout/activity_register.xml" value="0.15208333333333332" />
       </map>
     </option>
   </component>
