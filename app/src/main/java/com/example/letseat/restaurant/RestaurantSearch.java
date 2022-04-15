@@ -17,7 +17,7 @@ import java.util.List;
 
 
 public class RestaurantSearch extends AppCompatActivity {
-    private ImageView backBtn, searchBtn;
+    private ImageView backBtn, searchBtn, refreshBtn;
     private final List<RestaurantList> restaurantLists = new ArrayList<>();
     private RestaurantAdapter restaurantAdapter;
     private RecyclerView restaurantRecycleView;
@@ -30,17 +30,20 @@ public class RestaurantSearch extends AppCompatActivity {
 
         backBtn = findViewById(R.id.backBtn);
         searchBtn = findViewById(R.id.searchBtn);
+        refreshBtn = findViewById(R.id.refreshBtn);
         restaurantRecycleView = findViewById(R.id.restaurantRecyclerView);
 
         final String getFood = getIntent().getStringExtra("food");
         final String getLocation = getIntent().getStringExtra("location");
         searchResults = yelp.searchRestaurants(getString(R.string.yelpAPIKey), getFood, getLocation);
-        searchResults = yelp.getResults();
+
         restaurantRecycleView.setHasFixedSize(true);
         restaurantRecycleView.setLayoutManager(new LinearLayoutManager(this));
         restaurantAdapter = new RestaurantAdapter(restaurantLists, this);
         restaurantRecycleView.setAdapter(restaurantAdapter);
-        if (searchResults != null) {
+
+
+        if (searchResults!=null) {
             for (int i = 0; i < searchResults.length; i++) {
                 YelpSearchResults res = searchResults[i];
                 RestaurantList restaurantList = new RestaurantList(res.getName(), res.getImage(), res.getPrice(), res.getRating(), res.getLocation());
@@ -50,6 +53,18 @@ public class RestaurantSearch extends AppCompatActivity {
         }
         backBtn.setOnClickListener(view -> {
             finish();
+        });
+        refreshBtn.setOnClickListener(view ->{
+            searchResults = yelp.getResults();
+            if (searchResults!=null) {
+                for (int i = 0; i < searchResults.length; i++) {
+                    YelpSearchResults res = searchResults[i];
+                    Log.d("creation",res.getLocation());
+                    RestaurantList restaurantList = new RestaurantList(res.getName(), res.getImage(), res.getPrice(), res.getRating(), res.getLocation());
+                    restaurantLists.add(restaurantList);
+                    restaurantAdapter.updateRestaurantList(restaurantLists);
+                }
+            }
         });
     }
 }

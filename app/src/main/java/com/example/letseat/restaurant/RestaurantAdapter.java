@@ -5,12 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.letseat.R;
+import com.example.letseat.tools.ImageLoadTask;
 
 import java.util.List;
 
@@ -25,12 +27,17 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
     @NonNull
     @Override
     public RestaurantAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.restaurant_adapter_layout, null));
+        return new MyViewHolder((LayoutInflater.from(parent.getContext())).inflate(R.layout.restaurant_adapter_layout, null));
     }
 
     @Override
     public void onBindViewHolder(@NonNull RestaurantAdapter.MyViewHolder holder, int position) {
-
+        RestaurantList list2 = restaurantLists.get(position);
+        new ImageLoadTask(list2.getImgUrl(),holder.restaurantImg).execute();
+        holder.name.setText(list2.getName());
+        holder.price.setText(list2.getPrice());
+        holder.location.setText(list2.getLocation());
+        holder.rating.setText(list2.getRating());
     }
 
     @Override
@@ -40,12 +47,14 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
 
     public void updateRestaurantList(List<RestaurantList> restaurantLists){
         this.restaurantLists= restaurantLists;
+        notifyDataSetChanged();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
         private TextView name, rating, price, location;
         private ImageView restaurantImg;
+        private LinearLayout rootLayout;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -54,6 +63,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
             rating = itemView.findViewById(R.id.rating);
             price = itemView.findViewById(R.id.price);
             location = itemView.findViewById(R.id.location);
+            rootLayout = itemView.findViewById(R.id.rootLayout);
         }
     }
 }
