@@ -111,9 +111,8 @@ public class MainActivity extends AppCompatActivity {
         });
         restaurantBtn.setOnClickListener(view ->{
             Intent i = new Intent(view.getContext(), RestaurantSearch.class);
-            i.putExtra("fullName", fullName.getText().toString());
-            i.putExtra("email", email.getText().toString());
-            i.putExtra("phone", phone.getText().toString());
+            i.putExtra("food", "BBQ");
+            i.putExtra("location","Boston");
             startActivity(i);
         });
         resetPassLocal.setOnClickListener(new View.OnClickListener() {

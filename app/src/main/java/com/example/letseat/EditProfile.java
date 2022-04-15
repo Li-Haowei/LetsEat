@@ -34,7 +34,7 @@ import java.util.Map;
 public class EditProfile extends AppCompatActivity {
     public static final String TAG = "TAG";
     EditText profileFullName,profileEmail,profilePhone;
-    ImageView profileImageView;
+    ImageView profileImageView, backBtn;
     Button saveBtn;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
@@ -60,7 +60,7 @@ public class EditProfile extends AppCompatActivity {
         profilePhone = findViewById(R.id.profilePhoneNo);
         profileImageView = findViewById(R.id.profileImageView);
         saveBtn = findViewById(R.id.saveProfileInfo);
-
+        backBtn = findViewById(R.id.backBtn);
         StorageReference profileRef = storageReference.child("users/"+fAuth.getCurrentUser().getUid()+"profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -76,7 +76,9 @@ public class EditProfile extends AppCompatActivity {
                 startActivityForResult(openGalleryIntent,1000);
             }
         });
-
+        backBtn.setOnClickListener(view -> {
+            finish();
+        });
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
