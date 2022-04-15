@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/theme_color_B"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -17,12 +18,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:gravity="center"
+        >
 
         <TextView
             android:id="@+id/profileName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
             android:text="Full Name"
             android:textSize="16sp"
             android:layout_marginStart="20dp"
@@ -30,9 +33,11 @@
             android:textStyle="bold" />
         <TextView
             android:id="@+id/textView3"
+            android:textStyle="bold"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your Name" />
+            android:text="Your Name:" />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -40,6 +45,7 @@
         android:gravity="center">
         <TextView
             android:id="@+id/profileEmail"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Your Email Address"
@@ -49,9 +55,11 @@
             android:textStyle="bold" />
         <TextView
             android:id="@+id/textView4"
+            android:textStyle="bold"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email"/>
+            android:text="Email:"/>
 
     </RelativeLayout>
 
@@ -61,6 +69,7 @@
         android:gravity="center">
         <TextView
             android:id="@+id/profilePhone"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -70,9 +79,11 @@
             android:textStyle="bold" />
         <TextView
             android:id="@+id/textView5"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Phone" />
+            android:text="Phone:" />
 
     </RelativeLayout>
 
@@ -80,8 +91,9 @@
         android:id="@+id/verifyMsg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:text="Email Not Verfied !"
-        android:textColor="#C2185B"
+        android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
         android:visibility="gone" />
@@ -91,6 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Verify Now"
+        android:textColor="@color/white"
         android:visibility="gone" />
 
 
