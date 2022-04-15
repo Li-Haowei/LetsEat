@@ -4,13 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.letseat.R;
 import com.example.letseat.Yelp.Yelp;
@@ -77,9 +82,34 @@ public class RestaurantSearch extends AppCompatActivity {
                 restaurantRecycleView.scrollToPosition(0);
             }
         });
+        Toast.makeText(this,"Please press refresh page",Toast.LENGTH_SHORT).show();
 
+        searchBtn.setOnClickListener(view -> {
+            /*
+            Spinner spinner = (Spinner) findViewById(R.id.spinner);
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                    R.array.foodOptions, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner.setAdapter(adapter);
+
+            spinner.setVisibility(View.VISIBLE);
+
+             */
+        });
 
     }
+    class SpinnerActivity extends Activity implements AdapterView.OnItemSelectedListener {
+
+        public void onItemSelected(AdapterView<?> parent, View view,
+                                   int pos, long id) {
+            // An item was selected. You can retrieve the selected item using
+            // parent.getItemAtPosition(pos)
+        }
+        public void onNothingSelected(AdapterView<?> parent) {
+            // Another interface callback
+        }
+    }
+
     class BackThread implements Runnable {
         public void run(){
             searchResults = yelp.getResults();
