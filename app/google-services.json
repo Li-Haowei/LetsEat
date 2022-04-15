@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "713092314718",
+    "project_id": "letseat-c4411",
+    "storage_bucket": "letseat-c4411.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:713092314718:android:2216aa115b662649f766cf",
+        "android_client_info": {
+          "package_name": "com.example.letseat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "713092314718-g7ducj80i9c3rqgmrivmjhevkdc17nu5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyHlSiC9XmFjSzczXCi8cinnnlaUaOZnY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "713092314718-g7ducj80i9c3rqgmrivmjhevkdc17nu5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
