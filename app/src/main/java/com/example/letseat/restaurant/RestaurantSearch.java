@@ -6,11 +6,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.example.letseat.R;
 import com.example.letseat.Yelp.Yelp;
 import com.example.letseat.Yelp.YelpSearchResults;
+import com.example.letseat.tools.DoubleClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +28,7 @@ public class RestaurantSearch extends AppCompatActivity {
     private RestaurantAdapter restaurantAdapter;
     private RecyclerView restaurantRecycleView;
     private YelpSearchResults[] searchResults;
+    private RelativeLayout topBar;
     private Yelp yelp = new Yelp("https://api.yelp.com/v3/");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +39,7 @@ public class RestaurantSearch extends AppCompatActivity {
         searchBtn = findViewById(R.id.searchBtn);
         refreshBtn = findViewById(R.id.refreshBtn);
         restaurantRecycleView = findViewById(R.id.restaurantRecyclerView);
+        topBar = findViewById(R.id.topBar);
 
         final String getFood = getIntent().getStringExtra("food");
         final String getLocation = getIntent().getStringExtra("location");
@@ -59,7 +66,19 @@ public class RestaurantSearch extends AppCompatActivity {
         refreshBtn.setOnClickListener(view ->{
             bt.run();
         });
-        bt.run();
+        topBar.setOnClickListener(new DoubleClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+
+            }
+
+            @Override
+            public void onDoubleClick(View v) {
+                restaurantRecycleView.scrollToPosition(0);
+            }
+        });
+
+
     }
     class BackThread implements Runnable {
         public void run(){
@@ -72,7 +91,6 @@ public class RestaurantSearch extends AppCompatActivity {
                     restaurantAdapter.updateRestaurantList(restaurantLists);
                 }
             }
-            searchResults = yelp.getResults();
         }
     }
 }

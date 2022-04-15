@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".restaurant.RestaurantSearch">
+
     <RelativeLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
@@ -21,22 +22,24 @@
             android:paddingStart="12dp"
             android:paddingEnd="2dp"
             android:src="@drawable/backbtn" />
+
         <LinearLayout
-            android:layout_marginStart="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:orientation="vertical"
-            android:layout_toEndOf="@+id/backBtn">
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/backBtn"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Restaurant Research"
                 android:maxLines="1"
+                android:text="Restaurant Research"
                 android:textColor="#424242"
-                android:textStyle="bold"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <ImageView
@@ -51,14 +54,15 @@
             android:background="@drawable/refresh"
             android:paddingStart="12dp"
             android:paddingEnd="2dp" />
+
         <ImageView
             android:id="@+id/searchBtn"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="40dp"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="20dp"
             android:background="@drawable/round_back_light_10"
             android:paddingStart="12dp"
             android:paddingEnd="2dp"
