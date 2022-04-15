@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:background="@color/black"/>
+            android:background="@color/grey"/>
     <ImageView
         android:id="@+id/restaurantPic"
         android:layout_width="150dp"
@@ -54,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textSize="20dp"
+                android:textColor="@color/blue"
                 android:textStyle="bold"
                 android:text="Location" />
         </LinearLayout>

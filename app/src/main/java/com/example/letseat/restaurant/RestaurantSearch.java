@@ -14,6 +14,7 @@ import com.example.letseat.Yelp.YelpSearchResults;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 public class RestaurantSearch extends AppCompatActivity {
@@ -51,20 +52,27 @@ public class RestaurantSearch extends AppCompatActivity {
                 restaurantAdapter.updateRestaurantList(restaurantLists);
             }
         }
+        BackThread bt = new BackThread();
         backBtn.setOnClickListener(view -> {
             finish();
         });
         refreshBtn.setOnClickListener(view ->{
+            bt.run();
+        });
+        bt.run();
+    }
+    class BackThread implements Runnable {
+        public void run(){
             searchResults = yelp.getResults();
             if (searchResults!=null) {
                 for (int i = 0; i < searchResults.length; i++) {
                     YelpSearchResults res = searchResults[i];
-                    Log.d("creation",res.getLocation());
                     RestaurantList restaurantList = new RestaurantList(res.getName(), res.getImage(), res.getPrice(), res.getRating(), res.getLocation());
                     restaurantLists.add(restaurantList);
                     restaurantAdapter.updateRestaurantList(restaurantLists);
                 }
             }
-        });
+            searchResults = yelp.getResults();
+        }
     }
 }

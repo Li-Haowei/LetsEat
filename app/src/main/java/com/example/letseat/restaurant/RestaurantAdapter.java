@@ -1,6 +1,8 @@
 package com.example.letseat.restaurant;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +40,13 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
         holder.price.setText(list2.getPrice());
         holder.location.setText(list2.getLocation());
         holder.rating.setText(list2.getRating());
+
+        holder.location.setOnClickListener(view -> {
+            String loc = list2.getLocation();
+            loc = loc.replace(' ', '+');
+            Intent geoLocationIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + loc));
+            context.startActivity(geoLocationIntent);
+        });
     }
 
     @Override
