@@ -18,7 +18,7 @@ public class Yelp {
     private Retrofit retrofit;
     private YelpService yp;
     private Call<YelpDataClasses> callAsync;
-    Yelp(String BASE_URL){
+    public Yelp(String BASE_URL){
         this.BASE_URL = BASE_URL;
         setRetrofit();
     }

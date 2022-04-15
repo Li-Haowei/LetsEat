@@ -172,6 +172,17 @@
     -->
     <Button
         android:layout_marginTop="10dp"
+        android:id="@+id/restaurantSearchBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="200dp"
+        android:background="@drawable/circularbtn"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Search Restaurant" />
+    <Button
+        android:layout_marginTop="10dp"
         android:id="@+id/resetPasswordLocal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -181,6 +192,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:text="Reset Password" />
+
 
 
 
