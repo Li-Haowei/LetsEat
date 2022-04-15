@@ -5,13 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/theme_color_B"
-    android:gravity="center"
+    android:id="@+id/linearLayoutMain"
     android:orientation="vertical"
     tools:context=".MainActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_back_white_10">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/round_back_light_10"
+            android:padding="6dp"
+            android:src="@drawable/search_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Main Entry"
+            android:textColor="#424242"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/changeProfile"
+            android:layout_width="26dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="29dp"
+            android:src="@drawable/user_icon" />
+    </RelativeLayout>
     <ImageView
         android:id="@+id/profileImage"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
         app:srcCompat="@mipmap/ic_launcher" />
 
 
@@ -107,24 +143,28 @@
         android:visibility="gone" />
 
 
-
+<!--
     <Button
         android:id="@+id/changeProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minWidth="200dp"
+        android:layout_gravity="center"
         android:text="Change Profile"/>
+    -->
     <Button
         android:id="@+id/resetPasswordLocal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minWidth="200dp"
+        android:layout_gravity="center"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:text="Reset Password" />
     <Button
         android:id="@+id/button"
         android:minWidth="200dp"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

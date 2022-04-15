@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
     FirebaseFirestore fStore;
     String userId;
     Button resendCode;
-    Button resetPassLocal,changeProfileImage;
+    Button resetPassLocal;
+    ImageView changeProfile;
     FirebaseUser user;
     ImageView profileImage;
     StorageReference storageReference;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         email = findViewById(R.id.profileEmail);
         resetPassLocal = findViewById(R.id.resetPasswordLocal);
         profileImage = findViewById(R.id.profileImage);
-        changeProfileImage = findViewById(R.id.changeProfile);
+        changeProfile = findViewById(R.id.changeProfile);
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -147,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        changeProfileImage.setOnClickListener(new View.OnClickListener() {
+        changeProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(), EditProfile.class);
