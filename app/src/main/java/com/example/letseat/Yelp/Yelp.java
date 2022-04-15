@@ -56,7 +56,7 @@ public class Yelp {
             public void onResponse(Call<YelpDataClasses> call, Response<YelpDataClasses> response) {
                 results = new YelpSearchResults[response.body().restaurants.length];
                 for (int i = 0; i < response.body().restaurants.length; i++) {
-                    if(i>1) Log.d("creation",results[i-1].getName());
+                    //if(i>1) Log.d("creation",results[i-1].getName());
                     results[i] = new YelpSearchResults(
                                 response.body().restaurants[i].name,
                                 response.body().restaurants[i].rating,
@@ -73,7 +73,7 @@ public class Yelp {
             }
         });
 
-        Log.d("creation","result first?");
+        //Log.d("creation","result first?");
         return results;
 
     }
