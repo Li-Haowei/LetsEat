@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
     private String userId;
-    private Button resendCode, restaurantBtn;
-    private ImageView changeProfile;
+    private Button resendCode;
+    private ImageView changeProfile, searchRestaurant;
     private FirebaseUser user;
     private StorageReference storageReference;
 
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         changeProfile = findViewById(R.id.changeProfile);
-        restaurantBtn = findViewById(R.id.restaurantSearchBtn);
+        searchRestaurant = findViewById(R.id.search_Restaurant);
         /*
         FirebaseAuth is what we used to sign in users to our Firebase app.
         Firestore database and is the entry point for all Cloud Firestore operations.
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        restaurantBtn.setOnClickListener(view ->{
+        searchRestaurant.setOnClickListener(view ->{
             Intent i = new Intent(view.getContext(), RestaurantSearch.class);
             i.putExtra("food", "BBQ");
             i.putExtra("location","Boston");

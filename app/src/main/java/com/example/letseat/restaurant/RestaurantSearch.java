@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -44,6 +45,8 @@ public class RestaurantSearch extends AppCompatActivity {
         setContentView(R.layout.activity_restaurant_search);
 
         searchField = findViewById(R.id.searchField);
+        searchField.setSingleLine();
+        searchField.setImeOptions(EditorInfo.IME_ACTION_DONE);
         backBtn = findViewById(R.id.backBtn);
         searchBtn = findViewById(R.id.searchBtn);
         refreshBtn = findViewById(R.id.refreshBtn);

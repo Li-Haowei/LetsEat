@@ -33,10 +33,10 @@
 
             <EditText
                 android:id="@+id/searchField"
+                android:minWidth="230dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="Restaurant Research"
+                android:hint="Restaurant Research"
                 android:textColor="#424242"
                 android:textSize="18sp"
                 android:textStyle="bold" />
