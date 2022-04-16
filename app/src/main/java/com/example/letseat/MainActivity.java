@@ -121,18 +121,27 @@ public class MainActivity extends AppCompatActivity {
         document snapshot can be understand as the response from our server based on our request,
         and in this case, it is users.userID, more details please refer to Register.java "example illustration"
          */
+        Log.d("creation", userId);
+        Log.d("creation", fStore.collection("users").toString());
+
         DocumentReference documentReference = fStore.collection("users").document(userId);
+
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                if (documentSnapshot.exists()) {
-                    phone.setText(documentSnapshot.getString("phone"));
-                    fullName.setText(documentSnapshot.getString("fName"));
-                    email.setText(documentSnapshot.getString("email"));
+                if (e==null){
+                    if ( documentSnapshot.exists()) {
+                        phone.setText(documentSnapshot.getString("phone"));
+                        fullName.setText(documentSnapshot.getString("fName"));
+                        email.setText(documentSnapshot.getString("email"));
 
-                } else {
-                    Log.d("tag", "onEvent: Document do not exists");
+                    } else {
+                        Log.d("tag", "onEvent: Document do not exists");
+                    }
+                }else{
+                    Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
         restaurantBtn.setOnClickListener(view ->{
@@ -193,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void logout(View view){
-        FirebaseAuth.getInstance().signOut();//logout
+        FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(getApplicationContext(),Login.class));
         finish();
     }

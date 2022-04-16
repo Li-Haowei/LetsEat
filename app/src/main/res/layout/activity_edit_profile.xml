@@ -7,19 +7,50 @@
     android:orientation="vertical"
     android:gravity="center"
     tools:context=".EditProfile">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/topBar">
 
-        <Button
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@id/profileImageView"/>
+       <!-- <Button
             android:id="@+id/saveProfileInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/my_msg_back"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="10dp"
             android:text="Save" />
 
+        <Button
+            android:id="@+id/logoutBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/saveProfileInfo"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/my_msg_back"
+            android:text="Logout"/>
+
+        <Button
+            android:id="@+id/resetBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/saveProfileInfo"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="2dp"
+            android:background="@drawable/my_msg_back"
+            android:text="Reset Password" />
+        -->
         <ImageView
             android:id="@+id/profileImageView"
             android:layout_width="131dp"
@@ -36,89 +67,13 @@
             android:layout_marginTop="20dp"
             android:src="@drawable/backbtn" />
     </RelativeLayout>
-
-    <EditText
-        android:id="@+id/profileFullName"
+    <LinearLayout
+        android:id="@+id/rootContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:ems="10"
-        android:hint="Your Name"
-        android:inputType="textPersonName" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/topBar"
+        android:orientation="vertical">
+    </LinearLayout>
 
-
-
-    <EditText
-        android:id="@+id/profileEmailAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:ems="10"
-        android:hint="Your Email Address"
-        android:inputType="textEmailAddress"
-        />
-
-    <EditText
-        android:id="@+id/profilePhoneNo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:ems="10"
-        android:inputType="phone"
-        android:hint="Phone"
-        />
-
-    <EditText
-        android:id="@+id/cuisine"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:ems="10"
-        android:hint="favorite cuisine"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/dietary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:ems="10"
-        android:hint="Dietary restriction"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/major"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:ems="10"
-        android:hint="major"
-        android:inputType="textPersonName"/>
-
-    <EditText
-        android:id="@+id/time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:hint="prefer time to dine out"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/major" />
 
 </LinearLayout>
