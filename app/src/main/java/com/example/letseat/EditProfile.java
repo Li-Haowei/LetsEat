@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -95,6 +96,11 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         major = new EditText(this);
         dietaryRestriction = new EditText(this);
         preferTime = new EditText(this);
+        EditText[] editTextManager = {profileFullName, profileEmail, profilePhone, favoriteFood, major, dietaryRestriction, preferTime};
+        for (int i = 0; i < editTextManager.length; i++) {
+            editTextManager[i].setSingleLine();
+            editTextManager[i].setImeOptions(EditorInfo.IME_ACTION_DONE);
+        }
         ScrollView scrollView = new ScrollView(this);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         scrollView.setLayoutParams(layoutParams);
