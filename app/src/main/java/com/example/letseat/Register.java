@@ -56,11 +56,14 @@ public class Register extends AppCompatActivity {
         mLoginBtn   = findViewById(R.id.linktologinpage);
 
         /*
-        Here we are going to use FirebaseAuth to communicate with firebase.
-        FirebaseAuth is what we used to consume firebase API:
+        FirebaseAuth is what we used to sign in users to our Firebase app
         https://firebase.google.com/docs/reference/android/com/google/firebase/auth/FirebaseAuth
          */
         fAuth = FirebaseAuth.getInstance();
+        /*
+        Firestore database and is the entry point for all Cloud Firestore operations.
+        https://firebase.google.com/docs/reference/android/com/google/firebase/firestore/FirebaseFirestore#:~:text=Inherited%20Method%20Summary-,Public%20Methods,for%20all%20Cloud%20Firestore%20operations.
+         */
         fStore = FirebaseFirestore.getInstance();
         progressBar = findViewById(R.id.progressBar);
 
@@ -149,7 +152,7 @@ public class Register extends AppCompatActivity {
                             //we use a hashmap object to store all information which will be eventually put
                             //under users.userID
                             /*
-                            For example:
+                            For example illustration:
                             users ->
                                       xyz123abc ->
                                                 fName : "Haowei Li",
