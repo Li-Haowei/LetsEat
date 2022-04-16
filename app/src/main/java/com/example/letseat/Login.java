@@ -23,26 +23,35 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+/*
+This class allows user already has account to log in
+ */
 public class Login extends AppCompatActivity {
-    EditText mEmail,mPassword;
-    Button mLoginBtn;
-    TextView mCreateBtn,forgotTextLink;
-    ProgressBar progressBar;
-    FirebaseAuth fAuth;
+    private EditText mEmail,mPassword;
+    private Button mLoginBtn;
+    private TextView mCreateBtn,forgotTextLink;
+    private ProgressBar progressBar;
+    private FirebaseAuth fAuth;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        /*
+        Bind fields to views
+         */
         mEmail = findViewById(R.id.EmailAddress);
         mPassword = findViewById(R.id.Password);
         progressBar = findViewById(R.id.progressBar);
-        fAuth = FirebaseAuth.getInstance();
         mLoginBtn = findViewById(R.id.login);
         mCreateBtn = findViewById(R.id.linkbacktoregister);
         forgotTextLink = findViewById(R.id.forgotPassword);
+
+        /*
+        Firebase is what used to sign in users to our Firebase app
+         */
+        fAuth = FirebaseAuth.getInstance();
 
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
