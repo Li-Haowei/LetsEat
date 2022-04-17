@@ -141,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
         changeProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
