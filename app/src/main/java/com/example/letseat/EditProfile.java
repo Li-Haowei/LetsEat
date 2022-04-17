@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -45,28 +47,32 @@ import java.util.Map;
 
 public class EditProfile extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     private static final String TAG = "TAG";
-    private EditText profileFullName,profileEmail,profilePhone, favoriteFood, dietaryRestriction, major, preferTime;
+    private EditText profileFullName,profileEmail,profilePhone;
     private ImageView profileImageView, backBtn;
     private int SAVE=1,RESET_PASSWORD=2,LOGOUT=3;
-    private Spinner spinner;
+    private Spinner spinner, favoriteFood, preferTime, major;
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
-    private String fullName, email, phone, food, restrict, time, user_major;
+    private String fullName, email, phone, food, time, user_major;
     private FirebaseUser user;
     private StorageReference storageReference;
+    private SharedPreferences sharedPref;
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
+
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
 
         Intent data = getIntent();
         fullName = data.getStringExtra("fullName");
         email = data.getStringExtra("email");
         phone = data.getStringExtra("phone");
         food = data.getStringExtra("favoriteFood");
-        restrict = data.getStringExtra("dietaryRestriction");
         user_major = data.getStringExtra("major");
         time = data.getStringExtra("preferTime");
 
@@ -97,11 +103,65 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         profileFullName = new EditText(this);
         profileEmail = new EditText(this);
         profilePhone = new EditText(this);
-        favoriteFood = new EditText(this);
-        major = new EditText(this);
-        dietaryRestriction = new EditText(this);
-        preferTime = new EditText(this);
-        EditText[] editTextManager = {profileFullName, profileEmail, profilePhone, favoriteFood, major, dietaryRestriction, preferTime};
+        favoriteFood = new Spinner(this);
+        //create a list of items for the spinner.
+        String[] items_cuisines = new String[]{"American", "Korean", "Chinese", "Thai", "Japanese", "Italian", "French"};
+        ArrayAdapter<String> adapter_cuisines = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items_cuisines);
+        favoriteFood.setAdapter(adapter_cuisines);
+        favoriteFood.setSelection(sharedPref.getInt("foods",0));
+        favoriteFood.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                food = items_cuisines[i];
+                editor.putInt("foods", i);
+                editor.apply();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        major = new Spinner(this);
+        String[] items_major = new String[]{"Computer Science", "Political Science", "Film/TV", "Business"};
+        ArrayAdapter<String> adapter_majors = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items_major);
+        major.setAdapter(adapter_majors);
+        major.setSelection(sharedPref.getInt("majors",0));
+        major.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                user_major = items_major[i];
+                editor.putInt("majors", i);
+                editor.apply();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        preferTime = new Spinner(this);
+        String[] items_time = new String[]{"Breakfast", "Lunch", "Dinner"};
+        ArrayAdapter<String> adapter_time = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items_time);
+        preferTime.setAdapter(adapter_time);
+        preferTime.setSelection(sharedPref.getInt("times",0));
+        preferTime.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                time = items_time[i];
+                editor.putInt("times", i);
+                editor.apply();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        EditText[] editTextManager = {profileFullName, profileEmail, profilePhone};
         for (int i = 0; i < editTextManager.length; i++) {
             editTextManager[i].setSingleLine();
             editTextManager[i].setImeOptions(EditorInfo.IME_ACTION_DONE);
@@ -129,7 +189,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         linearLayout.addView(tv2);
         linearLayout.addView(profilePhone);
         TextView tv3 = new TextView(this);
-        tv3.setText("Favorite Food");
+        tv3.setText("Favorite Food Cuisine");
         linearLayout.addView(tv3);
         linearLayout.addView(favoriteFood);
         TextView tv4 = new TextView(this);
@@ -137,12 +197,8 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         linearLayout.addView(tv4);
         linearLayout.addView(major);
         TextView tv5 = new TextView(this);
-        tv5.setText("Dietary Restriction");
+        tv5.setText("Preferred Meal to Eat");
         linearLayout.addView(tv5);
-        linearLayout.addView(dietaryRestriction);
-        TextView tv6 = new TextView(this);
-        tv6.setText("Prefer Time to Eat");
-        linearLayout.addView(tv6);
         linearLayout.addView(preferTime);
 
         LinearLayout linear = findViewById(R.id.rootContainer);
@@ -189,10 +245,12 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         profileEmail.setText(email);
         profileFullName.setText(fullName);
         profilePhone.setText(phone);
-        favoriteFood.setText(food);
-        major.setText(user_major);
-        dietaryRestriction.setText(restrict);
-        preferTime.setText(time);
+        int positionFood = adapter_cuisines.getPosition(food);
+       // favoriteFood.setSelection(positionFood);
+        int positionMajor = adapter_majors.getPosition(user_major);
+      //  major.setSelection(positionMajor);
+        int positionTime = adapter_time.getPosition(time);
+      //  preferTime.setSelection(positionTime);
 
         Log.d(TAG, "onCreate: " + fullName + " " + email + " " + phone);
     }
@@ -213,7 +271,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 
     }
     private void uploadImageToFirebase(Uri imageUri) {
-        // uplaod image to firebase storage
+        // upload image to firebase storage
         final StorageReference fileRef = storageReference.child("users/"+fAuth.getCurrentUser().getUid()+"/profile.jpg");
         fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -257,10 +315,9 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                     edited.put("fName",(Object) profileFullName.getText().toString());
                     edited.put("phone",(Object) profilePhone.getText().toString());
                     // store other information
-                    edited.put("favoriteFood",(Object) favoriteFood.getText().toString());
-                    edited.put("major",(Object) major.getText().toString());
-                    edited.put("dietaryRestriction",(Object) dietaryRestriction.getText().toString());
-                    edited.put("preferTime",(Object) preferTime.getText().toString());
+                    edited.put("favoriteFood",(Object) food);
+                    edited.put("major",(Object) user_major);
+                    edited.put("preferTime",(Object) time);
                     docRef.update(edited);
                     Toast.makeText(EditProfile.this, "Profile Updated", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));

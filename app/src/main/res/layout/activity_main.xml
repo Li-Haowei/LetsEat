@@ -14,18 +14,6 @@
         android:background="@drawable/round_back_white_10">
 
         <ImageView
-            android:id="@+id/btn_friends"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="40dp"
-            android:clickable="true"
-            android:padding="6dp"
-            app:srcCompat="@drawable/icon_members"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
-        <ImageView
             android:id="@+id/search_Restaurant"
             android:layout_width="35dp"
             android:layout_height="35dp"
