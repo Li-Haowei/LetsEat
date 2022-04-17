@@ -51,6 +51,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     private Spinner spinner;
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
+    private String fullName, email, phone, food, restrict, time, user_major;
     private FirebaseUser user;
     private StorageReference storageReference;
 
@@ -61,9 +62,13 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         setContentView(R.layout.activity_edit_profile);
 
         Intent data = getIntent();
-        final String fullName = data.getStringExtra("fullName");
-        String email = data.getStringExtra("email");
-        String phone = data.getStringExtra("phone");
+        fullName = data.getStringExtra("fullName");
+        email = data.getStringExtra("email");
+        phone = data.getStringExtra("phone");
+        food = data.getStringExtra("favoriteFood");
+        restrict = data.getStringExtra("dietaryRestriction");
+        user_major = data.getStringExtra("major");
+        time = data.getStringExtra("preferTime");
 
         /*
         FirebaseAuth is what we used to sign in users to our Firebase app
@@ -184,6 +189,10 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         profileEmail.setText(email);
         profileFullName.setText(fullName);
         profilePhone.setText(phone);
+        favoriteFood.setText(food);
+        major.setText(user_major);
+        dietaryRestriction.setText(restrict);
+        preferTime.setText(time);
 
         Log.d(TAG, "onCreate: " + fullName + " " + email + " " + phone);
     }

@@ -80,6 +80,13 @@ public class UserPref extends AppCompatActivity {
         major = new EditText(this);
         dietaryRestriction = new EditText(this);
         preferTime = new EditText(this);
+        saveBtn = new Button(this);
+        saveBtn.setText("SAVE");
+        saveBtn.setHeight(30);
+        saveBtn.setWidth(60);
+
+
+
         EditText[] editTextManager = {favoriteFood, major, dietaryRestriction, preferTime};
         for (int i = 0; i < editTextManager.length; i++) {
             editTextManager[i].setSingleLine();

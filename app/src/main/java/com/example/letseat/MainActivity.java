@@ -42,7 +42,7 @@ and tasks bar, the action bar we have now is a customizable relative layout
 public class MainActivity extends AppCompatActivity {
 
     private static final int GALLERY_INTENT_CODE = 1023 ;
-    private String name, number, email;
+    private String name, number, email, favoriteFood, dietaryRestriction, major, preferTime;
     private TextView verifyMsg;
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
@@ -120,6 +120,10 @@ public class MainActivity extends AppCompatActivity {
                         number = documentSnapshot.getString("phone");
                         name = documentSnapshot.getString("fName");
                         email = documentSnapshot.getString("email");
+                        favoriteFood = documentSnapshot.getString("favoriteFood");
+                        dietaryRestriction = documentSnapshot.getString("dietaryRestriction");
+                        major = documentSnapshot.getString("major");
+                        preferTime = documentSnapshot.getString("preferTime");
 
                     } else {
                         Log.d("tag", "onEvent: Document do not exists");
@@ -137,6 +141,10 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra("fullName", name);
                 i.putExtra("email", email);
                 i.putExtra("phone", number);
+                i.putExtra("favoriteFood", favoriteFood);
+                i.putExtra("dietaryRestriction", dietaryRestriction);
+                i.putExtra("major", major);
+                i.putExtra("preferTime", preferTime);
                 startActivity(i);
             }
         });
