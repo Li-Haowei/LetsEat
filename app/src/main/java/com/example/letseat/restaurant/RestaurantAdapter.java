@@ -6,21 +6,26 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.letseat.R;
 import com.example.letseat.tools.ImageLoadTask;
+import com.example.letseat.userMatching.Post;
 
 import java.util.List;
 
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.MyViewHolder> {
     private List<RestaurantList> restaurantLists;
     private final Context context;
+
     public RestaurantAdapter(List<RestaurantList> restaurantLists, Context context) {
         this.restaurantLists = restaurantLists;
         this.context = context;
@@ -47,6 +52,12 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
             Intent geoLocationIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + loc));
             context.startActivity(geoLocationIntent);
         });
+
+        // Allow user to post dinning request.
+        // Added by Zack
+        holder.postButton.setOnClickListener(view -> {
+            Post.makePost(list2.getImgUrl(), list2.getName());
+        });
     }
 
     @Override
@@ -68,6 +79,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
 
         private TextView name, rating, price, location;
         private ImageView restaurantImg;
+        // Added by Zack
+        private Button postButton;
         private LinearLayout rootLayout;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -78,6 +91,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
             price = itemView.findViewById(R.id.price);
             location = itemView.findViewById(R.id.location);
             rootLayout = itemView.findViewById(R.id.rootLayout);
+            postButton = itemView.findViewById(R.id.btnPost);
+
         }
     }
 }

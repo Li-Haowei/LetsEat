@@ -19,44 +19,58 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         tools:srcCompat="@tools:sample/avatars" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="153dp"
             android:layout_toEndOf="@id/restaurantPic"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
                 android:layout_gravity="center"
-                android:textStyle="bold"
-                android:text="Restaurant Name" />
+                android:text="Restaurant Name"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
                 android:layout_gravity="center"
-                android:textStyle="bold"
-                android:text="Rating" />
+                android:text="Rating"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:text="Price"
                 android:textSize="20dp"
-                android:textStyle="bold"
-                android:text="Price" />
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="20dp"
+                android:text="Location"
                 android:textColor="@color/blue"
-                android:textStyle="bold"
-                android:text="Location" />
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnPost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:minHeight="48dp"
+                android:text="Post "
+                android:textAlignment="center" />
         </LinearLayout>
 
     </LinearLayout>

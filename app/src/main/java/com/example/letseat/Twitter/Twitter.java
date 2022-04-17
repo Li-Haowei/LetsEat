@@ -1,4 +1,4 @@
-package Twitter;
+package com.example.letseat.Twitter;
 
 import android.content.Context;
 import android.util.Log;
