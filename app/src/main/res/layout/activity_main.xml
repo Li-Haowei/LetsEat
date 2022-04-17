@@ -14,15 +14,26 @@
         android:background="@drawable/round_back_white_10">
 
         <ImageView
+            android:id="@+id/search_Restaurant"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:id="@+id/search_Restaurant"
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/round_back_light_10"
             android:padding="6dp"
             android:src="@drawable/search_icon" />
+
+        <ImageView
+            android:id="@+id/btn_chatList"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="300dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/round_back_light_10"
+            android:padding="6dp"
+            android:src="@drawable/sendbtnpic" />
 
         <TextView
             android:layout_width="wrap_content"
