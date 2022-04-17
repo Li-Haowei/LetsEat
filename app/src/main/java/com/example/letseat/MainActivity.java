@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         });
         searchRestaurant.setOnClickListener(view ->{
             Intent i = new Intent(view.getContext(), RestaurantSearch.class);
-            i.putExtra("food", "BBQ");
+            i.putExtra("food", favoriteFood);
             i.putExtra("location","Boston");
             startActivity(i);
         });
