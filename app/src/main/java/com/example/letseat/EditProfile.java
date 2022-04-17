@@ -256,6 +256,11 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                     edited.put("email",email);
                     edited.put("fName",(Object) profileFullName.getText().toString());
                     edited.put("phone",(Object) profilePhone.getText().toString());
+                    // store other information
+                    edited.put("favoriteFood",(Object) favoriteFood.getText().toString());
+                    edited.put("major",(Object) major.getText().toString());
+                    edited.put("dietaryRestriction",(Object) dietaryRestriction.getText().toString());
+                    edited.put("preferTime",(Object) preferTime.getText().toString());
                     docRef.update(edited);
                     Toast.makeText(EditProfile.this, "Profile Updated", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));

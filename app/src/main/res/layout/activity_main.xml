@@ -68,17 +68,11 @@
         android:text="Verify Now"
         android:textColor="@color/white"
         android:visibility="gone" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/suggestionRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-
-<!--
-    <Button
-        android:id="@+id/changeProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minWidth="200dp"
-        android:layout_gravity="center"
-        android:text="Change Profile"/>
-    -->
 
 
 </LinearLayout>
