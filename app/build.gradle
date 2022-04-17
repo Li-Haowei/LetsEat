@@ -35,6 +35,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -42,6 +51,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.sendbird.sdk:uikit:2.2.4'
 
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:29.3.0')

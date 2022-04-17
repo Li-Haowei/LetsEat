@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.letseat.restaurant.RestaurantSearch;
+import com.example.letseat.widgets.SendBirdBaseApp;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +30,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.sendbird.android.GroupChannel;
+import com.sendbird.android.GroupChannelParams;
+import com.sendbird.android.log.Logger;
+import com.sendbird.uikit.SendBirdUIKit;
 import com.squareup.picasso.Picasso;
 
 
@@ -48,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseFirestore fStore;
     private String userId;
     private Button resendCode;
-    private ImageView changeProfile, searchRestaurant;
+    private ImageView changeProfile, searchRestaurant, btn_chatList;
     private FirebaseUser user;
     private StorageReference storageReference;
 
@@ -73,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
          */
         storageReference = FirebaseStorage.getInstance().getReference();
 
+        btn_chatList = (ImageView) findViewById(R.id.btn_chatList);
 
 
         resendCode = findViewById(R.id.resendCode);
@@ -125,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
                         major = documentSnapshot.getString("major");
                         preferTime = documentSnapshot.getString("preferTime");
 
+                        ((SendBirdBaseApp)getApplication()).setUserId(documentSnapshot.getString("email"));
+                        ((SendBirdBaseApp)getApplication()).setUserNickname(documentSnapshot.getString("fName"));
                     } else {
                         Log.d("tag", "onEvent: Document do not exists");
                     }
@@ -155,7 +163,42 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         });
 
+        btn_chatList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SendBirdUIKit.connect((sb_user, e) -> {
+                    if (e != null) {
+                        return;
+                    }
 
+
+                    createChannelWithMatch("Wanzhi");
+                    //If a connection is successfully built, the app will move to the mainAcitivity where the
+                    // chat interface is implemented
+                    Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+                    startActivity(intent);
+//                    Toast.makeText(MainActivity.this, "Password reset successfully", Toast.LENGTH_SHORT).show();
+
+                });
+
+            }
+        });
+
+    }
+
+    private void createChannelWithMatch(String userId) {
+        GroupChannelParams params = new GroupChannelParams();
+        params.setDistinct(true)
+                .addUserId(userId);
+
+        GroupChannel.createChannel(params, (groupChannel, e) -> {
+            if (e != null) {
+                Logger.e(e.getMessage());
+                return;
+            }
+            Logger.d(groupChannel.getUrl() + ": Channel Created");
+
+        });
     }
 
 }

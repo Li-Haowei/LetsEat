@@ -8,8 +8,12 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+        maven { url 'https://jitpack.io' }
         google()
         mavenCentral()
+        jcenter() // Warning: this repository is going to shut down soon
+        maven { url "https://repo.sendbird.com/public/maven" }
+
     }
 }
 rootProject.name = "LetsEat"
