@@ -174,7 +174,22 @@ public class Register extends AppCompatActivity {
                                     Log.d(TAG, "onFailure:" + e.toString());
                                 }
                             });
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(task.isSuccessful()){
+                                        Log.d("creation", "called");
+                                        Intent i = new Intent(v.getContext(), UserPref.class);
+                                        i.putExtra("fullName",fullName);
+                                        i.putExtra("email", email);
+                                        i.putExtra("phone", phone);
+                                        startActivity(i);
+                                    }else{
+                                        progressBar.setVisibility(View.GONE);
+                                    }
+                                }
+                            });
+                            //startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
                         } else {
                             Toast.makeText(Register.this, "Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -182,6 +197,7 @@ public class Register extends AppCompatActivity {
                         }
                     }
                 });
+
             }
 
         });

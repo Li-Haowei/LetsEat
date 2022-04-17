@@ -42,28 +42,22 @@ and tasks bar, the action bar we have now is a customizable relative layout
 public class MainActivity extends AppCompatActivity {
 
     private static final int GALLERY_INTENT_CODE = 1023 ;
-    private TextView fullName,email,phone,verifyMsg;
+    private String name, number, email, favoriteFood, dietaryRestriction, major, preferTime;
+    private TextView verifyMsg;
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
     private String userId;
-    private Button resendCode, resetPassLocal, restaurantBtn;
-    private ImageView changeProfile;
+    private Button resendCode;
+    private ImageView changeProfile, searchRestaurant;
     private FirebaseUser user;
-    private ImageView profileImage;
     private StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Bind fields to views
-        phone = findViewById(R.id.profilePhone);
-        fullName = findViewById(R.id.profileName);
-        email = findViewById(R.id.profileEmail);
-        resetPassLocal = findViewById(R.id.resetPasswordLocal);
-        profileImage = findViewById(R.id.profileImage);
         changeProfile = findViewById(R.id.changeProfile);
-        restaurantBtn = findViewById(R.id.restaurantSearchBtn);
+        searchRestaurant = findViewById(R.id.search_Restaurant);
         /*
         FirebaseAuth is what we used to sign in users to our Firebase app.
         Firestore database and is the entry point for all Cloud Firestore operations.
@@ -79,15 +73,7 @@ public class MainActivity extends AppCompatActivity {
          */
         storageReference = FirebaseStorage.getInstance().getReference();
 
-        StorageReference profileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/profile.jpg");
-        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                //Picasso is a library that loads circular image with url, https://square.github.io/picasso/
-                //However, I wrote one my self in tools package called ImageLoadTask, either one works fine
-                Picasso.get().load(uri).into(profileImage);
-            }
-        });
+
 
         resendCode = findViewById(R.id.resendCode);
         verifyMsg = findViewById(R.id.verifyMsg);
@@ -121,82 +107,55 @@ public class MainActivity extends AppCompatActivity {
         document snapshot can be understand as the response from our server based on our request,
         and in this case, it is users.userID, more details please refer to Register.java "example illustration"
          */
+        Log.d("creation", userId);
+        Log.d("creation", fStore.collection("users").toString());
+
         DocumentReference documentReference = fStore.collection("users").document(userId);
+
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                if (e == null) {
-                    if (documentSnapshot.exists()) {
-                        phone.setText(documentSnapshot.getString("phone"));
-                        fullName.setText(documentSnapshot.getString("fName"));
-                        email.setText(documentSnapshot.getString("email"));
+                if (e==null){
+                    if ( documentSnapshot.exists()) {
+                        number = documentSnapshot.getString("phone");
+                        name = documentSnapshot.getString("fName");
+                        email = documentSnapshot.getString("email");
+                        favoriteFood = documentSnapshot.getString("favoriteFood");
+                        dietaryRestriction = documentSnapshot.getString("dietaryRestriction");
+                        major = documentSnapshot.getString("major");
+                        preferTime = documentSnapshot.getString("preferTime");
 
                     } else {
                         Log.d("tag", "onEvent: Document do not exists");
                     }
+                }else{
+                    Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-        restaurantBtn.setOnClickListener(view ->{
-            Intent i = new Intent(view.getContext(), RestaurantSearch.class);
-            i.putExtra("food", "BBQ");
-            i.putExtra("location","Boston");
-            startActivity(i);
-        });
-        resetPassLocal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final EditText resetPassword = new EditText(view.getContext());
-                final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(view.getContext());
-                passwordResetDialog.setTitle("Reset Password ?");
-                passwordResetDialog.setMessage("Enter New Password > 6 Characters long.");
-                passwordResetDialog.setView(resetPassword);
-
-
-                passwordResetDialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int which) {
-                        String newPassword = resetPassword.getText().toString();
-                        user.updatePassword(newPassword).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(MainActivity.this, "Password reset successfully", Toast.LENGTH_SHORT).show();
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(MainActivity.this, "Password reset failed", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                });
-                passwordResetDialog.setNegativeButton("no", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        //
-                    }
-                });
-                passwordResetDialog.create().show();
-
 
             }
         });
-
         changeProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(view.getContext(), EditProfile.class);
-                i.putExtra("fullName", fullName.getText().toString());
-                i.putExtra("email", email.getText().toString());
-                i.putExtra("phone", phone.getText().toString());
+                i.putExtra("fullName", name);
+                i.putExtra("email", email);
+                i.putExtra("phone", number);
+                i.putExtra("favoriteFood", favoriteFood);
+                i.putExtra("dietaryRestriction", dietaryRestriction);
+                i.putExtra("major", major);
+                i.putExtra("preferTime", preferTime);
                 startActivity(i);
             }
         });
+        searchRestaurant.setOnClickListener(view ->{
+            Intent i = new Intent(view.getContext(), RestaurantSearch.class);
+            i.putExtra("food", favoriteFood);
+            i.putExtra("location","Boston");
+            startActivity(i);
+        });
+
+
     }
 
-    public void logout(View view){
-        FirebaseAuth.getInstance().signOut();//logout
-        startActivity(new Intent(getApplicationContext(),Login.class));
-        finish();
-    }
 }

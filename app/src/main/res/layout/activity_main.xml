@@ -16,6 +16,7 @@
         <ImageView
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:id="@+id/search_Restaurant"
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
@@ -47,99 +48,7 @@
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
-        <Button
-            android:id="@+id/button"
-            android:background="@drawable/my_msg_back"
-            android:layout_alignParentEnd="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:onClick="logout"
-            android:text="Logout" />
-        <ImageView
-            android:id="@+id/profileImage"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_centerInParent="true"
-            app:srcCompat="@mipmap/ic_launcher" />
-
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_marginTop="50dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-        <TextView
-            android:id="@+id/profileName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="Full Name"
-            android:textSize="16sp"
-            android:layout_marginStart="20dp"
-            android:layout_toEndOf="@id/textView3"
-            android:textStyle="bold" />
-        <TextView
-            android:id="@+id/textView3"
-            android:textStyle="bold"
-            android:layout_marginStart="50dp"
-            android:textColor="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Your Name:" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/profileEmail"
-            android:textColor="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Your Email Address"
-            android:textSize="16sp"
-            android:layout_marginStart="20dp"
-            android:layout_toEndOf="@id/textView4"
-            android:textStyle="bold" />
-        <TextView
-            android:id="@+id/textView4"
-            android:textStyle="bold"
-            android:layout_marginStart="50dp"
-            android:textColor="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email:"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/profilePhone"
-            android:textColor="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="Phone Number"
-            android:layout_toEndOf="@id/textView5"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-        <TextView
-            android:id="@+id/textView5"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_marginStart="50dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Phone:" />
-
-    </RelativeLayout>
+        />
 
     <TextView
         android:id="@+id/verifyMsg"
@@ -159,42 +68,10 @@
         android:text="Verify Now"
         android:textColor="@color/white"
         android:visibility="gone" />
-
-
-<!--
-    <Button
-        android:id="@+id/changeProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minWidth="200dp"
-        android:layout_gravity="center"
-        android:text="Change Profile"/>
-    -->
-    <Button
-        android:layout_marginTop="10dp"
-        android:id="@+id/restaurantSearchBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minWidth="200dp"
-        android:background="@drawable/circularbtn"
-        android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Search Restaurant" />
-    <Button
-        android:layout_marginTop="10dp"
-        android:id="@+id/resetPasswordLocal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minWidth="200dp"
-        android:background="@drawable/circularbtn"
-        android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Reset Password" />
-
-
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/suggestionRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 
