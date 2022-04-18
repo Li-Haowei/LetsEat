@@ -126,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 if (e==null){
                     if ( documentSnapshot.exists()) {
-                        Log.d("creation", "listener called");
                         number = documentSnapshot.getString("phone");
                         name = documentSnapshot.getString("fName");
                         email = documentSnapshot.getString("email");

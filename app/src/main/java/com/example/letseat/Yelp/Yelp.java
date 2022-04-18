@@ -1,9 +1,13 @@
 package com.example.letseat.Yelp;
 
 import android.os.AsyncTask;
+import android.os.StrictMode;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,6 +20,8 @@ public class Yelp {
     This will mainly be used from outside, by calling Yelp(Base_URL), which creates a Yelp Retrofit object that consume API.
     The only public function is searchRestaurants(API key, food, location) and returns a yelp result class
      */
+    //private final CountDownLatch latch = new CountDownLatch(1);
+    //final ExecutorService executorService = Executors.newCachedThreadPool();
     private YelpSearchResults[] results;
     private String BASE_URL;
     private Retrofit retrofit;
@@ -33,10 +39,12 @@ public class Yelp {
         yp = retrofit.create(YelpService.class);
     }
     public YelpSearchResults[] searchRestaurants(String API_KEY, String food, String location){
-/*
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         callAsync = yp.searchRestaurants("Bearer " + API_KEY,food,location);
-        try {
+        try{
             Response<YelpDataClasses> response = callAsync.execute();
+            results = new YelpSearchResults[response.body().restaurants.length];
             for (int i = 0; i < response.body().restaurants.length; i++) {
                 results[i] = new YelpSearchResults(
                         response.body().restaurants[i].name,
@@ -46,17 +54,17 @@ public class Yelp {
                         response.body().restaurants[i].imageUrl
                 );
             }
-        }catch (IOException e) {
+
+        }catch (Exception e){
+            Log.d("creation",e.toString());
             e.printStackTrace();
         }
-        */
-        callAsync = yp.searchRestaurants("Bearer " + API_KEY,food,location);
+        /*
         callAsync.enqueue(new Callback<YelpDataClasses>() {
             @Override
             public void onResponse(Call<YelpDataClasses> call, Response<YelpDataClasses> response) {
                 results = new YelpSearchResults[response.body().restaurants.length];
                 for (int i = 0; i < response.body().restaurants.length; i++) {
-                    //if(i>1) Log.d("creation",results[i-1].getName());
                     results[i] = new YelpSearchResults(
                                 response.body().restaurants[i].name,
                                 response.body().restaurants[i].rating,
@@ -72,8 +80,7 @@ public class Yelp {
                 Log.d("creation", "onFail " + t); //debug purpose
             }
         });
-
-        //Log.d("creation","result first?");
+        */
         return results;
 
     }

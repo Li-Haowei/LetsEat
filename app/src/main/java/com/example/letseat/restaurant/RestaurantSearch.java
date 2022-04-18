@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
@@ -21,6 +22,7 @@ import com.sendbird.uikit.interfaces.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 
 public class RestaurantSearch extends AppCompatActivity {
@@ -32,6 +34,8 @@ public class RestaurantSearch extends AppCompatActivity {
     private EditText searchField;
     private YelpSearchResults[] searchResults;
     private RelativeLayout topBar;
+    private final CountDownLatch latch = new CountDownLatch(1);
+
     private Yelp yelp = new Yelp("https://api.yelp.com/v3/");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +60,6 @@ public class RestaurantSearch extends AppCompatActivity {
         restaurantAdapter = new RestaurantAdapter(restaurantLists, this);
         restaurantRecycleView.setAdapter(restaurantAdapter);
 
-
         if (searchResults!=null) {
             for (int i = 0; i < searchResults.length; i++) {
                 YelpSearchResults res = searchResults[i];
@@ -66,6 +69,7 @@ public class RestaurantSearch extends AppCompatActivity {
             }
         }
         BackThread bt = new BackThread();
+        bt.run();
         backBtn.setOnClickListener(view -> {
             finish();
         });
