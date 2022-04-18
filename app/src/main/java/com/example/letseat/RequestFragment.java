@@ -108,6 +108,7 @@ public class RequestFragment extends Fragment {
         for(request_profile profile : Utils.loadProfiles(getActivity().getApplicationContext())){
             mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
         }
+
         //END
 
         btn_decline.setOnClickListener(v -> {
