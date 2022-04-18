@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
                         return;
                     }
 
-                    createChannelWithMatch("Wanzhi");
+//                    createChannelWithMatch("Wanzhi");
                     //If a connection is successfully built, the app will move to the mainAcitivity where the
                     // chat interface is implemented
                     Intent intent = new Intent(MainActivity.this, ChatActivity.class);
