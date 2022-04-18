@@ -105,7 +105,15 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         profilePhone = new EditText(this);
         favoriteFood = new Spinner(this);
         //create a list of items for the spinner.
-        String[] items_cuisines = new String[]{"American", "Korean", "Chinese", "Thai", "Japanese", "Italian", "French"};
+        String[] items_cuisines = new String[]{
+                getResources().getString(R.string.American),
+                getResources().getString(R.string.Korean),
+                getResources().getString(R.string.Chinese),
+                getResources().getString(R.string.Thai),
+                getResources().getString(R.string.Japanese),
+                getResources().getString(R.string.Italian),
+                getResources().getString(R.string.French),
+        };
         ArrayAdapter<String> adapter_cuisines = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items_cuisines);
         favoriteFood.setAdapter(adapter_cuisines);
         favoriteFood.setSelection(sharedPref.getInt("foods",0));
@@ -177,27 +185,27 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 
 
         TextView tv0 = new TextView(this);
-        tv0.setText("Name");
+        tv0.setText(R.string.user_name);
         linearLayout.addView(tv0);
         linearLayout.addView(profileFullName);
         TextView tv1 = new TextView(this);
-        tv1.setText("Email");
+        tv1.setText(R.string.user_email);
         linearLayout.addView(tv1);
         linearLayout.addView(profileEmail);
         TextView tv2 = new TextView(this);
-        tv2.setText("Phone");
+        tv2.setText(R.string.user_phone);
         linearLayout.addView(tv2);
         linearLayout.addView(profilePhone);
         TextView tv3 = new TextView(this);
-        tv3.setText("Favorite Food Cuisine");
+        tv3.setText(R.string.user_food);
         linearLayout.addView(tv3);
         linearLayout.addView(favoriteFood);
         TextView tv4 = new TextView(this);
-        tv4.setText("Major");
+        tv4.setText(R.string.user_major);
         linearLayout.addView(tv4);
         linearLayout.addView(major);
         TextView tv5 = new TextView(this);
-        tv5.setText("Preferred Meal to Eat");
+        tv5.setText(R.string.user_pref_time);
         linearLayout.addView(tv5);
         linearLayout.addView(preferTime);
 

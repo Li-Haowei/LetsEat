@@ -18,6 +18,20 @@
         <item>Reset Password</item>
         <item>Log out</item>
     </string-array>
+    <string name="profile_pic">User Profile Picture</string>
+    <string name="user_name">Name</string>
+    <string name="user_email">Email</string>
+    <string name="user_phone">Phone Number</string>
+    <string name="user_food">Favorite Food Cuisine</string>
+    <string name="user_major">Major</string>
+    <string name="user_pref_time">Preferred Time to Eat</string>
+    <string name="American">American</string>
+    <string name="Korean">Korean</string>
+    <string name="Thai">Thai</string>
+    <string name="Chinese">Chinese</string>
+    <string name="Japanese">Japanese</string>
+    <string name="Italian">Italian</string>
+    <string name="French">French</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
