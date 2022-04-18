@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.letseat.restaurant.RestaurantSearch;
+import com.example.letseat.userMatching.Post;
 import com.example.letseat.widgets.SendBirdBaseApp;
 import com.example.letseat.RequestFragment;
 
@@ -38,7 +39,11 @@ import com.sendbird.android.log.Logger;
 import com.sendbird.uikit.SendBirdUIKit;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
+import com.google.android.gms.tasks.Tasks;
+
 
 
 /*
@@ -89,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
 
         userId = fAuth.getCurrentUser().getUid();
         user = fAuth.getCurrentUser();
-
 
         getSupportFragmentManager().beginTransaction().replace(R.id.request_fragment_in_main, new RequestFragment(), "RequestFragment").commit();
 
@@ -144,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
         changeProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -201,5 +206,8 @@ public class MainActivity extends AppCompatActivity {
 
         });
     }
+
+
+
 
 }

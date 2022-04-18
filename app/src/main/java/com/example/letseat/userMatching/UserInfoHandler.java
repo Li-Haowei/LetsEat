@@ -1,4 +1,4 @@
-package com.example.letseat;
+package com.example.letseat.userMatching;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -78,30 +78,6 @@ public class UserInfoHandler {
                 }
             }
         });
-//        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
-//                Log.d("TAG", "Running onEvent");
-//                if (e != null) {
-//                    Log.w("TAG", "Listen failed.", e);
-//                    return;
-//                }
-//
-//                if (snapshot != null && snapshot.exists()) {
-//                    Log.d("TAG", "Current data: " + snapshot.getData());
-//                    number = snapshot.getString("phone");
-//                    //name = snapshot.getString("fName");
-//                    setName(snapshot.getString("fName"));
-//                    email = snapshot.getString("email");
-//                    favoriteFood = snapshot.getString("favoriteFood");
-//                    dietaryRestriction = snapshot.getString("dietaryRestriction");
-//                    major = snapshot.getString("major");
-//                    preferTime = snapshot.getString("preferTime");
-//                } else {
-//                    Log.d("TAG", "Current data: null");
-//                }
-//            }
-//        });
     }
     // construct method, construct a handler for specific user
     public UserInfoHandler(String userId) {
@@ -118,31 +94,38 @@ public class UserInfoHandler {
         return this.fAuth;
     }
 
+    // get user's full name
     public String getName() {
         return this.name;
     }
 
+    // get user's phone number
     public String getNumber () {
         Log.d("TAG", "getNumber: " + this.number);
         return this.number;
     }
 
+    // get user's email
     public String getEmail() {
         return this.email;
     }
 
+    // get user's favorite food
     public String getFavoriteFood () {
         return this.favoriteFood;
     }
 
+    // get user's dietary restriction
     public String getDietaryRestriction() {
         return this.dietaryRestriction;
     }
 
+    // get user's major
     public String getMajor() {
         return this.major;
     }
 
+    // get user's prefer time
     public String getPreferTime() {
         return this.preferTime;
     }

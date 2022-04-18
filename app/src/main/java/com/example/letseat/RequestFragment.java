@@ -16,10 +16,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.letseat.models.request_profile;
+import com.example.letseat.userMatching.Post;
+import com.example.letseat.userMatching.UserInfoHandler;
 import com.example.letseat.utils.Utils;
 import com.example.letseat.entities.RequestCard;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.mindorks.placeholderview.SwipeDecor;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.sendbird.android.ApplicationUserListQuery;
@@ -28,6 +36,9 @@ import com.sendbird.android.GroupChannelParams;
 import com.sendbird.android.SendBird;
 import com.sendbird.android.User;
 import com.sendbird.android.log.Logger;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 ///**
 // * A simple {@link Fragment} subclass.
@@ -40,10 +51,12 @@ public class RequestFragment extends Fragment {
     private Button btn_decline, btn_accept;
     private Context mContext;
     private SwipePlaceHolderView mSwipeView;
+    private ArrayList<Map<String, Object>> array;
 
     public RequestFragment() {
         // Required empty public constructor
     }
+
 
 
     @Override
@@ -52,7 +65,6 @@ public class RequestFragment extends Fragment {
         // Inflate the layout for this fragment
         // Inflate the layout for this fragment
         rootLayout = inflater.inflate(R.layout.fragment_request, container, false);
-
 
         return rootLayout;
 
@@ -104,10 +116,44 @@ public class RequestFragment extends Fragment {
 //
 //        });
 
-//        mSwipeView.addView(new RequestCard(mContext, "1", "2", "3","4", mSwipeView));
-        for(request_profile profile : Utils.loadProfiles(getActivity().getApplicationContext())){
-            mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
-        }
+        //mSwipeView.addView(new RequestCard(mContext, "1", "2", "3","4", mSwipeView));
+//        for(request_profile profile : Utils.loadProfiles(getActivity().getApplicationContext())){
+//            mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
+//        }
+        FirebaseAuth fAuth = FirebaseAuth.getInstance();;
+        FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+        Log.d("TAG", "Getting Post");
+
+        fStore.collection("post").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String img = document.getData().get("ResturantImgUrl").toString();
+                        String restName =  document.getData().get("ResturantName").toString();
+                        String userName =  document.getData().get("UserID").toString();
+//                        String email = document.getData().get("UserEmail").toString();
+                        request_profile profile = new request_profile(restName, "label", "address",userName, img, "email");
+                        mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
+                        //Log.d("TAG","Array: " + array);
+                        //Log.d("TAG", document.getId() + " => " + document.getData().getClass().toString());
+                    }
+                } else {
+                    Log.d("TAG", "Error getting documents: ", task.getException());
+                }
+            }
+        });
+//        Log.d("TAG", "Array : " + array.size());
+//        for (int i = 0; i < array.size(); i++) {
+//            String url = array.get(i).get("RestaurantImgUrl").toString();
+//            String userName = array.get(i).get("UserID").toString();
+//            String resName = array.get(i).get("RestaurantName").toString();
+//            Log.d("TAG","TEST: " + url+" "+userName+" "+resName);
+//            request_profile r_p = new request_profile(resName, "fasd", "fasd", userName, url);
+//            mSwipeView.addView(new RequestCard(mContext, r_p, mSwipeView));
+//        }
+//        UserInfoHandler handler = new UserInfoHandler();
+
         //END
 
         btn_decline.setOnClickListener(v -> {
@@ -120,8 +166,8 @@ public class RequestFragment extends Fragment {
 
             //TODO SENDBIRD IMPL
 //            RequestCard user = (RequestCard) mSwipeView.getAllResolvers().get(0);
-//            User profile = user.getUser();
-//            createChannelWithMatch(profile);
+//            request_profile profile = user.getProfile();
+//            createChannelWithMatch(profile.getEmail);
             //END
 
             mSwipeView.doSwipe(true);

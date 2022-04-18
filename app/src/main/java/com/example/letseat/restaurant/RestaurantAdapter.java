@@ -57,6 +57,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
         // Added by Zack
         holder.postButton.setOnClickListener(view -> {
             Post.makePost(list2.getImgUrl(), list2.getName());
+            // Post.getPost();
         });
     }
 

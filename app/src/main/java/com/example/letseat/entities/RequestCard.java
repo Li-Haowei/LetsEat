@@ -65,9 +65,9 @@ public class RequestCard {
 //        minvitedBy = invitedBy;
     }
 
-//    public User getUser() {
-//        return mUser;
-//    }
+    public request_profile getProfile() {
+        return mProfile;
+    }
 
     //END
 

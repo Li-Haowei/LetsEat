@@ -19,8 +19,11 @@ import android.widget.Toast;
 
 import com.example.letseat.restaurant.RestaurantSearch;
 import com.example.letseat.widgets.SendBirdBaseApp;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -28,6 +31,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.sendbird.android.GroupChannel;
@@ -36,10 +41,16 @@ import com.sendbird.android.log.Logger;
 import com.sendbird.uikit.SendBirdUIKit;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class Post {
+
+    private FirebaseFirestore fStore;
+    private ArrayList<Map<String, Object>> array;
 
     public static void makePost(String restaurantImgUrl, String restaurantName){
         FirebaseAuth fAuth = FirebaseAuth.getInstance();;
@@ -58,5 +69,55 @@ public class Post {
         });
     }
 
+    @NonNull
+    public ArrayList<Map<String, Object>> getPost () {
+        this.array = new ArrayList<>();
+        FirebaseAuth fAuth = FirebaseAuth.getInstance();;
+        FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+        Log.d("TAG", "Getting Post");
+        fStore.collection("post").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        array.add(document.getData());
+                        //Log.d("TAG","Array: " + array);
+                        //Log.d("TAG", document.getId() + " => " + document.getData().getClass().toString());
+                    }
+                } else {
+                    Log.d("TAG", "Error getting documents: ", task.getException());
+                }
+            }
+        });
 
+        readData(new FirestoreCallback() {
+            @Override
+            public void onCallback(ArrayList<Map<String, Object>> array1) {
+                array = array1;
+                Log.d("TAG", "Callback: " + array);
+            }
+        });
+        return array;
+    }
+    private interface FirestoreCallback {
+        void onCallback (ArrayList<Map<String, Object>> array);
+    }
+
+    private void readData (FirestoreCallback firestoreCallback) {
+        fStore.collection("post").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        array.add(document.getData());
+                        //Log.d("TAG","Array: " + array);
+                        //Log.d("TAG", document.getId() + " => " + document.getData().getClass().toString());
+                    }
+                    firestoreCallback.onCallback(array);
+                } else {
+                    Log.d("TAG", "Error getting documents: ", task.getException());
+                }
+            }
+        });
+    }
 }

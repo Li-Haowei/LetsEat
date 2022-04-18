@@ -24,6 +24,17 @@ public class request_profile {
     @Expose
     private String imageUrl;
 
+    private String email;
+
+    public request_profile (String restName, String restLabels, String restAdd, String invitedBy, String imageUrl, String email) {
+        this.restName = restName;
+        this.restAdd = restAdd;
+        this.restLabels = restLabels;
+        this.invitedBy = invitedBy;
+        this.imageUrl = imageUrl;
+        this.email = email;
+    }
+
     public String getRestName() {
         return restName;
     }
@@ -58,6 +69,14 @@ public class request_profile {
 
     public String getInvitedBy() {
         return invitedBy;
+    }
+
+    public String getEmail () {
+        return email;
+    }
+
+    public void setEmail (String email) {
+        this.email = email;
     }
 
     public void setInvitedBy(String invitedBy) {
