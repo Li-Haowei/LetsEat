@@ -133,7 +133,7 @@ public class RequestFragment extends Fragment {
                         String restName =  document.getData().get("ResturantName").toString();
                         String userName =  document.getData().get("UserID").toString();
 //                        String email = document.getData().get("UserEmail").toString();
-                        request_profile profile = new request_profile(restName, "label", "address",userName, img, "email");
+                        request_profile profile = new request_profile(restName, "label", "address",userName, img, "dhkrock@yahoo.com");
                         mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
                         //Log.d("TAG","Array: " + array);
                         //Log.d("TAG", document.getId() + " => " + document.getData().getClass().toString());
@@ -143,18 +143,8 @@ public class RequestFragment extends Fragment {
                 }
             }
         });
-//        Log.d("TAG", "Array : " + array.size());
-//        for (int i = 0; i < array.size(); i++) {
-//            String url = array.get(i).get("RestaurantImgUrl").toString();
-//            String userName = array.get(i).get("UserID").toString();
-//            String resName = array.get(i).get("RestaurantName").toString();
-//            Log.d("TAG","TEST: " + url+" "+userName+" "+resName);
-//            request_profile r_p = new request_profile(resName, "fasd", "fasd", userName, url);
-//            mSwipeView.addView(new RequestCard(mContext, r_p, mSwipeView));
-//        }
-//        UserInfoHandler handler = new UserInfoHandler();
 
-        //END
+
 
         btn_decline.setOnClickListener(v -> {
 //            animateFab(fabSkip);
@@ -165,9 +155,9 @@ public class RequestFragment extends Fragment {
 //            animateFab(fabLike);
 
             //TODO SENDBIRD IMPL
-//            RequestCard user = (RequestCard) mSwipeView.getAllResolvers().get(0);
-//            request_profile profile = user.getProfile();
-//            createChannelWithMatch(profile.getEmail);
+            RequestCard user = (RequestCard) mSwipeView.getAllResolvers().get(0);
+            request_profile profile = user.getProfile();
+            createChannelWithMatch(profile.getEmail());
             //END
 
             mSwipeView.doSwipe(true);
