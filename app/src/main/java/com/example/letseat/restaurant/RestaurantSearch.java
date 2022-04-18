@@ -69,7 +69,6 @@ public class RestaurantSearch extends AppCompatActivity {
             }
         }
         BackThread bt = new BackThread();
-        bt.run();
         backBtn.setOnClickListener(view -> {
             finish();
         });
@@ -92,7 +91,14 @@ public class RestaurantSearch extends AppCompatActivity {
             restaurantAdapter.clear();
             getFood = searchField.getText().toString();
             searchResults = yelp.searchRestaurantsSync(getString(R.string.yelpAPIKey), getFood, getLocation);
-            bt.run();
+            if (searchResults!=null) {
+                for (int i = 0; i < searchResults.length; i++) {
+                    YelpSearchResults res = searchResults[i];
+                    RestaurantList restaurantList = new RestaurantList(res.getName(), res.getImage(), res.getPrice(), res.getRating(), res.getLocation());
+                    restaurantLists.add(restaurantList);
+                    restaurantAdapter.updateRestaurantList(restaurantLists);
+                }
+            }
         });
 
     }
