@@ -38,6 +38,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
+        <activity
+            android:name=".PostPage"
+            android:exported="false" />
     </application>
 
 </manifest>

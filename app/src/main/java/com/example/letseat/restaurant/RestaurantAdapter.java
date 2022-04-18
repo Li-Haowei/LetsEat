@@ -1,5 +1,6 @@
 package com.example.letseat.restaurant;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.letseat.PostPage;
 import com.example.letseat.R;
 import com.example.letseat.tools.ImageLoadTask;
 import com.example.letseat.userMatching.Post;
@@ -56,7 +58,10 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
         // Allow user to post dinning request.
         // Added by Zack
         holder.postButton.setOnClickListener(view -> {
-            Post.makePost(list2.getImgUrl(), list2.getName());
+            Intent i = new Intent(view.getContext(), PostPage.class);
+            i.putExtra("resturantImg", list2.getImgUrl());
+            i.putExtra("resturantName",list2.getName());
+            context.startActivity(i);
             // Post.getPost();
         });
     }

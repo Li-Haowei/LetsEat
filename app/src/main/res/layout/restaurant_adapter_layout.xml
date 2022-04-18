@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:minHeight="48dp"
-                android:text="Post "
+                android:text="Make a Post!"
                 android:textAlignment="center" />
         </LinearLayout>
 

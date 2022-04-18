@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int GALLERY_INTENT_CODE = 1023 ;
     private String name, number, email, favoriteFood, dietaryRestriction, major, preferTime;
-    private TextView verifyMsg;
+    private TextView verifyMsg, titleMain;
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
     private String userId;
@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
         resendCode = findViewById(R.id.resendCode);
         verifyMsg = findViewById(R.id.verifyMsg);
+        titleMain = findViewById(R.id.titleMain);
 
         userId = fAuth.getCurrentUser().getUid();
         user = fAuth.getCurrentUser();
@@ -163,7 +164,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
         searchRestaurant.setOnClickListener(view ->{
+            Toast.makeText(this,"Restaurants loading",Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(view.getContext(), RestaurantSearch.class);
+            i.putExtra("food", favoriteFood);
+            i.putExtra("location","Boston");
+            startActivity(i);
+        });
+        titleMain.setOnClickListener(view ->{
             Toast.makeText(this,"Restaurants loading",Toast.LENGTH_SHORT).show();
             Intent i = new Intent(view.getContext(), RestaurantSearch.class);
             i.putExtra("food", favoriteFood);
