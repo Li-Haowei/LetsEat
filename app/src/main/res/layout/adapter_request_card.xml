@@ -37,7 +37,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="174dp"
                 android:layout_gravity="bottom"
                 android:background="#CDCACA"
                 android:gravity="center|start"
@@ -46,22 +46,40 @@
                 android:paddingEnd="20dp">
 
                 <TextView
-                    android:id="@+id/nameAgeTxt"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_restName"
+                    android:layout_width="345dp"
                     android:layout_height="wrap_content"
-                    android:text="24"
+                    android:text="Wendy's"
                     android:textColor="@color/white"
                     android:textSize="30sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/locationNameTxt"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_restLabels"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Douala"
+                    android:text="American, Hamburger"
                     android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:textStyle="normal" />
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_restAdd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1079 Commenwealth"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_InvitedBy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Max"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

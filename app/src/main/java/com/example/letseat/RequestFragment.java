@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.letseat.models.request_profile;
 import com.example.letseat.utils.Utils;
 import com.example.letseat.entities.RequestCard;
 
@@ -28,11 +29,11 @@ import com.sendbird.android.SendBird;
 import com.sendbird.android.User;
 import com.sendbird.android.log.Logger;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RequestFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+///**
+// * A simple {@link Fragment} subclass.
+// * Use the {@link RequestFragment#newInstance} factory method to
+// * create an instance of this fragment.
+// */
 public class RequestFragment extends Fragment {
 
     private View rootLayout;
@@ -40,6 +41,9 @@ public class RequestFragment extends Fragment {
     private Context mContext;
     private SwipePlaceHolderView mSwipeView;
 
+    public RequestFragment() {
+        // Required empty public constructor
+    }
 
 
     @Override
@@ -57,9 +61,9 @@ public class RequestFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mSwipeView = view.findViewById(R.id.swipeView);
-        btn_decline = view.findViewById(R.id.btn_decline);
-        btn_accept = view.findViewById(R.id.btn_accept);
+        mSwipeView = (SwipePlaceHolderView) view.findViewById(R.id.swipeView);
+        btn_decline = (Button)view.findViewById(R.id.btn_decline);
+        btn_accept = (Button)view.findViewById(R.id.btn_accept);
 
 
         mContext = getActivity();
@@ -81,26 +85,29 @@ public class RequestFragment extends Fragment {
          * TODO SENDBIRD
          */
 
-        ApplicationUserListQuery query = SendBird.createApplicationUserListQuery();
-        query.setLimit(100); //Whatever you want
-//        query.setMetaDataFilter("dating", Collections.singletonList("True")); //Can be used if you set your own metadata on your created users.
-//        query.setMetaDataFilter("sex", Collections.singletonList("female"));
+//        ApplicationUserListQuery query = SendBird.createApplicationUserListQuery();
+//        query.setLimit(100); //Whatever you want
+////        query.setMetaDataFilter("dating", Collections.singletonList("True")); //Can be used if you set your own metadata on your created users.
+////        query.setMetaDataFilter("sex", Collections.singletonList("female"));
+//
+//        query.next((list, e) -> {
+//            if (e != null) {
+////                Log.e(SWIPE_FRAGMENT, e.getMessage());
+//                return;
+//            }
+//
+//            for (User user : list) {
+//                if (!user.getUserId().equals(SendBird.getCurrentUser().getUserId())) {
+//                    mSwipeView.addView(new RequestCard(mContext, user, mSwipeView));
+//                }
+//            }
+//
+//        });
 
-        query.next((list, e) -> {
-            if (e != null) {
-//                Log.e(SWIPE_FRAGMENT, e.getMessage());
-                return;
-            }
-
-            for (User user : list) {
-                if (!user.getUserId().equals(SendBird.getCurrentUser().getUserId())) {
-                    mSwipeView.addView(new RequestCard(mContext, user, mSwipeView));
-                }
-            }
-
-        });
-
-
+//        mSwipeView.addView(new RequestCard(mContext, "1", "2", "3","4", mSwipeView));
+        for(request_profile profile : Utils.loadProfiles(getActivity().getApplicationContext())){
+            mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
+        }
         //END
 
         btn_decline.setOnClickListener(v -> {
@@ -112,9 +119,9 @@ public class RequestFragment extends Fragment {
 //            animateFab(fabLike);
 
             //TODO SENDBIRD IMPL
-            RequestCard user = (RequestCard) mSwipeView.getAllResolvers().get(0);
-            User profile = user.getUser();
-            createChannelWithMatch(profile);
+//            RequestCard user = (RequestCard) mSwipeView.getAllResolvers().get(0);
+//            User profile = user.getUser();
+//            createChannelWithMatch(profile);
             //END
 
             mSwipeView.doSwipe(true);

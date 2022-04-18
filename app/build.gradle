@@ -19,6 +19,12 @@ plugins {
 android {
     compileSdk 32
 
+    sourceSets {
+        main {
+            assets.srcDirs = ['src/main/assets', 'src/main/assets/']
+        }
+    }
+
     defaultConfig {
         applicationId "com.example.letseat"
         minSdk 22

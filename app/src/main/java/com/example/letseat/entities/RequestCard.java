@@ -17,6 +17,8 @@ import com.mindorks.placeholderview.annotations.swipe.SwipeOut;
 import com.mindorks.placeholderview.annotations.swipe.SwipeOutState;
 import com.sendbird.android.User;
 import com.example.letseat.R;
+import com.example.letseat.models.request_profile;
+
 
 @Layout(R.layout.adapter_request_card)
 public class RequestCard {
@@ -24,34 +26,60 @@ public class RequestCard {
     @View(R.id.profileImageView)
     private ImageView profileImageView;
 
-    @View(R.id.nameAgeTxt)
-    private TextView nameAgeTxt;
+    @View(R.id.tv_restName)
+    private TextView tv_restName;
 
-    @View(R.id.locationNameTxt)
-    private TextView locationNameTxt;
+    @View(R.id.tv_restLabels)
+    private TextView tv_restLabels;
+
+    @View(R.id.tv_restAdd)
+    private TextView tv_restAdd;
+
+    @View(R.id.tv_InvitedBy)
+    private TextView tv_InvitedBy;
 
     private User mUser;
     private Context mContext;
     private SwipePlaceHolderView mSwipeView;
 
+    private String mrestName;
+    private String mrestLabels;
+    private String mrestAdd;
+    private String minvitedBy;
+    private String murl;
+
+    private request_profile mProfile;
+
     //TODO SENDBIRD
-    public RequestCard(Context context, User user, SwipePlaceHolderView swipeView) {
+    public RequestCard(Context context, request_profile profile , SwipePlaceHolderView swipeView) {
         mContext = context;
-        mUser = user;
+//        mUser = user;
+        mProfile = profile;
+
         mSwipeView = swipeView;
+
+//        murl = url;
+//        mrestName = restName;
+//        mrestLabels = restLabels;
+//        mrestAdd = restAdd;
+//        minvitedBy = invitedBy;
     }
 
-    public User getUser() {
-        return mUser;
-    }
+//    public User getUser() {
+//        return mUser;
+//    }
 
     //END
 
     @Resolve
     private void onResolved(){
-        Glide.with(mContext).load(mUser.getProfileUrl()).into(profileImageView);
-        nameAgeTxt.setText(mUser.getNickname() + ", 25");
-        locationNameTxt.setText("San Mateo");
+
+        Glide.with(mContext).load(mProfile.getImageUrl()).into(profileImageView);
+        tv_restName.setText(mProfile.getRestName());
+        tv_restLabels.setText(mProfile.getRestLabels());
+        tv_restAdd.setText(mProfile.getRestAdd());
+        tv_InvitedBy.setText(mProfile.getInvitedBy());
+
     }
 
     @SwipeOut

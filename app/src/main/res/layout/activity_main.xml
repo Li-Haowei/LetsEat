@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayoutMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/theme_color_B"
-    android:id="@+id/linearLayoutMain"
+    android:background="@color/black"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -68,13 +68,15 @@
             android:layout_marginTop="40dp"
             android:layout_marginEnd="28dp"
             android:src="@drawable/user_icon" />
+
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        android:layout_marginTop="50dp">
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/verifyMsg"
@@ -94,11 +96,12 @@
         android:text="Verify Now"
         android:textColor="@color/white"
         android:visibility="gone" />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/suggestionRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/request_fragment_in_main"
+        android:name="com.example.letseat.RequestFragment"
+        android:layout_width="match_parent"
+        android:layout_height="609dp" />
 
 
 </LinearLayout>
