@@ -104,7 +104,8 @@ public class RestaurantSearch extends AppCompatActivity {
     }
     class BackThread implements Runnable {
         public void run(){
-            getFood = getIntent().getStringExtra("food");
+            restaurantAdapter.clear();
+            getFood = searchField.getText().toString();
             searchResults = yelp.searchRestaurantsAsync(getString(R.string.yelpAPIKey), getFood, getLocation);
             searchResults = yelp.getResults();
             if (searchResults!=null) {
