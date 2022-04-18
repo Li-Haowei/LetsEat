@@ -53,7 +53,7 @@ public class RestaurantSearch extends AppCompatActivity {
 
         getFood = getIntent().getStringExtra("food");
         getLocation = getIntent().getStringExtra("location");
-        searchResults = yelp.searchRestaurants(getString(R.string.yelpAPIKey), getFood, getLocation);
+        searchResults = yelp.searchRestaurantsSync(getString(R.string.yelpAPIKey), getFood, getLocation);
 
         restaurantRecycleView.setHasFixedSize(true);
         restaurantRecycleView.setLayoutManager(new LinearLayoutManager(this));
@@ -87,18 +87,19 @@ public class RestaurantSearch extends AppCompatActivity {
                 restaurantRecycleView.scrollToPosition(0);
             }
         });
-        Toast.makeText(this,"Please press refresh page",Toast.LENGTH_SHORT).show();
 
         searchBtn.setOnClickListener(view -> {
             restaurantAdapter.clear();
             getFood = searchField.getText().toString();
-            searchResults = yelp.searchRestaurants(getString(R.string.yelpAPIKey), getFood, getLocation);
+            searchResults = yelp.searchRestaurantsSync(getString(R.string.yelpAPIKey), getFood, getLocation);
             bt.run();
         });
 
     }
     class BackThread implements Runnable {
         public void run(){
+            getFood = getIntent().getStringExtra("food");
+            searchResults = yelp.searchRestaurantsAsync(getString(R.string.yelpAPIKey), getFood, getLocation);
             searchResults = yelp.getResults();
             if (searchResults!=null) {
                 for (int i = 0; i < searchResults.length; i++) {

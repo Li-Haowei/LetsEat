@@ -159,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         searchRestaurant.setOnClickListener(view ->{
+            Toast.makeText(this,"Restaurants loading",Toast.LENGTH_SHORT).show();
             Intent i = new Intent(view.getContext(), RestaurantSearch.class);
             i.putExtra("food", favoriteFood);
             i.putExtra("location","Boston");

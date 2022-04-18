@@ -38,7 +38,33 @@ public class Yelp {
                 .build();
         yp = retrofit.create(YelpService.class);
     }
-    public YelpSearchResults[] searchRestaurants(String API_KEY, String food, String location){
+    public YelpSearchResults[] searchRestaurantsAsync(String API_KEY, String food, String location){
+        callAsync = yp.searchRestaurants("Bearer " + API_KEY,food,location);
+        callAsync.enqueue(new Callback<YelpDataClasses>() {
+            @Override
+            public void onResponse(Call<YelpDataClasses> call, Response<YelpDataClasses> response) {
+                results = new YelpSearchResults[response.body().restaurants.length];
+                for (int i = 0; i < response.body().restaurants.length; i++) {
+                    //if(i>1) Log.d("creation",results[i-1].getName());
+                    results[i] = new YelpSearchResults(
+                            response.body().restaurants[i].name,
+                            response.body().restaurants[i].rating,
+                            response.body().restaurants[i].price,
+                            response.body().restaurants[i].location.address,
+                            response.body().restaurants[i].imageUrl
+                    );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<YelpDataClasses> call, Throwable t) {
+                Log.d("creation", "onFail " + t); //debug purpose
+            }
+        });
+        return results;
+
+    }
+    public YelpSearchResults[] searchRestaurantsSync(String API_KEY, String food, String location){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         callAsync = yp.searchRestaurants("Bearer " + API_KEY,food,location);
@@ -56,31 +82,8 @@ public class Yelp {
             }
 
         }catch (Exception e){
-            Log.d("creation",e.toString());
             e.printStackTrace();
         }
-        /*
-        callAsync.enqueue(new Callback<YelpDataClasses>() {
-            @Override
-            public void onResponse(Call<YelpDataClasses> call, Response<YelpDataClasses> response) {
-                results = new YelpSearchResults[response.body().restaurants.length];
-                for (int i = 0; i < response.body().restaurants.length; i++) {
-                    results[i] = new YelpSearchResults(
-                                response.body().restaurants[i].name,
-                                response.body().restaurants[i].rating,
-                                response.body().restaurants[i].price,
-                                response.body().restaurants[i].location.address,
-                                response.body().restaurants[i].imageUrl
-                    );
-                }
-            }
-
-            @Override
-            public void onFailure(Call<YelpDataClasses> call, Throwable t) {
-                Log.d("creation", "onFail " + t); //debug purpose
-            }
-        });
-        */
         return results;
 
     }
