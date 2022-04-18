@@ -101,15 +101,39 @@
         android:text="@string/login"
         android:gravity="center"
         android:textColor="@color/white"/>
-
-    <Button
-        android:id="@+id/register"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_marginTop="25dp"
-        android:layout_marginBottom="26dp"
-        android:text="Register" />
+        android:layout_marginBottom="26dp">
+        <Button
+            android:id="@+id/register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Register"
+            />
+        <ImageView
+            android:id="@+id/red_light"
+            android:src="@drawable/red_indictor_light"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_toEndOf="@+id/register"
+            android:layout_marginStart="-10dp"
+            android:elevation="@dimen/sb_size_2"
+            />
+        <ImageView
+            android:id="@+id/green_light"
+            android:src="@drawable/green_indictor_light"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_toEndOf="@+id/register"
+            android:layout_marginStart="-10dp"
+            android:elevation="@dimen/sb_size_2"
+            android:visibility="invisible"
+            />
+    </RelativeLayout>
+
 
     <ProgressBar
         android:id="@+id/progressBar"

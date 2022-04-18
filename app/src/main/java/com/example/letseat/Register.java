@@ -5,11 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +28,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,12 +40,14 @@ public class Register extends AppCompatActivity {
 
     private static final String TAG = "TAG";
     private EditText mFullName,mEmail,mPassword,mPhone;
+    private ImageView greenLight, redLight;
     private Button mRegisterBtn;
     private TextView mLoginBtn;
     private FirebaseAuth fAuth;
     private ProgressBar progressBar;
     private FirebaseFirestore fStore;
     private String userID;
+    private int progress = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +62,24 @@ public class Register extends AppCompatActivity {
         mPhone      = findViewById(R.id.PhoneNumber);
         mRegisterBtn= findViewById(R.id.register);
         mLoginBtn   = findViewById(R.id.linktologinpage);
+        greenLight = findViewById(R.id.green_light);
+        redLight = findViewById(R.id.red_light);
+        EditText[] etArray = {mFullName, mEmail, mPassword, mPhone};
 
+
+        for (int i = 0; i <etArray.length ; i++) {
+            etArray[i].setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                    progress++;
+                    if (progress>=4){
+                        redLight.setVisibility(View.INVISIBLE);
+                        greenLight.setVisibility(View.VISIBLE);
+                    }
+                    return false;
+                }
+            });
+        }
         /*
         FirebaseAuth is what we used to sign in users to our Firebase app
         https://firebase.google.com/docs/reference/android/com/google/firebase/auth/FirebaseAuth
@@ -73,6 +98,11 @@ public class Register extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(),MainActivity.class));
             finish();
         }
+        /*
+        Register Btn Animation
+         */
+        mRegisterBtn.setAlpha(0f);
+        mRegisterBtn.animate().alpha(1f).setDuration(1500);
         /*
         As its name, this button register user with the user inputs
          */

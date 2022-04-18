@@ -14,5 +14,6 @@
     <color name="theme_color_B">#01235A</color>
     <color name="yellow">#FFEB3B</color>
     <color name="green">#8BC34A</color>
+    <color name="red">#FF0000</color>
 
 </resources>
