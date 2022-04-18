@@ -12,6 +12,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/topBar"
         android:background="@drawable/round_back_white_10">
 
         <ImageView
@@ -63,33 +64,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp">
+        <TextView
+            android:id="@+id/verifyMsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
+            android:text="Email Not Verfied !"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/resendCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Verify Now"
+            android:textColor="@color/white"
+            android:visibility="gone" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/verifyMsg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
 
-        android:text="Email Not Verfied !"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:visibility="gone" />
 
-    <Button
-        android:id="@+id/resendCode"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Verify Now"
-        android:textColor="@color/white"
-        android:visibility="gone" />
+        android:layout_height="wrap_content">
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/request_fragment_in_main"
+            android:name="com.example.letseat.RequestFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/request_fragment_in_main"
-        android:name="com.example.letseat.RequestFragment"
-        android:layout_width="match_parent"
-        android:layout_height="609dp" />
 
 
 </LinearLayout>

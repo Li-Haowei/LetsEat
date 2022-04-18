@@ -38,6 +38,8 @@ import com.sendbird.android.log.Logger;
 import com.sendbird.uikit.SendBirdUIKit;
 import com.squareup.picasso.Picasso;
 
+import java.util.Arrays;
+
 
 /*
 This is the main page where all the magic happen. For deeper understanding of user class and how they work
@@ -117,9 +119,6 @@ public class MainActivity extends AppCompatActivity {
         document snapshot can be understand as the response from our server based on our request,
         and in this case, it is users.userID, more details please refer to Register.java "example illustration"
          */
-        Log.d("creation", userId);
-        Log.d("creation", fStore.collection("users").toString());
-
         DocumentReference documentReference = fStore.collection("users").document(userId);
 
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
@@ -127,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 if (e==null){
                     if ( documentSnapshot.exists()) {
+                        Log.d("creation", "listener called");
                         number = documentSnapshot.getString("phone");
                         name = documentSnapshot.getString("fName");
                         email = documentSnapshot.getString("email");
@@ -134,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
                         dietaryRestriction = documentSnapshot.getString("dietaryRestriction");
                         major = documentSnapshot.getString("major");
                         preferTime = documentSnapshot.getString("preferTime");
-
                         ((SendBirdBaseApp)getApplication()).setUserId(documentSnapshot.getString("email"));
                         ((SendBirdBaseApp)getApplication()).setUserNickname(documentSnapshot.getString("fName"));
                     } else {
@@ -146,7 +145,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
         changeProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -176,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
                         return;
                     }
 
-
                     createChannelWithMatch("Wanzhi");
                     //If a connection is successfully built, the app will move to the mainAcitivity where the
                     // chat interface is implemented
@@ -188,7 +185,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     private void createChannelWithMatch(String userId) {

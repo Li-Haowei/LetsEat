@@ -53,6 +53,7 @@ public class RequestFragment extends Fragment {
         // Inflate the layout for this fragment
         rootLayout = inflater.inflate(R.layout.fragment_request, container, false);
 
+
         return rootLayout;
 
     }
@@ -73,11 +74,10 @@ public class RequestFragment extends Fragment {
         mSwipeView.getBuilder()
                 .setDisplayViewCount(3)
                 .setSwipeDecor(new SwipeDecor()
-                        .setViewWidth(windowSize.x)
+                        .setViewWidth(ViewGroup.LayoutParams.MATCH_PARENT)
                         .setViewHeight(windowSize.y - bottomMargin)
                         .setViewGravity(Gravity.TOP)
-                        .setPaddingTop(20)
-                        .setRelativeScale(0.01f)
+                        .setPaddingTop(0)
                         );
 
 
