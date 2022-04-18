@@ -1,64 +1,146 @@
 package com.example.letseat;
 
+import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link RequestFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.letseat.models.request_profile;
+import com.example.letseat.utils.Utils;
+import com.example.letseat.entities.RequestCard;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.mindorks.placeholderview.SwipeDecor;
+import com.mindorks.placeholderview.SwipePlaceHolderView;
+import com.sendbird.android.ApplicationUserListQuery;
+import com.sendbird.android.GroupChannel;
+import com.sendbird.android.GroupChannelParams;
+import com.sendbird.android.SendBird;
+import com.sendbird.android.User;
+import com.sendbird.android.log.Logger;
+
+///**
+// * A simple {@link Fragment} subclass.
+// * Use the {@link RequestFragment#newInstance} factory method to
+// * create an instance of this fragment.
+// */
 public class RequestFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private View rootLayout;
+    private Button btn_decline, btn_accept;
+    private Context mContext;
+    private SwipePlaceHolderView mSwipeView;
 
     public RequestFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RequestFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RequestFragment newInstance(String param1, String param2) {
-        RequestFragment fragment = new RequestFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_request, container, false);
+        // Inflate the layout for this fragment
+        rootLayout = inflater.inflate(R.layout.fragment_request, container, false);
+
+        return rootLayout;
+
+    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mSwipeView = (SwipePlaceHolderView) view.findViewById(R.id.swipeView);
+        btn_decline = (Button)view.findViewById(R.id.btn_decline);
+        btn_accept = (Button)view.findViewById(R.id.btn_accept);
+
+
+        mContext = getActivity();
+
+        int bottomMargin = Utils.dpToPx(100);
+        Point windowSize = Utils.getDisplaySize(getActivity().getWindowManager());
+        mSwipeView.getBuilder()
+                .setDisplayViewCount(3)
+                .setSwipeDecor(new SwipeDecor()
+                        .setViewWidth(windowSize.x)
+                        .setViewHeight(windowSize.y - bottomMargin)
+                        .setViewGravity(Gravity.TOP)
+                        .setPaddingTop(20)
+                        .setRelativeScale(0.01f)
+                        );
+
+
+        /**
+         * TODO SENDBIRD
+         */
+
+//        ApplicationUserListQuery query = SendBird.createApplicationUserListQuery();
+//        query.setLimit(100); //Whatever you want
+////        query.setMetaDataFilter("dating", Collections.singletonList("True")); //Can be used if you set your own metadata on your created users.
+////        query.setMetaDataFilter("sex", Collections.singletonList("female"));
+//
+//        query.next((list, e) -> {
+//            if (e != null) {
+////                Log.e(SWIPE_FRAGMENT, e.getMessage());
+//                return;
+//            }
+//
+//            for (User user : list) {
+//                if (!user.getUserId().equals(SendBird.getCurrentUser().getUserId())) {
+//                    mSwipeView.addView(new RequestCard(mContext, user, mSwipeView));
+//                }
+//            }
+//
+//        });
+
+//        mSwipeView.addView(new RequestCard(mContext, "1", "2", "3","4", mSwipeView));
+        for(request_profile profile : Utils.loadProfiles(getActivity().getApplicationContext())){
+            mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
+        }
+        //END
+
+        btn_decline.setOnClickListener(v -> {
+//            animateFab(fabSkip);
+            mSwipeView.doSwipe(false);
+        });
+
+        btn_accept.setOnClickListener(v -> {
+//            animateFab(fabLike);
+
+            //TODO SENDBIRD IMPL
+//            RequestCard user = (RequestCard) mSwipeView.getAllResolvers().get(0);
+//            User profile = user.getUser();
+//            createChannelWithMatch(profile);
+            //END
+
+            mSwipeView.doSwipe(true);
+        });
+
+    }
+
+    private void createChannelWithMatch(String userId) {
+        GroupChannelParams params = new GroupChannelParams();
+        params.setDistinct(true)
+                .addUserId(userId);
+
+        GroupChannel.createChannel(params, (groupChannel, e) -> {
+            if (e != null) {
+                Logger.e(e.getMessage());
+                return;
+            }
+            Logger.d(groupChannel.getUrl() + ": Channel Created");
+
+        });
     }
 }

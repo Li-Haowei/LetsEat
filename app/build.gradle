@@ -19,6 +19,12 @@ plugins {
 android {
     compileSdk 32
 
+    sourceSets {
+        main {
+            assets.srcDirs = ['src/main/assets', 'src/main/assets/']
+        }
+    }
+
     defaultConfig {
         applicationId "com.example.letseat"
         minSdk 22
@@ -53,6 +59,8 @@ android {
 dependencies {
     implementation 'com.sendbird.sdk:uikit:2.2.4'
     implementation 'com.sendbird.sdk:sendbird-android-sdk:3.1.7'
+    implementation 'com.mindorks:placeholderview:0.7.1'
+
 
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:29.3.0')

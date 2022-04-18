@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.example.letseat.restaurant.RestaurantSearch;
 import com.example.letseat.widgets.SendBirdBaseApp;
+import com.example.letseat.RequestFragment;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -85,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
 
         userId = fAuth.getCurrentUser().getUid();
         user = fAuth.getCurrentUser();
+
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.request_fragment_in_main, new RequestFragment(), "RequestFragment").commit();
 
         if (!user.isEmailVerified()) {
             verifyMsg.setVisibility(View.VISIBLE);

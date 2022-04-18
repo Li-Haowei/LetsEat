@@ -36,9 +36,11 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.29404754638671876" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.22056159420289856" />
         <entry key="app/src/main/res/layout/activity_user_pref.xml" value="0.22056159420289856" />
-        <entry key="app/src/main/res/layout/fragment_request.xml" value="0.3436386108398438" />
+        <entry key="app/src/main/res/layout/adapter_request_card.xml" value="0.18697916666666667" />
+        <entry key="app/src/main/res/layout/fragment_request.xml" value="0.2003982543945313" />
         <entry key="app/src/main/res/layout/friend_adapter_layout.xml" value="0.22056159420289856" />
         <entry key="app/src/main/res/layout/restaurant_adapter_layout.xml" value="0.22056159420289856" />
+        <entry key="app/src/main/res/layout/test.xml" value="0.27722663326539865" />
       </map>
     </option>
   </component>

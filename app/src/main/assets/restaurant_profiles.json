@@ -1,0 +1,24 @@
+[
+  {
+    "url":"https://pbs.twimg.com/profile_images/572905100960485376/GK09QnNG.jpeg",
+    "restName":"Sofia",
+    "restLabels":20,
+    "restAdd":"New York",
+    "invitedBy": "Max"
+  },
+  {
+    "url":"https://s-media-cache-ak0.pinimg.com/736x/de/87/7b/de877bcccc2295a58fe8758fee0ebc7d.jpg",
+    "restName":"Roma",
+    "restLabels":22,
+    "restAdd":"California",
+    "invitedBy": "Max"
+  },
+  {
+    "url":"http://cdn.cavemancircus.com//wp-content/uploads/2022/04/IVHNQ2G.jpg",
+    "restName":"Zoya",
+    "restLabels":23,
+    "restAdd":"Atlantic City",
+    "invitedBy": "Max"
+
+  }
+]
