@@ -21,6 +21,7 @@ import com.example.letseat.tools.DoubleClickListener;
 import com.sendbird.uikit.interfaces.OnItemClickListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
@@ -63,7 +64,7 @@ public class RestaurantSearch extends AppCompatActivity {
         if (searchResults!=null) {
             for (int i = 0; i < searchResults.length; i++) {
                 YelpSearchResults res = searchResults[i];
-                RestaurantList restaurantList = new RestaurantList(res.getName(), res.getImage(), res.getPrice(), res.getRating(), res.getLocation());
+                RestaurantList restaurantList = new RestaurantList(res.getName(), res.getImage(), res.getPrice(), res.getRating(), res.getLocation(), res.getPhotos());
                 restaurantLists.add(restaurantList);
                 restaurantAdapter.updateRestaurantList(restaurantLists);
             }
@@ -94,7 +95,8 @@ public class RestaurantSearch extends AppCompatActivity {
             if (searchResults!=null) {
                 for (int i = 0; i < searchResults.length; i++) {
                     YelpSearchResults res = searchResults[i];
-                    RestaurantList restaurantList = new RestaurantList(res.getName(), res.getImage(), res.getPrice(), res.getRating(), res.getLocation());
+                    //Log.d("creation", i + Arrays.toString(res.getPhotos()));
+                    RestaurantList restaurantList = new RestaurantList(res.getName(), res.getImage(), res.getPrice(), res.getRating(), res.getLocation(), res.getPhotos());
                     restaurantLists.add(restaurantList);
                     restaurantAdapter.updateRestaurantList(restaurantLists);
                 }
@@ -111,7 +113,7 @@ public class RestaurantSearch extends AppCompatActivity {
             if (searchResults!=null) {
                 for (int i = 0; i < searchResults.length; i++) {
                     YelpSearchResults res = searchResults[i];
-                    RestaurantList restaurantList = new RestaurantList(res.getName(), res.getImage(), res.getPrice(), res.getRating(), res.getLocation());
+                    RestaurantList restaurantList = new RestaurantList(res.getName(), res.getImage(), res.getPrice(), res.getRating(), res.getLocation(), res.getPhotos());
                     restaurantLists.add(restaurantList);
                     restaurantAdapter.updateRestaurantList(restaurantLists);
                 }

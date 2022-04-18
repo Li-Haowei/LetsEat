@@ -50,7 +50,8 @@ public class Yelp {
                             response.body().restaurants[i].rating,
                             response.body().restaurants[i].price,
                             response.body().restaurants[i].location.address,
-                            response.body().restaurants[i].imageUrl
+                            response.body().restaurants[i].imageUrl,
+                            response.body().restaurants[i].photos
                     );
                 }
             }
@@ -76,7 +77,8 @@ public class Yelp {
                         response.body().restaurants[i].rating,
                         response.body().restaurants[i].price,
                         response.body().restaurants[i].location.address,
-                        response.body().restaurants[i].imageUrl
+                        response.body().restaurants[i].imageUrl,
+                        response.body().restaurants[i].photos
                 );
             }
 
