@@ -45,11 +45,11 @@ public class RequestCard {
     private Context mContext;
     private SwipePlaceHolderView mSwipeView;
 
-    private String mrestName;
-    private String mrestLabels;
-    private String mrestAdd;
-    private String minvitedBy;
-    private String murl;
+//    private String mrestName;
+//    private String mrestLabels;
+//    private String mrestAdd;
+//    private String minvitedBy;
+//    private String murl;
 
     private request_profile mProfile;
 
