@@ -27,10 +27,16 @@ import java.util.List;
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.MyViewHolder> {
     private List<RestaurantList> restaurantLists;
     private final Context context;
+    // Temp Solution: pass user email to post
+    // Added by Zack
+    private String userEmail;
 
-    public RestaurantAdapter(List<RestaurantList> restaurantLists, Context context) {
+    public RestaurantAdapter(List<RestaurantList> restaurantLists, Context context, String email) {
         this.restaurantLists = restaurantLists;
         this.context = context;
+        // Temp Solution: pass user email to post
+        // Added by Zack
+        this.userEmail = email;
     }
 
     @NonNull
@@ -61,6 +67,9 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
             Intent i = new Intent(view.getContext(), PostPage.class);
             i.putExtra("resturantImg", list2.getImgUrl());
             i.putExtra("resturantName",list2.getName());
+            // Temp Solution: pass user email to post
+            // Added by Zack
+            i.putExtra("userEmail",userEmail);
             context.startActivity(i);
             // Post.getPost();
         });

@@ -28,7 +28,7 @@ import java.util.concurrent.CountDownLatch;
 
 public class RestaurantSearch extends AppCompatActivity {
     private ImageView backBtn, searchBtn, refreshBtn;
-    private String getFood, getLocation;
+    private String getFood, getLocation, getEmail;
     private final List<RestaurantList> restaurantLists = new ArrayList<>();
     private RestaurantAdapter restaurantAdapter;
     private RecyclerView restaurantRecycleView;
@@ -54,11 +54,14 @@ public class RestaurantSearch extends AppCompatActivity {
 
         getFood = getIntent().getStringExtra("food");
         getLocation = getIntent().getStringExtra("location");
+        // Temp Solution: pass user email to post
+        // Added by Zack
+        getEmail = getIntent().getStringExtra("email");
         searchResults = yelp.searchRestaurantsSync(getString(R.string.yelpAPIKey), getFood, getLocation);
 
         restaurantRecycleView.setHasFixedSize(true);
         restaurantRecycleView.setLayoutManager(new LinearLayoutManager(this));
-        restaurantAdapter = new RestaurantAdapter(restaurantLists, this);
+        restaurantAdapter = new RestaurantAdapter(restaurantLists, this, getEmail);
         restaurantRecycleView.setAdapter(restaurantAdapter);
 
         if (searchResults!=null) {
