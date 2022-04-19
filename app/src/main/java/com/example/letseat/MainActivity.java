@@ -172,6 +172,9 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(view.getContext(), RestaurantSearch.class);
             i.putExtra("food", favoriteFood);
             i.putExtra("location","Boston");
+            // Temp Solution: pass user email to post
+            // Added by Zack
+            i.putExtra("email", email);
             startActivity(i);
         });
         titleMain.setOnClickListener(view ->{
@@ -179,6 +182,9 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(view.getContext(), RestaurantSearch.class);
             i.putExtra("food", favoriteFood);
             i.putExtra("location","Boston");
+            // Temp Solution: pass user email to post
+            // Added by Zack
+            i.putExtra("email", email);
             startActivity(i);
         });
 

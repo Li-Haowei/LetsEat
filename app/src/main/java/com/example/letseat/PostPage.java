@@ -36,6 +36,9 @@ public class PostPage extends AppCompatActivity {
 
         String restImg = getIntent().getStringExtra("resturantImg");
         String restName = getIntent().getStringExtra("resturantName");
+        // Temp Solution: pass user email to post
+        // Added by Zack
+        String userEmail = getIntent().getStringExtra("userEmail");
 
         tvRest.setText(restName);
 
@@ -68,7 +71,7 @@ public class PostPage extends AppCompatActivity {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Post.makePost(restImg, restName);
+                Post.makePost(restImg, restName, userEmail);
                 finish();
             }
         });
