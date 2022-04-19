@@ -15,9 +15,12 @@ import com.mindorks.placeholderview.annotations.swipe.SwipeIn;
 import com.mindorks.placeholderview.annotations.swipe.SwipeInState;
 import com.mindorks.placeholderview.annotations.swipe.SwipeOut;
 import com.mindorks.placeholderview.annotations.swipe.SwipeOutState;
+import com.sendbird.android.GroupChannel;
+import com.sendbird.android.GroupChannelParams;
 import com.sendbird.android.User;
 import com.example.letseat.R;
 import com.example.letseat.models.request_profile;
+import com.sendbird.android.log.Logger;
 
 
 @Layout(R.layout.adapter_request_card)
@@ -42,11 +45,11 @@ public class RequestCard {
     private Context mContext;
     private SwipePlaceHolderView mSwipeView;
 
-    private String mrestName;
-    private String mrestLabels;
-    private String mrestAdd;
-    private String minvitedBy;
-    private String murl;
+//    private String mrestName;
+//    private String mrestLabels;
+//    private String mrestAdd;
+//    private String minvitedBy;
+//    private String murl;
 
     private request_profile mProfile;
 
@@ -95,6 +98,7 @@ public class RequestCard {
 
     @SwipeIn
     private void onSwipeIn(){
+        createChannelWithMatch(mProfile.getEmail());
         Log.d("EVENT", "onSwipedIn");
     }
 
@@ -106,5 +110,20 @@ public class RequestCard {
     @SwipeOutState
     private void onSwipeOutState(){
         Log.d("EVENT", "onSwipeOutState");
+    }
+
+    private void createChannelWithMatch(String userId) {
+        GroupChannelParams params = new GroupChannelParams();
+        params.setDistinct(true)
+                .addUserId(userId);
+
+        GroupChannel.createChannel(params, (groupChannel, e) -> {
+            if (e != null) {
+                Logger.e(e.getMessage());
+                return;
+            }
+            Logger.d(groupChannel.getUrl() + ": Channel Created");
+
+        });
     }
 }

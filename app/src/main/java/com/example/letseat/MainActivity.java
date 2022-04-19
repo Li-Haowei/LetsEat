@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
                         dietaryRestriction = documentSnapshot.getString("dietaryRestriction");
                         major = documentSnapshot.getString("major");
                         preferTime = documentSnapshot.getString("preferTime");
+
                         ((SendBirdBaseApp)getApplication()).setUserId(documentSnapshot.getString("email"));
                         ((SendBirdBaseApp)getApplication()).setUserNickname(documentSnapshot.getString("fName"));
                     } else {
