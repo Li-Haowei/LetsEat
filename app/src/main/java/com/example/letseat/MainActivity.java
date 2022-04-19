@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int GALLERY_INTENT_CODE = 1023 ;
     private String name, number, email, favoriteFood, dietaryRestriction, major, preferTime;
-    private TextView verifyMsg, titleMain;
+    private LinearLayout pleaseVerify;
+    private TextView titleMain;
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
     private String userId;
@@ -90,8 +92,8 @@ public class MainActivity extends AppCompatActivity {
         btn_chatList = (ImageView) findViewById(R.id.btn_chatList);
 
         resendCode = findViewById(R.id.resendCode);
-        verifyMsg = findViewById(R.id.verifyMsg);
         titleMain = findViewById(R.id.titleMain);
+        pleaseVerify = findViewById(R.id.pleaseVerify);
 
         userId = fAuth.getCurrentUser().getUid();
         user = fAuth.getCurrentUser();
@@ -99,8 +101,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.request_fragment_in_main, new RequestFragment(), "RequestFragment").commit();
 
         if (!user.isEmailVerified()) {
-            verifyMsg.setVisibility(View.VISIBLE);
-            resendCode.setVisibility(View.VISIBLE);
+            pleaseVerify.setVisibility(View.VISIBLE);
 
             resendCode.setOnClickListener(new View.OnClickListener() {
                 @Override
