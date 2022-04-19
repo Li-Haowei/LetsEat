@@ -132,8 +132,8 @@ public class RequestFragment extends Fragment {
                         String img = document.getData().get("ResturantImgUrl").toString();
                         String restName =  document.getData().get("ResturantName").toString();
                         String userName =  document.getData().get("UserID").toString();
-//                        String email = document.getData().get("UserEmail").toString();
-                        request_profile profile = new request_profile(restName, "label", "address",userName, img, "dhkrock@yahoo.com");
+                        String email = document.getData().get("UserEmail").toString();
+                        request_profile profile = new request_profile(restName, "label", "address",userName, img, email);
                         mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
                         //Log.d("TAG","Array: " + array);
                         //Log.d("TAG", document.getId() + " => " + document.getData().getClass().toString());
