@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/theme_color_B"
     android:gravity="center"
     tools:context=".EditProfile">
 
@@ -19,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_toEndOf="@id/profileImageView" />
+
         <ImageView
             android:id="@+id/profileImageView"
             android:layout_width="131dp"

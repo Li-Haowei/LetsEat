@@ -11,6 +11,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -183,40 +185,96 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         linearLayout.setLayoutParams(linearParams);
         scrollView.addView(linearLayout);
 
+        //Set layout parameters for the input field
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.setMargins(20,0,20, 40);
 
+        LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params1.setMargins(20,0,20, 0);
+
+        //name section
         TextView tv0 = new TextView(this);
         tv0.setText(R.string.user_name);
+        tv0.setTypeface(null, Typeface.BOLD);
+        tv0.setTextColor(getResources().getColor(R.color.white));
+        tv0.setLayoutParams(params1);
         linearLayout.addView(tv0);
         linearLayout.addView(profileFullName);
+        profileFullName.setBackground(getResources().getDrawable(R.drawable.round_back_white_10));
+        profileFullName.setMaxLines(1);
+        profileFullName.setLayoutParams(params);
+
+        //Email section
         TextView tv1 = new TextView(this);
+
         tv1.setText(R.string.user_email);
+        tv1.setTypeface(null, Typeface.BOLD);
+        tv1.setTextColor(getResources().getColor(R.color.white));
+        tv1.setLayoutParams(params1);
         linearLayout.addView(tv1);
         linearLayout.addView(profileEmail);
         TextView tv2 = new TextView(this);
+        profileEmail.setBackground(getResources().getDrawable(R.drawable.round_back_white_10));
+        profileEmail.setMaxLines(1);
+        profileEmail.setLayoutParams(params);
+
+        //Number section
         tv2.setText(R.string.user_phone);
+        tv2.setTypeface(null, Typeface.BOLD);
+        tv2.setTextColor(getResources().getColor(R.color.white));
+        tv2.setLayoutParams(params1);
         linearLayout.addView(tv2);
         linearLayout.addView(profilePhone);
         TextView tv3 = new TextView(this);
+        profilePhone.setBackground(getResources().getDrawable(R.drawable.round_back_white_10));
+        profilePhone.setMaxLines(1);
+        profilePhone.setLayoutParams(params);
+
+        //Food section
         tv3.setText(R.string.user_food);
+        tv3.setTypeface(null, Typeface.BOLD);
+        tv3.setTextColor(getResources().getColor(R.color.white));
+        tv3.setLayoutParams(params1);
         linearLayout.addView(tv3);
         linearLayout.addView(favoriteFood);
         TextView tv4 = new TextView(this);
+        favoriteFood.setBackground(getResources().getDrawable(R.drawable.round_back_white_10));
+        favoriteFood.setLayoutParams(params);
+
+        //Major section
         tv4.setText(R.string.user_major);
+        tv4.setTypeface(null, Typeface.BOLD);
+        tv4.setTextColor(getResources().getColor(R.color.white));
+        tv4.setLayoutParams(params1);
         linearLayout.addView(tv4);
         linearLayout.addView(major);
         TextView tv5 = new TextView(this);
+        major.setBackground(getResources().getDrawable(R.drawable.round_back_white_10));
+        major.setLayoutParams(params);
+
+        //Time section
         tv5.setText(R.string.user_pref_time);
+        tv5.setTypeface(null, Typeface.BOLD);
+        tv5.setTextColor(getResources().getColor(R.color.white));
+        tv5.setLayoutParams(params1);
         linearLayout.addView(tv5);
         linearLayout.addView(preferTime);
+        preferTime.setBackground(getResources().getDrawable(R.drawable.round_back_white_10));
+        preferTime.setLayoutParams(params);
+
 
         LinearLayout linear = findViewById(R.id.rootContainer);
         linear.addView(scrollView);
 
 
 
+        LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params2.setMargins(20,0,20, 0);
+
         profileImageView = findViewById(R.id.profileImageView);
         backBtn = findViewById(R.id.backBtn);
         spinner = findViewById(R.id.spinner);
+        spinner.setBackground(getResources().getDrawable(R.drawable.round_back_white_10));
         spinner.setOnItemSelectedListener(this);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.editProfileOptions, android.R.layout.simple_spinner_item);
