@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
                         dietaryRestriction = documentSnapshot.getString("dietaryRestriction");
                         major = documentSnapshot.getString("major");
                         preferTime = documentSnapshot.getString("preferTime");
+
                         ((SendBirdBaseApp)getApplication()).setUserId(documentSnapshot.getString("email"));
                         ((SendBirdBaseApp)getApplication()).setUserNickname(documentSnapshot.getString("fName"));
                     } else {
@@ -171,6 +172,9 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(view.getContext(), RestaurantSearch.class);
             i.putExtra("food", favoriteFood);
             i.putExtra("location","Boston");
+            // Temp Solution: pass user email to post
+            // Added by Zack
+            i.putExtra("email", email);
             startActivity(i);
         });
         titleMain.setOnClickListener(view ->{
@@ -178,6 +182,9 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(view.getContext(), RestaurantSearch.class);
             i.putExtra("food", favoriteFood);
             i.putExtra("location","Boston");
+            // Temp Solution: pass user email to post
+            // Added by Zack
+            i.putExtra("email", email);
             startActivity(i);
         });
 

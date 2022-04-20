@@ -56,11 +56,10 @@ public class Post {
     * This function generates a post including poster and the restaurant info. The post will
     * be stored in the database for other users to receive and choose whether to accept or not.
     * */
-    public static void makePost(String restaurantImgUrl, String restaurantName){
+    public static void makePost(String restaurantImgUrl, String restaurantName, String userEmail){
         FirebaseAuth fAuth = FirebaseAuth.getInstance();;
         FirebaseFirestore fStore = FirebaseFirestore.getInstance();
         String userId = fAuth.getCurrentUser().getUid();
-        String userEmail = null;
 
         Map<String, Object> post = new HashMap<>();
         post.put("UserID", userId);
