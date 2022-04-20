@@ -18,6 +18,7 @@ import com.example.letseat.EditProfile;
 import com.example.letseat.R;
 
 public class FavoriteFoodCuisine extends AppCompatActivity {
+    private final float textSize = 20.0f;
     private String fullName, email, food, phone, user_major, time;
     private ImageView backBtn;
     private LinearLayout linear;
@@ -45,7 +46,7 @@ public class FavoriteFoodCuisine extends AppCompatActivity {
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         linearLayout.setLayoutParams(linearParams);
         scrollView.addView(linearLayout);
-        linearLayout.setGravity(Gravity.CENTER);
+
 
         //Set layout parameters for the input field
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -138,6 +139,8 @@ public class FavoriteFoodCuisine extends AppCompatActivity {
         TextView[] allTextViews = {tv0,tv1,tv2,tv3,tv4,tv5,tv6};
 
         for (int i = 0; i < allImageViews.length; i++) {
+            allTextViews[i].setGravity(Gravity.CENTER);
+            allTextViews[i].setTextSize(textSize);
             setImageViewOnclickListener(allTextViews[i].getText().toString(), allImageViews[i]);
         }
 
@@ -158,6 +161,7 @@ public class FavoriteFoodCuisine extends AppCompatActivity {
             i.putExtra("major", user_major);
             i.putExtra("preferTime", time);
             startActivity(i);
+            finish();
         });
     }
 }

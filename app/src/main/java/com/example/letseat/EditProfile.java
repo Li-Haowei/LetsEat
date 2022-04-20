@@ -294,6 +294,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             foodOptionsIntent.putExtra("major", user_major);
             foodOptionsIntent.putExtra("preferTime", time);
             startActivity(foodOptionsIntent);
+            finish();
         });
 
         backBtn.setOnClickListener(view -> {
