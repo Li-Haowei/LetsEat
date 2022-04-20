@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.letseat.optionsPage.FavoriteFoodCuisine;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -84,7 +85,17 @@ public class UserPref extends AppCompatActivity {
         saveBtn.setText("SAVE");
         saveBtn.setHeight(30);
         saveBtn.setWidth(60);
+        /*
+        Intent foodOptionsIntent = new Intent(view.getContext(), FavoriteFoodCuisine.class);
+        foodOptionsIntent.putExtra("fullName", fullName );
+        foodOptionsIntent.putExtra("email", email);
+        foodOptionsIntent.putExtra("phone", phone);
+        foodOptionsIntent.putExtra("favoriteFood", food);
+        foodOptionsIntent.putExtra("major", user_major);
+        foodOptionsIntent.putExtra("preferTime", time);
+        startActivity(foodOptionsIntent);
 
+         */
 
 
         EditText[] editTextManager = {favoriteFood, major, dietaryRestriction, preferTime};
