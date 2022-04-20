@@ -48,7 +48,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EditProfile extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
-    private static final String TAG = "TAG";
     private EditText profileFullName,profileEmail,profilePhone;
     private ImageView profileImageView, backBtn;
     private int SAVE=1,RESET_PASSWORD=2,LOGOUT=3;
@@ -176,6 +175,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             editTextManager[i].setSingleLine();
             editTextManager[i].setImeOptions(EditorInfo.IME_ACTION_DONE);
         }
+        //Programmatically creating views for name, phone, email, and etc.
         ScrollView scrollView = new ScrollView(this);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         scrollView.setLayoutParams(layoutParams);
@@ -262,7 +262,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         preferTime.setBackground(getResources().getDrawable(R.drawable.round_back_white_10));
         preferTime.setLayoutParams(params);
 
-
+        //add scrollable view into rootContainer
         LinearLayout linear = findViewById(R.id.rootContainer);
         linear.addView(scrollView);
 
@@ -318,7 +318,6 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         int positionTime = adapter_time.getPosition(time);
       //  preferTime.setSelection(positionTime);
 
-        Log.d(TAG, "onCreate: " + fullName + " " + email + " " + phone);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @androidx.annotation.Nullable Intent data) {
