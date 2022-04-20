@@ -3,27 +3,22 @@ package com.example.letseat;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,6 +27,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.letseat.optionsPage.FavoriteFoodCuisine;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.storage.UploadTask;
@@ -50,8 +46,10 @@ import java.util.Map;
 public class EditProfile extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     private EditText profileFullName,profileEmail,profilePhone;
     private ImageView profileImageView, backBtn;
-    private int SAVE=1,RESET_PASSWORD=2,LOGOUT=3;
-    private Spinner spinner, favoriteFood, preferTime, major;
+    private final int SAVE=1,RESET_PASSWORD=2,LOGOUT=3;
+    private final float textSize = 30.0f;
+    private Spinner spinner, preferTime, major;
+    private TextView favoriteFood;
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
     private String fullName, email, phone, food, time, user_major;
@@ -104,33 +102,11 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         profileFullName = new EditText(this);
         profileEmail = new EditText(this);
         profilePhone = new EditText(this);
-        favoriteFood = new Spinner(this);
+        favoriteFood = new TextView(this);
+        //favoriteFood = new Spinner(this);
+
         //create a list of items for the spinner.
-        String[] items_cuisines = new String[]{
-                getResources().getString(R.string.American),
-                getResources().getString(R.string.Korean),
-                getResources().getString(R.string.Chinese),
-                getResources().getString(R.string.Thai),
-                getResources().getString(R.string.Japanese),
-                getResources().getString(R.string.Italian),
-                getResources().getString(R.string.French),
-        };
-        ArrayAdapter<String> adapter_cuisines = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items_cuisines);
-        favoriteFood.setAdapter(adapter_cuisines);
-        favoriteFood.setSelection(sharedPref.getInt("foods",0));
-        favoriteFood.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                food = items_cuisines[i];
-                editor.putInt("foods", i);
-                editor.apply();
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         major = new Spinner(this);
         String[] items_major = new String[]{"Computer Science", "Political Science", "Film/TV", "Business"};
@@ -170,6 +146,9 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             }
         });
 
+
+
+        //This makes every text input field can escape with enter key
         EditText[] editTextManager = {profileFullName, profileEmail, profilePhone};
         for (int i = 0; i < editTextManager.length; i++) {
             editTextManager[i].setSingleLine();
@@ -192,6 +171,9 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params1.setMargins(20,0,20, 0);
 
+        LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params2.setMargins(20,0,20, 40);
+
         //name section
         TextView tv0 = new TextView(this);
         tv0.setText(R.string.user_name);
@@ -206,53 +188,55 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 
         //Email section
         TextView tv1 = new TextView(this);
-
         tv1.setText(R.string.user_email);
         tv1.setTypeface(null, Typeface.BOLD);
         tv1.setTextColor(getResources().getColor(R.color.white));
         tv1.setLayoutParams(params1);
         linearLayout.addView(tv1);
         linearLayout.addView(profileEmail);
-        TextView tv2 = new TextView(this);
         profileEmail.setBackground(getResources().getDrawable(R.drawable.round_back_white_10));
         profileEmail.setMaxLines(1);
         profileEmail.setLayoutParams(params);
 
         //Number section
+        TextView tv2 = new TextView(this);
         tv2.setText(R.string.user_phone);
         tv2.setTypeface(null, Typeface.BOLD);
         tv2.setTextColor(getResources().getColor(R.color.white));
         tv2.setLayoutParams(params1);
         linearLayout.addView(tv2);
         linearLayout.addView(profilePhone);
-        TextView tv3 = new TextView(this);
         profilePhone.setBackground(getResources().getDrawable(R.drawable.round_back_white_10));
         profilePhone.setMaxLines(1);
         profilePhone.setLayoutParams(params);
 
         //Food section
+        TextView tv3 = new TextView(this);
         tv3.setText(R.string.user_food);
         tv3.setTypeface(null, Typeface.BOLD);
         tv3.setTextColor(getResources().getColor(R.color.white));
         tv3.setLayoutParams(params1);
         linearLayout.addView(tv3);
         linearLayout.addView(favoriteFood);
-        TextView tv4 = new TextView(this);
         favoriteFood.setBackground(getResources().getDrawable(R.drawable.round_back_white_10));
+        favoriteFood.setText(food);
+        favoriteFood.setTextSize(textSize);
+        favoriteFood.setTextColor(getResources().getColor(R.color.black));
         favoriteFood.setLayoutParams(params);
 
         //Major section
+        TextView tv4 = new TextView(this);
         tv4.setText(R.string.user_major);
         tv4.setTypeface(null, Typeface.BOLD);
         tv4.setTextColor(getResources().getColor(R.color.white));
         tv4.setLayoutParams(params1);
         linearLayout.addView(tv4);
         linearLayout.addView(major);
-        TextView tv5 = new TextView(this);
         major.setBackground(getResources().getDrawable(R.drawable.round_back_white_10));
         major.setLayoutParams(params);
 
         //Time section
+        TextView tv5 = new TextView(this);
         tv5.setText(R.string.user_pref_time);
         tv5.setTypeface(null, Typeface.BOLD);
         tv5.setTextColor(getResources().getColor(R.color.white));
@@ -262,14 +246,11 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         preferTime.setBackground(getResources().getDrawable(R.drawable.round_back_white_10));
         preferTime.setLayoutParams(params);
 
+
         //add scrollable view into rootContainer
         LinearLayout linear = findViewById(R.id.rootContainer);
         linear.addView(scrollView);
 
-
-
-        LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params2.setMargins(20,0,20, 0);
 
         profileImageView = findViewById(R.id.profileImageView);
         backBtn = findViewById(R.id.backBtn);
@@ -304,6 +285,16 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                 startActivityForResult(openGalleryIntent,1000);
             }
         });
+        favoriteFood.setOnClickListener(view -> {
+            Intent foodOptionsIntent = new Intent(view.getContext(), FavoriteFoodCuisine.class);
+            foodOptionsIntent.putExtra("fullName", fullName );
+            foodOptionsIntent.putExtra("email", email);
+            foodOptionsIntent.putExtra("phone", phone);
+            foodOptionsIntent.putExtra("favoriteFood", food);
+            foodOptionsIntent.putExtra("major", user_major);
+            foodOptionsIntent.putExtra("preferTime", time);
+            startActivity(foodOptionsIntent);
+        });
 
         backBtn.setOnClickListener(view -> {
             finish();
@@ -311,11 +302,11 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         profileEmail.setText(email);
         profileFullName.setText(fullName);
         profilePhone.setText(phone);
-        int positionFood = adapter_cuisines.getPosition(food);
+        //int positionFood = adapter_cuisines.getPosition(food);
        // favoriteFood.setSelection(positionFood);
-        int positionMajor = adapter_majors.getPosition(user_major);
+        //int positionMajor = adapter_majors.getPosition(user_major);
       //  major.setSelection(positionMajor);
-        int positionTime = adapter_time.getPosition(time);
+        //int positionTime = adapter_time.getPosition(time);
       //  preferTime.setSelection(positionTime);
 
     }
