@@ -112,7 +112,13 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         String[] items_major = new String[]{"Computer Science", "Political Science", "Film/TV", "Business"};
         ArrayAdapter<String> adapter_majors = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items_major);
         major.setAdapter(adapter_majors);
-        major.setSelection(sharedPref.getInt("majors",0));
+        for (int i = 0; i < items_major.length; i++) {
+            if(items_major[i].equals(user_major)){
+                Log.d("creation", items_major[i]);
+                major.setSelection(i);
+                break;
+            }
+        }
         major.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -131,7 +137,13 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         String[] items_time = new String[]{"Breakfast", "Lunch", "Dinner"};
         ArrayAdapter<String> adapter_time = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items_time);
         preferTime.setAdapter(adapter_time);
-        preferTime.setSelection(sharedPref.getInt("times",0));
+        for (int i = 0; i < items_time.length; i++) {
+            if(items_time[i].equals(time)){
+                preferTime.setSelection(i);
+                break;
+            }
+        }
+        //preferTime.setSelection(sharedPref.getInt("times",0));
         preferTime.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
