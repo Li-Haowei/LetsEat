@@ -142,6 +142,14 @@ public class MainActivity extends AppCompatActivity {
 
                         ((SendBirdBaseApp)getApplication()).setUserId(documentSnapshot.getString("email"));
                         ((SendBirdBaseApp)getApplication()).setUserNickname(documentSnapshot.getString("fName"));
+
+                        SendBirdUIKit.connect((sb_user, except) -> {
+                            if (except != null) {
+                                return;
+                            }
+                        });
+
+
                     } else {
                         Log.d("tag", "onEvent: Document do not exists");
                     }
