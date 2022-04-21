@@ -55,7 +55,6 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     private String fullName, email, phone, food, time, user_major;
     private FirebaseUser user;
     private StorageReference storageReference;
-    private SharedPreferences sharedPref;
 
     @Override
 
@@ -64,8 +63,6 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
 
         Intent data = getIntent();
         fullName = data.getStringExtra("fullName");
@@ -123,8 +120,6 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 user_major = items_major[i];
-                editor.putInt("majors", i);
-                editor.apply();
             }
 
             @Override
@@ -148,8 +143,6 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 time = items_time[i];
-                editor.putInt("times", i);
-                editor.apply();
             }
 
             @Override
