@@ -12,10 +12,11 @@ public class Match {
     private double matchRate;
     private ArrayList<String> common;
 
-    Match(String user1, String user2){
+    public Match(String user1, String user2){
         u1 = new UserInfoHandler(user1);
         u2 = new UserInfoHandler(user2);
         isMatchable = (u1.getPreferTime() == u2.getPreferTime());
+        calcMatch();
     }
 
     public void calcMatch(){
@@ -28,8 +29,8 @@ public class Match {
         }
     }
 
-    private boolean getIsMatchable(){ return isMatchable; }
-    private double getMatchRate(){ return matchRate; }
-    private ArrayList<String> getCommon(){ return common; }
+    public boolean getIsMatchable(){ return isMatchable; }
+    public double getMatchRate(){ return matchRate; }
+    public ArrayList<String> getCommon(){ return common; }
 
 }

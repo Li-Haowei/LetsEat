@@ -5,6 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:id="@+id/lp"
+        android:layout_width="413dp"
+        android:layout_height="730dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="109dp"
+            android:indeterminate="true" />
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/tvIntro2"
         android:layout_width="wrap_content"
@@ -32,13 +50,13 @@
         android:id="@+id/ivRest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="152dp"
+        android:adjustViewBounds="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_gravity="center"
-        android:adjustViewBounds="true"
         app:srcCompat="@drawable/adaptive_icon" />
 
     <TextView
@@ -55,27 +73,14 @@
         app:layout_constraintVertical_bias="0.075" />
 
     <TextView
-        android:id="@+id/tvPoster"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:text="Poster:"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/tvRestaurant"
-        app:layout_constraintTop_toBottomOf="@+id/tvRestaurant" />
-
-    <TextView
         android:id="@+id/tvMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="25dp"
         android:text="Message:"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTime" />
 
@@ -83,20 +88,21 @@
         android:id="@+id/tvTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="8dp"
         android:text="Time:"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/tvPoster"
-        app:layout_constraintTop_toBottomOf="@+id/tvPoster" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvRestaurant" />
 
     <Spinner
         android:id="@+id/spTime"
         android:layout_width="145dp"
         android:layout_height="34dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="@+id/tvPost"
-        app:layout_constraintTop_toBottomOf="@+id/tvPost" />
+        android:layout_marginStart="68dp"
+        app:layout_constraintStart_toEndOf="@+id/tvTime"
+        app:layout_constraintTop_toTopOf="@+id/tvTime" />
 
     <TextView
         android:id="@+id/tvRest"
@@ -108,46 +114,36 @@
         app:layout_constraintStart_toEndOf="@+id/tvRestaurant"
         app:layout_constraintTop_toTopOf="@+id/tvRestaurant" />
 
-    <TextView
-        android:id="@+id/tvPost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:text="test"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/tvRest"
-        app:layout_constraintTop_toBottomOf="@+id/tvRest" />
-
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/etMessage"
         android:layout_width="0dp"
         android:layout_height="46dp"
-        android:layout_marginEnd="42dp"
+        android:layout_marginStart="24dp"
         android:ems="10"
         android:hint="Type Message"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tvMessage"
-        app:layout_constraintTop_toBottomOf="@+id/spTime" />
-
-    <Button
-        android:id="@+id/btnConfirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="68dp"
-        android:text="Confirm"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toTopOf="@+id/tvMessage" />
 
     <Button
         android:id="@+id/btnCancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:text="Cancel"
         app:layout_constraintEnd_toStartOf="@+id/btnConfirm"
-        app:layout_constraintHorizontal_bias="0.464"
+        app:layout_constraintHorizontal_bias="0.432"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvMessage" />
+
+    <Button
+        android:id="@+id/btnConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="68dp"
+        android:text="Confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etMessage" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

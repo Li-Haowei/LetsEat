@@ -1,10 +1,13 @@
 package com.example.letseat;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -17,10 +20,12 @@ import java.util.ArrayList;
 
 public class PostPage extends AppCompatActivity {
 
-    private TextView tvRest, tvPost;
+    private TextView tvRest;
     private ImageView ivRest;
     private Spinner spTime;
     private Button btnConfirm, btnCancel;
+    private EditText etMessage;
+    private RelativeLayout lp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +33,13 @@ public class PostPage extends AppCompatActivity {
         setContentView(R.layout.activity_post);
 
         tvRest = findViewById(R.id.tvRest);
-        tvPost = findViewById(R.id.tvPost);
         ivRest = findViewById(R.id.ivRest);
         spTime = findViewById(R.id.spTime);
         btnConfirm = findViewById(R.id.btnConfirm);
         btnCancel = findViewById(R.id.btnCancel);
+        etMessage = findViewById(R.id.etMessage);
+        lp = findViewById(R.id.lp);
+        lp.setVisibility(View.INVISIBLE);
 
         String restImg = getIntent().getStringExtra("resturantImg");
         String restName = getIntent().getStringExtra("resturantName");
@@ -67,12 +74,32 @@ public class PostPage extends AppCompatActivity {
         spTime.setAdapter(adapter);
 
         new ImageLoadTask(restImg, ivRest).execute();
+        ivRest.setMaxHeight(400);
 
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Post.makePost(restImg, restName, userEmail);
-                finish();
+                tvRest.animate().alpha(0.0f);
+                ivRest.animate().alpha(0.0f);
+                spTime.setVisibility(View.INVISIBLE);
+                btnConfirm.animate().alpha(0.0f);
+                btnCancel.animate().alpha(0.0f);
+                etMessage.animate().alpha(0.0f);
+                findViewById(R.id.tvIntro).animate().alpha(0.0f);
+                findViewById(R.id.tvIntro2).animate().alpha(0.0f);
+                findViewById(R.id.tvRestaurant).animate().alpha(0.0f);
+                findViewById(R.id.tvMessage).animate().alpha(0.0f);
+                findViewById(R.id.tvTime).animate().alpha(0.0f);
+                lp.setVisibility(View.VISIBLE);
+
+                Post.makePost(restImg, restName, userEmail, spTime.getSelectedItem().toString(), etMessage.getText().toString());
+
+                Handler h =new Handler() ;
+                h.postDelayed(new Runnable() {
+                    public void run() {
+                        finish();
+                    }
+                }, 3000);
             }
         });
 
@@ -82,10 +109,5 @@ public class PostPage extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
-
-
     }
 }

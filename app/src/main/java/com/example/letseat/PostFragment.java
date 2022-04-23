@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.letseat.models.request_profile;
+import com.example.letseat.userMatching.Match;
 import com.example.letseat.userMatching.Post;
 import com.example.letseat.userMatching.UserInfoHandler;
 import com.example.letseat.utils.Utils;
@@ -25,6 +26,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -45,7 +47,7 @@ import java.util.Map;
 // * Use the {@link RequestFragment#newInstance} factory method to
 // * create an instance of this fragment.
 // */
-public class RequestFragment extends Fragment {
+public class PostFragment extends Fragment {
 
     private View rootLayout;
     private Button btn_decline, btn_accept;
@@ -53,7 +55,7 @@ public class RequestFragment extends Fragment {
     private SwipePlaceHolderView mSwipeView;
     private ArrayList<Map<String, Object>> array;
 
-    public RequestFragment() {
+    public PostFragment() {
         // Required empty public constructor
     }
 
@@ -124,6 +126,8 @@ public class RequestFragment extends Fragment {
         FirebaseFirestore fStore = FirebaseFirestore.getInstance();
         Log.d("TAG", "Getting Post");
 
+        String currUserId = fAuth.getCurrentUser().getUid();
+
         fStore.collection("post").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -131,9 +135,17 @@ public class RequestFragment extends Fragment {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         String img = document.getData().get("ResturantImgUrl").toString();
                         String restName =  document.getData().get("ResturantName").toString();
-                        String userName =  document.getData().get("UserID").toString();
+                        String userId =  document.getData().get("UserID").toString();
                         String email = document.getData().get("UserEmail").toString();
-                        request_profile profile = new request_profile(restName, "label", "address",userName, img, email);
+
+                        // Match not working due to async.
+//                        Match match = new Match(currUserId, userId);
+//                        if (match.getIsMatchable()) {
+//                            request_profile profile = new request_profile(restName, "label", "address", userId, img, email);
+//                            mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
+//                        }
+
+                        request_profile profile = new request_profile(restName, "label", "address",userId, img, email);
                         mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
                         //Log.d("TAG","Array: " + array);
                         //Log.d("TAG", document.getId() + " => " + document.getData().getClass().toString());

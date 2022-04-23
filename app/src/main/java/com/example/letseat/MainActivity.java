@@ -2,26 +2,20 @@ package com.example.letseat;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.letseat.restaurant.RestaurantSearch;
-import com.example.letseat.userMatching.Post;
 import com.example.letseat.widgets.SendBirdBaseApp;
-import com.example.letseat.RequestFragment;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,13 +32,6 @@ import com.sendbird.android.GroupChannel;
 import com.sendbird.android.GroupChannelParams;
 import com.sendbird.android.log.Logger;
 import com.sendbird.uikit.SendBirdUIKit;
-import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
-import com.google.android.gms.tasks.Tasks;
-
 
 
 /*
@@ -98,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         userId = fAuth.getCurrentUser().getUid();
         user = fAuth.getCurrentUser();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.request_fragment_in_main, new RequestFragment(), "RequestFragment").commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.request_fragment_in_main, new PostFragment(), "RequestFragment").commit();
 
         if (!user.isEmailVerified()) {
             pleaseVerify.setVisibility(View.VISIBLE);
