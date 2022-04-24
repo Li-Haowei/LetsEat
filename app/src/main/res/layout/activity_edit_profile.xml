@@ -37,13 +37,21 @@
             android:layout_marginTop="20dp"
             android:src="@drawable/backbtn" />
     </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/rootContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="494dp"
         android:layout_below="@+id/topBar"
         android:orientation="vertical">
+
     </LinearLayout>
+
+    <com.twitter.sdk.android.core.identity.TwitterLoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
 
 
 </LinearLayout>

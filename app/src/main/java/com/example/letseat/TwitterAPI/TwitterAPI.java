@@ -1,12 +1,9 @@
-package com.example.letseat.Twitter;
+package com.example.letseat.TwitterAPI;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -21,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class Twitter {
+public class TwitterAPI {
 
     // Use Volley to make network request and retrieve data
     private void searchFollowings(String userName, Context context){

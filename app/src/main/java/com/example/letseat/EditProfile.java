@@ -5,10 +5,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,6 +26,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.letseat.TwitterAPI.TwitterAPI;
 import com.example.letseat.optionsPage.FavoriteFoodCuisine;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -39,9 +39,20 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.DefaultLogger;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterAuthToken;
+import com.twitter.sdk.android.core.TwitterConfig;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class EditProfile extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     private EditText profileFullName,profileEmail,profilePhone;
@@ -55,13 +66,18 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     private String fullName, email, phone, food, time, user_major;
     private FirebaseUser user;
     private StorageReference storageReference;
+    private TwitterLoginButton loginButton;
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        initTwitter();
         setContentView(R.layout.activity_edit_profile);
+
+
+        twitterButton();
 
 
         Intent data = getIntent();
@@ -330,6 +346,10 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 
             }
         }
+        // Pass the activity result to the login button.
+        if(loginButton!=null) {
+            loginButton.onActivityResult(requestCode, resultCode, data);
+        }
 
     }
     private void uploadImageToFirebase(Uri imageUri) {
@@ -432,5 +452,87 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 
     }
 
+//    init twitter
+    private void initTwitter() {
+        String key = getString(R.string.twitter_consumer_key);
+        String secret = getString(R.string.twitter_consumer_secret);
+
+        TwitterConfig config = new TwitterConfig.Builder(this)
+                .logger(new DefaultLogger(Log.DEBUG))
+                .twitterAuthConfig(new TwitterAuthConfig(key, secret))
+                .debug(true)
+                .build();
+        Twitter.initialize(config);
+    }
+
+    private void twitterButton () {
+        loginButton = (TwitterLoginButton) findViewById(R.id.login_button);
+        loginButton.setCallback(new Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+                // Do something with result, which provides a TwitterSession for making API calls
+                // result里面包含了用户的信息，我们可以从中取出token，tokenSecret
+                // 如果我们有自己的后台服务器，发送这两个到我们自己的后台，后台再去验证）
+                TwitterAuthToken authToken = result.data.getAuthToken();
+
+                String token = authToken.token;
+                String tokenSecret = authToken.secret;
+                String userName = result.data.getUserName();
+                String userId = result.data.getUserId()+"";
+
+                Log.d("TEST","Token: " + token);
+                Log.d("TEST","Secret: " + tokenSecret);
+                Log.d("TEST","UserName: " + userName);
+                Log.d("TEST","UserId: "+userId);
+
+            }
+
+            @Override
+            public void failure(TwitterException exception) { // Do something on failure
+                exception.printStackTrace();
+            }
+        });
+    }
+// fetch userinfo from Twitter
+//    private void twitterUserInfo() {
+//
+//        final TwitterSession activeSession = TwitterCore.getInstance().getSessionManager().getActiveSession();
+//
+//        if (activeSession == null) {
+//            String message = "User haven't loged in";
+//            Toast.makeText(MainActivity.this,message,Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        TwitterApiClient client = new TwitterApiClient(activeSession);
+//        AccountService accountService = client.getAccountService();
+//        Call<User> show = accountService.verifyCredentials(false, false, true);
+//        show.enqueue(new Callback<User>() {
+//            @Override
+//            public void success(Result<User> result) {
+//                User data = result.data;
+//                String profileImageUrl = data.profileImageUrl.replace("_normal", "");
+//                String idStr = data.idStr;
+//                String name = data.name;
+//                String email = data.email;
+//                String description = data.description;
+//
+//                Log.i("profileImageUrl", profileImageUrl);
+//                Log.i("idStr", idStr);
+//                Log.i("name", name);
+//
+//                Log.i("email", email);
+//
+//                Log.i("description", description);
+//
+//                String message = "userName = "+name+"\t"+"idStr = "+idStr+"\t"+"email = "+email;
+//                Toast.makeText(MainActivity.this,message,Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void failure(TwitterException exception) {
+//                exception.printStackTrace();
+//            }
+//        });
+//    }
 
 }

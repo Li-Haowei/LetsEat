@@ -2,12 +2,15 @@ buildscript {
     repositories {
         // Check that you have the following line (if not, add it):
         google()  // Google's Maven repository
+        // for twitter log in
+        //undefined
+        mavenCentral()
+        maven { url 'https://maven.fabric.io/public' }
 
     }
     dependencies {
         // Add this line
         classpath 'com.google.gms:google-services:4.3.10'
-
     }
 }
 
@@ -106,4 +109,7 @@ dependencies {
 
     // Volley
     implementation 'com.android.volley:volley:1.2.1'
+
+    // for twitter login
+    implementation 'com.twitter.sdk.android:twitter-core:3.3.0'
 }

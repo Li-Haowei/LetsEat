@@ -53,6 +53,8 @@ public class RestaurantSearch extends AppCompatActivity {
         // Added by Zack
         getEmail = getIntent().getStringExtra("email");
         searchResults = yelp.searchRestaurantsSync(getString(R.string.yelpAPIKey), getFood, getLocation);
+        String email = getIntent().getStringExtra("Email");
+        //Log.d("TEST","TEST Mail: " +email);
 
         restaurantRecycleView.setHasFixedSize(true);
         restaurantRecycleView.setLayoutManager(new LinearLayoutManager(this));

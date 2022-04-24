@@ -52,10 +52,7 @@ public class UserInfoHandler {
         this.fAuth = FirebaseAuth.getInstance();
         this.fStore = FirebaseFirestore.getInstance();
         this.userId = fAuth.getCurrentUser().getUid();
-    }
-
-    public void init() {
-        final DocumentReference documentReference = fStore.collection("users").document(userId);
+        DocumentReference documentReference = fStore.collection("users").document(userId);
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -79,19 +76,13 @@ public class UserInfoHandler {
             }
         });
     }
+
+
     // construct method, construct a handler for specific user
     public UserInfoHandler(String userId) {
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         this.userId = userId;
-    }
-
-    public FirebaseFirestore getfStore() {
-        return this.fStore;
-    }
-
-    public FirebaseAuth getfAuth() {
-        return this.fAuth;
     }
 
     // get user's full name

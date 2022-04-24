@@ -79,32 +79,32 @@ public class Post {
     @NonNull
     public ArrayList<Map<String, Object>> getPost () {
         this.array = new ArrayList<>();
-        FirebaseAuth fAuth = FirebaseAuth.getInstance();;
-        FirebaseFirestore fStore = FirebaseFirestore.getInstance();
-        Log.d("TAG", "Getting Post");
-        fStore.collection("post").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        array.add(document.getData());
-                        //Log.d("TAG","Array: " + array);
-                        //Log.d("TAG", document.getId() + " => " + document.getData().getClass().toString());
-                    }
-                } else {
-                    Log.d("TAG", "Error getting documents: ", task.getException());
-                }
-            }
-        });
+//        FirebaseAuth fAuth = FirebaseAuth.getInstance();;
+//        FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+//        Log.d("TAG", "Getting Post");
+//        fStore.collection("post").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    for (QueryDocumentSnapshot document : task.getResult()) {
+//                        array.add(document.getData());
+//                        //Log.d("TAG","Array: " + array);
+//                        //Log.d("TAG", document.getId() + " => " + document.getData().getClass().toString());
+//                    }
+//                } else {
+//                    Log.d("TAG", "Error getting documents: ", task.getException());
+//                }
+//            }
+//        });
 
         readData(new FirestoreCallback() {
             @Override
-            public void onCallback(ArrayList<Map<String, Object>> array1) {
-                array = array1;
+            public void onCallback(ArrayList<Map<String, Object>> array) {
                 Log.d("TAG", "Callback: " + array);
             }
         });
-        return array;
+        Log.d("TEST", "TEST: " + this.array);
+        return this.array;
     }
     private interface FirestoreCallback {
         void onCallback (ArrayList<Map<String, Object>> array);
