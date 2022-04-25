@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.letseat.PostPage;
 import com.example.letseat.R;
+import com.example.letseat.Yelp.YelpCategory;
 import com.example.letseat.tools.ImageLoadTask;
 import com.example.letseat.userMatching.Post;
 
@@ -68,6 +69,13 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
             i.putExtra("restaurantImg", list2.getImgUrl());
             i.putExtra("restaurantName",list2.getName());
             i.putExtra("restaurantLocation",list2.getLocation());
+            /*
+            YelpCategory[] categories = list2.getCategories();
+            for (int j = 0; j < categories.length; j++) {
+                i.putExtra("restaurantCategories", categories[j].getTitle());
+            }
+             */
+
             // Temp Solution: pass user email to post
             // Added by Zack
             i.putExtra("userEmail",userEmail);

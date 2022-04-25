@@ -7,4 +7,12 @@ public class YelpCategory {
     String title;
     @SerializedName("alias")
     String alias;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
 }
