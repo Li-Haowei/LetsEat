@@ -289,7 +289,7 @@ public class PostFragment extends Fragment {
                                             common.add("You both like " + favoriteFood1);
                                         }
                                         if (isMatchable) {
-                                            request_profile profile = new request_profile(restName, "label", "address", userId, img, email);
+                                            request_profile profile = new request_profile(restName, "label", restLocation, name2, img, email);
                                             mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
                                         }
                                         if (document.exists()) {
