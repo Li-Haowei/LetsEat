@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.letseat.restaurant.RestaurantSearch;
+import com.example.letseat.userMatching.UserInfoHandler;
 import com.example.letseat.widgets.SendBirdBaseApp;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -146,6 +147,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        UserInfoHandler handler = new UserInfoHandler();
+        Log.d("TEST", "FName: " + handler.getName());
 
         changeProfile.setOnClickListener(new View.OnClickListener() {
             @Override

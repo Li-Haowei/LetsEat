@@ -26,6 +26,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.letseat.TwitterAPI.TwitterAPI;
 import com.example.letseat.optionsPage.FavoriteFoodCuisine;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -43,15 +48,26 @@ import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.DefaultLogger;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.Twitter;
+import com.twitter.sdk.android.core.TwitterApiClient;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterAuthToken;
 import com.twitter.sdk.android.core.TwitterConfig;
+import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
+import com.twitter.sdk.android.core.models.User;
+import com.twitter.sdk.android.core.services.AccountService;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import retrofit2.Call;
 
 
 public class EditProfile extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
@@ -485,6 +501,8 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                 Log.d("TEST","UserName: " + userName);
                 Log.d("TEST","UserId: "+userId);
 
+                storeFollowing(userId);
+
             }
 
             @Override
@@ -493,6 +511,70 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             }
         });
     }
+
+    public void storeFollowing (String userId) {
+        FirebaseAuth fAuth = FirebaseAuth.getInstance();;
+        FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+        String uid = fAuth.getCurrentUser().getUid();
+        ArrayList<String> followingList = new ArrayList<>();
+        //TwitterAPI.searchFollowingRequestById(userId, followingList, EditProfile.this);
+        String path = "https://api.twitter.com/2/users/" + userId + "/following";
+        // Following request returns a list of user's following accounts given the user's ID.
+        StringRequest followingRequest = new StringRequest(Request.Method.GET, path, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject result = new JSONObject(response);
+                    JSONArray array = result.getJSONArray("data");
+                    followingList.clear();
+                    for (int i = 0; i < array.length(); i++){
+                        followingList.add(array.getJSONObject(i).getString("name"));
+                    }
+//                    Map<String, Object> map = new HashMap<>();
+//                    map.put("Followings",followingList);
+//                    Log.d("CREATION", "ARRAY: " + followingList);
+//                    fStore.collection("users").document(user.getUid()).add(map).addOnSuccessListener(new OnSuccessListener() {
+//                        @Override
+//                        public void onSuccess(Object o) {
+//                            Log.d("TAG", "OnSuccess: a new post being created" + userId);
+//                        }
+//                    });
+                    DocumentReference docRef = fStore.collection("users").document(user.getUid());
+                    Map<String,Object> edited = new HashMap<>();
+//                    edited.put("email",email);
+//                    edited.put("fName",(Object) profileFullName.getText().toString());
+//                    edited.put("phone",(Object) profilePhone.getText().toString());
+//                    // store other information
+//                    edited.put("favoriteFood",(Object) food);
+//                    edited.put("major",(Object) user_major);
+//                    edited.put("preferTime",(Object) time);
+                    edited.put("followings", followingList);
+                    docRef.update(edited);
+                } catch (JSONException e) {
+                    Log.d("Response", e.getMessage()); //debug purpose
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("Response", "No REsponding ("); //debug purpose
+            }
+
+        }){
+            // Add authorization token to our request
+            public Map<String, String> getHeaders(){
+                HashMap<String, String> params = new HashMap<>();
+
+                params.put("Authorization", "Bearer AAAAAAAAAAAAAAAAAAAAADpcbAEAAAAAHSn7%2BNKeGBspyjD%2Fft4TEKCqrro%3Dvr9oJ1uIII8CMyT4p6qjRFvkTPKetxSZ0R4yWZdFvdyMFdoO06");
+
+                return params;
+            }
+        };
+        // Put request into a request queue
+        Volley.newRequestQueue(this).add(followingRequest);
+
+
+    }
 // fetch userinfo from Twitter
 //    private void twitterUserInfo() {
 //
@@ -500,7 +582,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 //
 //        if (activeSession == null) {
 //            String message = "User haven't loged in";
-//            Toast.makeText(MainActivity.this,message,Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
 //            return;
 //        }
 //        TwitterApiClient client = new TwitterApiClient(activeSession);
@@ -525,7 +607,18 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 //                Log.i("description", description);
 //
 //                String message = "userName = "+name+"\t"+"idStr = "+idStr+"\t"+"email = "+email;
-//                Toast.makeText(MainActivity.this,message,Toast.LENGTH_SHORT).show();
+//
+//                ArrayList<String> list = TwitterAPI.searchFollowings(name,EditProfile.this);
+//                FirebaseAuth fAuth = FirebaseAuth.getInstance();;
+//                FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+//                String userId = fAuth.getCurrentUser().getUid();
+//                fStore.collection("followings").add(list).addOnSuccessListener(new OnSuccessListener() {
+//                    @Override
+//                    public void onSuccess(Object o) {
+//                        Log.d("Post", "OnSuccess: a new post being created" + userId);
+//                    }
+//                });
+//
 //            }
 //
 //            @Override

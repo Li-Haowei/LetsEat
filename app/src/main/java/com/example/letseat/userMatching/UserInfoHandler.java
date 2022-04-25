@@ -37,6 +37,12 @@ import com.sendbird.android.GroupChannelParams;
 import com.sendbird.android.log.Logger;
 import com.sendbird.uikit.SendBirdUIKit;
 import com.squareup.picasso.Picasso;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
+
 
 // This class is unusable due to async issue, will try to fix the issue to increase code reusability.
 public class UserInfoHandler {
@@ -44,6 +50,8 @@ public class UserInfoHandler {
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
     private String name, number, email, favoriteFood, dietaryRestriction, major, preferTime;
+    private DocumentReference documentReference;
+    private Map<String, String> map;
 
 
     // default construct method, construct a handler for current login user
@@ -51,19 +59,45 @@ public class UserInfoHandler {
         this.fAuth = FirebaseAuth.getInstance();
         this.fStore = FirebaseFirestore.getInstance();
         this.userId = fAuth.getCurrentUser().getUid();
-        DocumentReference documentReference = fStore.collection("users").document(userId);
+        this.documentReference = fStore.collection("users").document(userId);
+        this.map = new HashMap<>();
+        readData(new FirestoreCallback() {
+            @Override
+            public void onCallback(Map<String, String> list) {
+                UserInfoHandler.this.setName(list.get("fName"));
+                Log.d("JJJ", "fName: " + name);
+                number = list.get("phone");
+                email = list.get("email");
+                favoriteFood = list.get("favoriteFood");
+                dietaryRestriction = list.get("dietaryRestriction");
+                major = list.get("major");
+                preferTime = list.get("preferTime");
+                Log.d("TAG", map.toString());
+            }
+        });
+    }
+
+    private void readData (FirestoreCallback firestoreCallback) {
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
-                    number = document.getString("phone");
-                    name = document.getString("fName");
-                    email = document.getString("email");
-                    favoriteFood = document.getString("favoriteFood");
-                    dietaryRestriction = document.getString("dietaryRestriction");
-                    major = document.getString("major");
-                    preferTime = document.getString("preferTime");
+                    String number1 = document.getString("phone");
+                    String name1 = document.getString("fName");
+                    String email1 = document.getString("email");
+                    String favoriteFood1 = document.getString("favoriteFood");
+                    String dietaryRestriction1 = document.getString("dietaryRestriction");
+                    String major1 = document.getString("major");
+                    String preferTime1 = document.getString("preferTime");
+                    map.put("phone",number1);
+                    map.put("fName", name1);
+                    map.put("email", email1);
+                    map.put("favoriteFood", favoriteFood1);
+                    map.put("dietaryRestriction", dietaryRestriction1);
+                    map.put("major", major1);
+                    map.put("preferTime", preferTime1);
+                    firestoreCallback.onCallback(map);
                     if (document.exists()) {
                         Log.d("TAG", "DocumentSnapshot data: " + document.getData());
                     } else {
@@ -74,6 +108,11 @@ public class UserInfoHandler {
                 }
             }
         });
+
+    }
+
+    private interface FirestoreCallback {
+        void onCallback (Map<String, String> list);
     }
 
 
