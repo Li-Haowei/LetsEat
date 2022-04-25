@@ -5,16 +5,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.example.letseat.BuildConfig;
+import com.google.android.libraries.places.api.Places;
 import com.example.letseat.R;
 import com.example.letseat.Yelp.Yelp;
 import com.example.letseat.Yelp.YelpSearchResults;
 import com.example.letseat.tools.DoubleClickListener;
+import android.app.Application;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +41,8 @@ public class RestaurantSearch extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_search);
+        //get Yelp_API_Key from local
+        Places.initialize(this,BuildConfig.YELP_API_KEY);
 
         searchField = findViewById(R.id.searchField);
         searchField.setSingleLine();
@@ -52,7 +58,7 @@ public class RestaurantSearch extends AppCompatActivity {
         // Temp Solution: pass user email to post
         // Added by Zack
         getEmail = getIntent().getStringExtra("email");
-        searchResults = yelp.searchRestaurantsSync(getString(R.string.yelpAPIKey), getFood, getLocation);
+        searchResults = yelp.searchRestaurantsSync(BuildConfig.YELP_API_KEY, getFood, getLocation);
         String email = getIntent().getStringExtra("Email");
         //Log.d("TEST","TEST Mail: " +email);
 
@@ -91,7 +97,7 @@ public class RestaurantSearch extends AppCompatActivity {
         searchBtn.setOnClickListener(view -> {
             restaurantAdapter.clear();
             getFood = searchField.getText().toString();
-            searchResults = yelp.searchRestaurantsSync(getString(R.string.yelpAPIKey), getFood, getLocation);
+            searchResults = yelp.searchRestaurantsSync(BuildConfig.YELP_API_KEY, getFood, getLocation);
             if (searchResults!=null) {
                 for (int i = 0; i < searchResults.length; i++) {
                     YelpSearchResults res = searchResults[i];
@@ -108,7 +114,7 @@ public class RestaurantSearch extends AppCompatActivity {
         public void run(){
             restaurantAdapter.clear();
             getFood = searchField.getText().toString();
-            searchResults = yelp.searchRestaurantsAsync(getString(R.string.yelpAPIKey), getFood, getLocation);
+            searchResults = yelp.searchRestaurantsAsync(BuildConfig.YELP_API_KEY, getFood, getLocation);
             searchResults = yelp.getResults();
             if (searchResults!=null) {
                 for (int i = 0; i < searchResults.length; i++) {
