@@ -20,7 +20,7 @@ public class Match {
     //private UserInfoHandler u1, u2;
     private boolean isMatchable;
     private double matchRate;
-    private ArrayList<String> common;
+    private ArrayList<String> common = new ArrayList<String>();
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
     private String name1, number1, email1, favoriteFood1, major1, preferTime1;
@@ -77,8 +77,8 @@ public class Match {
 //                isMatchable = ((preferTime1.equals(preferTime2)) && (!user1.equals(user2)));
             }
         });
-        isMatchable = true;
-        //calcMatch();
+        isMatchable = (!user1.equals(user2));
+        calcMatch();
     }
 
     public void calcMatch(){

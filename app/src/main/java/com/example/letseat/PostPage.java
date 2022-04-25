@@ -20,12 +20,12 @@ import java.util.ArrayList;
 
 public class PostPage extends AppCompatActivity {
 
-    private TextView tvRest;
+    private TextView tvRest, tvPosting;
     private ImageView ivRest;
     private Spinner spTime;
     private Button btnConfirm, btnCancel;
     private EditText etMessage;
-    private RelativeLayout lp;
+    private RelativeLayout lp, lpSuccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,7 @@ public class PostPage extends AppCompatActivity {
         setContentView(R.layout.activity_post);
 
         tvRest = findViewById(R.id.tvRest);
+        tvPosting = findViewById(R.id.tvPosting);
         ivRest = findViewById(R.id.ivRest);
         spTime = findViewById(R.id.spTime);
         btnConfirm = findViewById(R.id.btnConfirm);
@@ -40,6 +41,8 @@ public class PostPage extends AppCompatActivity {
         etMessage = findViewById(R.id.etMessage);
         lp = findViewById(R.id.lp);
         lp.setVisibility(View.INVISIBLE);
+        lpSuccess = findViewById(R.id.lpSuccess);
+        lpSuccess.setVisibility(View.INVISIBLE);
 
         String restImg = getIntent().getStringExtra("restaurantImg");
         String restName = getIntent().getStringExtra("restaurantName");
@@ -95,12 +98,20 @@ public class PostPage extends AppCompatActivity {
 
                 Post.makePost(restImg, restName, restLocation, userEmail, spTime.getSelectedItem().toString(), etMessage.getText().toString());
 
-                Handler h =new Handler() ;
+                Handler h =new Handler();
                 h.postDelayed(new Runnable() {
+                    public void run() {
+                        lp.animate().alpha(0.0f);
+                        lpSuccess.setVisibility(View.VISIBLE);
+                    }
+                }, 2000);
+
+                Handler h2 =new Handler();
+                h2.postDelayed(new Runnable() {
                     public void run() {
                         finish();
                     }
-                }, 3000);
+                }, 2000);
             }
         });
 

@@ -61,7 +61,7 @@ public class PostFragment extends Fragment {
     // Matching
     private boolean isMatchable;
     private double matchRate;
-    private ArrayList<String> common;
+    private ArrayList<String> common = new ArrayList<String>();
     // Personal data of current user
     private String name1, number1, email1, favoriteFood1, major1, preferTime1;
 
@@ -278,16 +278,16 @@ public class PostFragment extends Fragment {
                                         String favoriteFood2 = document.getString("favoriteFood");
                                         String major2 = document.getString("major");
                                         String preferTime2 = document.getString("preferTime");
-                                        isMatchable = (major1.equals(major2));
+                                        isMatchable = (!currUserId.equals(userId));
                                         // Calc match rate & generate commons
-//                                        if (major1.equals(major2)){
-//                                            matchRate += 0.3;
-//                                            common.add("You guys are both " + major1 + " Major");
-//                                        }
-//                                        if (favoriteFood1.equals(favoriteFood2)){
-//                                            matchRate += 0.4;
-//                                            common.add("You both like " + favoriteFood1);
-//                                        }
+                                        if (major1.equals(major2)){
+                                            matchRate += 0.3;
+                                            common.add("You guys are both " + major1 + " Major");
+                                        }
+                                        if (favoriteFood1.equals(favoriteFood2)){
+                                            matchRate += 0.4;
+                                            common.add("You both like " + favoriteFood1);
+                                        }
                                         if (isMatchable) {
                                             request_profile profile = new request_profile(restName, "label", "address", userId, img, email);
                                             mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
@@ -302,8 +302,6 @@ public class PostFragment extends Fragment {
                                     }
                                 }
                             });
-
-
 
 //                        request_profile profile = new request_profile(restName, "label", "address",userId, img, email);
 //                        mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
