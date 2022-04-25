@@ -60,6 +60,8 @@ public class PostFragment extends Fragment {
 
     // Matching
     private boolean isMatchable;
+    private double matchRate;
+    private ArrayList<String> common;
     // Personal data of current user
     private String name1, number1, email1, favoriteFood1, major1, preferTime1;
 
@@ -178,7 +180,6 @@ public class PostFragment extends Fragment {
 //        });
 
 
-
         btn_decline.setOnClickListener(v -> {
 //            animateFab(fabSkip);
             mSwipeView.doSwipe(false);
@@ -249,13 +250,13 @@ public class PostFragment extends Fragment {
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            String img = document.getData().get("ResturantImgUrl").toString();
-                            String restName =  document.getData().get("ResturantName").toString();
+                            String img = document.getData().get("RestaurantImgUrl").toString();
+                            String restName =  document.getData().get("RestaurantName").toString();
+                            String restLocation =  document.getData().get("RestaurantLocation").toString();
                             String userId =  document.getData().get("UserID").toString();
                             String email = document.getData().get("UserEmail").toString();
                             String time = document.getData().get("DinningTime").toString();
                             String message = document.getData().get("Message").toString();
-
 
                             // Match not working due to async.
 //                            Match match = new Match(currUserId, userId);
@@ -278,6 +279,15 @@ public class PostFragment extends Fragment {
                                         String major2 = document.getString("major");
                                         String preferTime2 = document.getString("preferTime");
                                         isMatchable = (major1.equals(major2));
+                                        // Calc match rate & generate commons
+                                        if (major1.equals(major2)){
+                                            matchRate += 0.3;
+                                            common.add("You guys are both " + major1 + " Major");
+                                        }
+                                        if (favoriteFood1.equals(favoriteFood2)){
+                                            matchRate += 0.4;
+                                            common.add("You both like " + favoriteFood1);
+                                        }
                                         if (isMatchable) {
                                             request_profile profile = new request_profile(restName, "label", "address", userId, img, email);
                                             mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));

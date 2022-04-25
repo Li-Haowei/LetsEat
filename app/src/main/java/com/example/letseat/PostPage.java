@@ -41,8 +41,9 @@ public class PostPage extends AppCompatActivity {
         lp = findViewById(R.id.lp);
         lp.setVisibility(View.INVISIBLE);
 
-        String restImg = getIntent().getStringExtra("resturantImg");
-        String restName = getIntent().getStringExtra("resturantName");
+        String restImg = getIntent().getStringExtra("restaurantImg");
+        String restName = getIntent().getStringExtra("restaurantName");
+        String restLocation = getIntent().getStringExtra("restaurantLocation");
         // Temp Solution: pass user email to post
         // Added by Zack
         String userEmail = getIntent().getStringExtra("userEmail");
@@ -92,7 +93,7 @@ public class PostPage extends AppCompatActivity {
                 findViewById(R.id.tvTime).animate().alpha(0.0f);
                 lp.setVisibility(View.VISIBLE);
 
-                Post.makePost(restImg, restName, userEmail, spTime.getSelectedItem().toString(), etMessage.getText().toString());
+                Post.makePost(restImg, restName, restLocation, userEmail, spTime.getSelectedItem().toString(), etMessage.getText().toString());
 
                 Handler h =new Handler() ;
                 h.postDelayed(new Runnable() {

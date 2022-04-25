@@ -14,10 +14,10 @@ import com.sendbird.android.User;
 
 import java.util.ArrayList;
 
+// This class is unusable due to async issue, will try to fix the issue to increase code reusability.
 public class Match {
 
     //private UserInfoHandler u1, u2;
-
     private boolean isMatchable;
     private double matchRate;
     private ArrayList<String> common;

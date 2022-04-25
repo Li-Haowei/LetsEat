@@ -65,8 +65,9 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
         // Added by Zack
         holder.postButton.setOnClickListener(view -> {
             Intent i = new Intent(view.getContext(), PostPage.class);
-            i.putExtra("resturantImg", list2.getImgUrl());
-            i.putExtra("resturantName",list2.getName());
+            i.putExtra("restaurantImg", list2.getImgUrl());
+            i.putExtra("restaurantName",list2.getName());
+            i.putExtra("restaurantLocation",list2.getLocation());
             // Temp Solution: pass user email to post
             // Added by Zack
             i.putExtra("userEmail",userEmail);

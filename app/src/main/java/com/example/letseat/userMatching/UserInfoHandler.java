@@ -38,8 +38,7 @@ import com.sendbird.android.log.Logger;
 import com.sendbird.uikit.SendBirdUIKit;
 import com.squareup.picasso.Picasso;
 
-
-
+// This class is unusable due to async issue, will try to fix the issue to increase code reusability.
 public class UserInfoHandler {
     private String userId;
     private FirebaseAuth fAuth;
