@@ -15,7 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.letseat.Yelp.YelpSearchResults;
 import com.example.letseat.models.request_profile;
+import com.example.letseat.restaurant.RestaurantList;
 import com.example.letseat.userMatching.Match;
 import com.example.letseat.userMatching.Post;
 import com.example.letseat.userMatching.UserInfoHandler;
@@ -27,6 +29,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -50,10 +53,15 @@ import java.util.Map;
 public class PostFragment extends Fragment {
 
     private View rootLayout;
-    private Button btn_decline, btn_accept;
+    private Button btn_decline, btn_accept, btn_refresh;
     private Context mContext;
     private SwipePlaceHolderView mSwipeView;
     private ArrayList<Map<String, Object>> array;
+
+    // Matching
+    private boolean isMatchable;
+    // Personal data of current user
+    private String name1, number1, email1, favoriteFood1, major1, preferTime1;
 
     public PostFragment() {
         // Required empty public constructor
@@ -79,6 +87,19 @@ public class PostFragment extends Fragment {
         mSwipeView = (SwipePlaceHolderView) view.findViewById(R.id.swipeView);
         btn_decline = (Button)view.findViewById(R.id.btn_decline);
         btn_accept = (Button)view.findViewById(R.id.btn_accept);
+        btn_refresh = (Button)view.findViewById(R.id.btnSecret);
+        btn_refresh.setVisibility(View.INVISIBLE);
+
+        BackThread bt = new BackThread();
+
+        btn_refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bt.run();
+            }
+        });
+
+        btn_refresh.performClick();
 
 
         mContext = getActivity();
@@ -122,39 +143,39 @@ public class PostFragment extends Fragment {
 //        for(request_profile profile : Utils.loadProfiles(getActivity().getApplicationContext())){
 //            mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
 //        }
-        FirebaseAuth fAuth = FirebaseAuth.getInstance();;
-        FirebaseFirestore fStore = FirebaseFirestore.getInstance();
-        Log.d("TAG", "Getting Post");
+//        FirebaseAuth fAuth = FirebaseAuth.getInstance();;
+//        FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+//        Log.d("TAG", "Getting Post");
+//
+//        String currUserId = fAuth.getCurrentUser().getUid();
 
-        String currUserId = fAuth.getCurrentUser().getUid();
-
-        fStore.collection("post").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String img = document.getData().get("ResturantImgUrl").toString();
-                        String restName =  document.getData().get("ResturantName").toString();
-                        String userId =  document.getData().get("UserID").toString();
-                        String email = document.getData().get("UserEmail").toString();
-
-                        // Match not working due to async.
+//        fStore.collection("post").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    for (QueryDocumentSnapshot document : task.getResult()) {
+//                        String img = document.getData().get("ResturantImgUrl").toString();
+//                        String restName =  document.getData().get("ResturantName").toString();
+//                        String userId =  document.getData().get("UserID").toString();
+//                        String email = document.getData().get("UserEmail").toString();
+//
+//                        // Match not working due to async.
 //                        Match match = new Match(currUserId, userId);
 //                        if (match.getIsMatchable()) {
 //                            request_profile profile = new request_profile(restName, "label", "address", userId, img, email);
 //                            mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
 //                        }
-
-                        request_profile profile = new request_profile(restName, "label", "address",userId, img, email);
-                        mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
-                        //Log.d("TAG","Array: " + array);
-                        //Log.d("TAG", document.getId() + " => " + document.getData().getClass().toString());
-                    }
-                } else {
-                    Log.d("TAG", "Error getting documents: ", task.getException());
-                }
-            }
-        });
+//
+////                        request_profile profile = new request_profile(restName, "label", "address",userId, img, email);
+////                        mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
+//                        //Log.d("TAG","Array: " + array);
+//                        //Log.d("TAG", document.getId() + " => " + document.getData().getClass().toString());
+//                    }
+//                } else {
+//                    Log.d("TAG", "Error getting documents: ", task.getException());
+//                }
+//            }
+//        });
 
 
 
@@ -191,4 +212,100 @@ public class PostFragment extends Fragment {
 
         });
     }
+
+    class BackThread implements Runnable {
+        public void run(){
+            FirebaseAuth fAuth = FirebaseAuth.getInstance();;
+            FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+            Log.d("TAG", "Getting Post");
+
+            // Retrieve data of current user
+            String currUserId = fAuth.getCurrentUser().getUid();
+            DocumentReference documentReference = fStore.collection("users").document(currUserId);
+            documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        number1 = document.getString("phone");
+                        name1 = document.getString("fName");
+                        email1 = document.getString("email");
+                        favoriteFood1 = document.getString("favoriteFood");
+                        major1 = document.getString("major");
+                        preferTime1 = document.getString("preferTime");
+                        if (document.exists()) {
+                            Log.d("TAG", "DocumentSnapshot data: " + document.getData());
+                        } else {
+                            Log.d("TAG", "No such document");
+                        }
+                    } else {
+                        Log.d("TAG", "get failed with ", task.getException());
+                    }
+                }
+            });
+
+            fStore.collection("post").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String img = document.getData().get("ResturantImgUrl").toString();
+                            String restName =  document.getData().get("ResturantName").toString();
+                            String userId =  document.getData().get("UserID").toString();
+                            String email = document.getData().get("UserEmail").toString();
+                            String time = document.getData().get("DinningTime").toString();
+                            String message = document.getData().get("Message").toString();
+
+
+                            // Match not working due to async.
+//                            Match match = new Match(currUserId, userId);
+//
+//                            if (match.getIsMatchable()) {
+//                                request_profile profile = new request_profile(restName, "label", "address", userId, img, email);
+//                                mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
+//                            }
+                            // Retrieve data of the poster and match him/her with current user
+                            DocumentReference documentReference2 = fStore.collection("users").document(userId);
+                            documentReference2.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        String number2 = document.getString("phone");
+                                        String name2 = document.getString("fName");
+                                        String email2 = document.getString("email");
+                                        String favoriteFood2 = document.getString("favoriteFood");
+                                        String major2 = document.getString("major");
+                                        String preferTime2 = document.getString("preferTime");
+                                        isMatchable = (major1.equals(major2));
+                                        if (isMatchable) {
+                                            request_profile profile = new request_profile(restName, "label", "address", userId, img, email);
+                                            mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
+                                        }
+                                        if (document.exists()) {
+                                            Log.d("TAG", "DocumentSnapshot data: " + document.getData());
+                                        } else {
+                                            Log.d("TAG", "No such document");
+                                        }
+                                    } else {
+                                        Log.d("TAG", "get failed with ", task.getException());
+                                    }
+                                }
+                            });
+
+
+
+//                        request_profile profile = new request_profile(restName, "label", "address",userId, img, email);
+//                        mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
+                            //Log.d("TAG","Array: " + array);
+                            //Log.d("TAG", document.getId() + " => " + document.getData().getClass().toString());
+                        }
+                    } else {
+                        Log.d("TAG", "Error getting documents: ", task.getException());
+                    }
+                }
+            });
+        }
+    }
 }
+
