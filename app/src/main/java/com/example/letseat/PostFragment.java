@@ -280,14 +280,14 @@ public class PostFragment extends Fragment {
                                         String preferTime2 = document.getString("preferTime");
                                         isMatchable = (major1.equals(major2));
                                         // Calc match rate & generate commons
-                                        if (major1.equals(major2)){
-                                            matchRate += 0.3;
-                                            common.add("You guys are both " + major1 + " Major");
-                                        }
-                                        if (favoriteFood1.equals(favoriteFood2)){
-                                            matchRate += 0.4;
-                                            common.add("You both like " + favoriteFood1);
-                                        }
+//                                        if (major1.equals(major2)){
+//                                            matchRate += 0.3;
+//                                            common.add("You guys are both " + major1 + " Major");
+//                                        }
+//                                        if (favoriteFood1.equals(favoriteFood2)){
+//                                            matchRate += 0.4;
+//                                            common.add("You both like " + favoriteFood1);
+//                                        }
                                         if (isMatchable) {
                                             request_profile profile = new request_profile(restName, "label", "address", userId, img, email);
                                             mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
