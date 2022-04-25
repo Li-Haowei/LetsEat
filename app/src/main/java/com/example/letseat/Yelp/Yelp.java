@@ -51,7 +51,7 @@ public class Yelp {
                             response.body().restaurants[i].price,
                             response.body().restaurants[i].location.address,
                             response.body().restaurants[i].imageUrl,
-                            response.body().restaurants[i].photos
+                            response.body().restaurants[i].categories
                     );
                 }
             }
@@ -72,13 +72,14 @@ public class Yelp {
             Response<YelpDataClasses> response = callAsync.execute();
             results = new YelpSearchResults[response.body().restaurants.length];
             for (int i = 0; i < response.body().restaurants.length; i++) {
+                //Log.d("creation","running: " + response.body().restaurants[i].categories[0].title);
                 results[i] = new YelpSearchResults(
                         response.body().restaurants[i].name,
                         response.body().restaurants[i].rating,
                         response.body().restaurants[i].price,
                         response.body().restaurants[i].location.address,
                         response.body().restaurants[i].imageUrl,
-                        response.body().restaurants[i].photos
+                        response.body().restaurants[i].categories
                 );
             }
 

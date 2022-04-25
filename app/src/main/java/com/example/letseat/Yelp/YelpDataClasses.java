@@ -19,10 +19,6 @@ class YelpRestaurants{
     @SerializedName("photos") String[] photos;
 }
 
-class YelpCategory{
-    @SerializedName("title") String title;
-}
-
 class YelpLocation{
     @SerializedName("address1") String address;
 }

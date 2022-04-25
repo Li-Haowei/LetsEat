@@ -1,8 +1,10 @@
 package com.example.letseat.restaurant;
 
+import com.example.letseat.Yelp.YelpCategory;
+
 public class RestaurantList {
     private String name, imgUrl, price, rating, location;
-    private String[] photos;
+    private YelpCategory[] categories;
 
     public String getName() {
         return name;
@@ -40,20 +42,20 @@ public class RestaurantList {
         return location;
     }
 
-    public String[] getPhotos() {
-        return photos;
+    public YelpCategory[] getCategories() {
+        return categories;
     }
 
     public void setLocation(String location) {
         this.location = location;
     }
 
-    public RestaurantList(String name, String imgUrl, String price, String rating, String location, String[] photos) {
+    public RestaurantList(String name, String imgUrl, String price, String rating, String location, YelpCategory[] categories) {
         this.name = name;
         this.imgUrl = imgUrl;
         this.price = price;
         this.rating = rating;
         this.location = location;
-        this.photos = photos;
+        this.categories = categories;
     }
 }

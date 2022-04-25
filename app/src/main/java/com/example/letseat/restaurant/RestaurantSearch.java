@@ -64,7 +64,7 @@ public class RestaurantSearch extends AppCompatActivity {
         if (searchResults!=null) {
             for (int i = 0; i < searchResults.length; i++) {
                 YelpSearchResults res = searchResults[i];
-                RestaurantList restaurantList = new RestaurantList(res.getName(), res.getImage(), res.getPrice(), res.getRating(), res.getLocation(), res.getPhotos());
+                RestaurantList restaurantList = new RestaurantList(res.getName(), res.getImage(), res.getPrice(), res.getRating(), res.getLocation(), res.getCategories());
                 restaurantLists.add(restaurantList);
                 restaurantAdapter.updateRestaurantList(restaurantLists);
             }
@@ -96,7 +96,7 @@ public class RestaurantSearch extends AppCompatActivity {
                 for (int i = 0; i < searchResults.length; i++) {
                     YelpSearchResults res = searchResults[i];
                     //Log.d("creation", i + Arrays.toString(res.getPhotos()));
-                    RestaurantList restaurantList = new RestaurantList(res.getName(), res.getImage(), res.getPrice(), res.getRating(), res.getLocation(), res.getPhotos());
+                    RestaurantList restaurantList = new RestaurantList(res.getName(), res.getImage(), res.getPrice(), res.getRating(), res.getLocation(), res.getCategories());
                     restaurantLists.add(restaurantList);
                     restaurantAdapter.updateRestaurantList(restaurantLists);
                 }
@@ -113,7 +113,7 @@ public class RestaurantSearch extends AppCompatActivity {
             if (searchResults!=null) {
                 for (int i = 0; i < searchResults.length; i++) {
                     YelpSearchResults res = searchResults[i];
-                    RestaurantList restaurantList = new RestaurantList(res.getName(), res.getImage(), res.getPrice(), res.getRating(), res.getLocation(), res.getPhotos());
+                    RestaurantList restaurantList = new RestaurantList(res.getName(), res.getImage(), res.getPrice(), res.getRating(), res.getLocation(), res.getCategories());
                     restaurantLists.add(restaurantList);
                     restaurantAdapter.updateRestaurantList(restaurantLists);
                 }
