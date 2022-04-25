@@ -3,8 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/AndroidStudioProjects/LetsEat/app/src/main/res/layout/activity_post.xml" value="0.14130434782608695" />
-        <entry key="..\:/AndroidStudioProjects/LetsEat/app/src/main/res/layout/fragment_request.xml" value="0.14130434782608695" />
         <entry key="..\:/Users/Haowei Li/AndroidStudioProjects/LetsEat/app/src/main/res/drawable-v24/green_indictor_light.xml" value="0.1775" />
         <entry key="..\:/Users/Haowei Li/AndroidStudioProjects/LetsEat/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1985" />
         <entry key="..\:/Users/Haowei Li/AndroidStudioProjects/LetsEat/app/src/main/res/drawable/backbtn.xml" value="0.1985" />
@@ -38,8 +36,10 @@
         <entry key="..\:/cs501/LetsEat/app/src/main/res/layout/friend_adapter_layout.xml" value="0.19166666666666668" />
         <entry key="app/src/main/res/layout/activity_chat.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_edit_profile.xml" value="0.22056159420289856" />
+        <entry key="app/src/main/res/layout/activity_favorite_food_cuisine.xml" value="0.358695652173913" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.22056159420289856" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.29404754638671876" />
+        <entry key="app/src/main/res/layout/activity_post.xml" value="0.358695652173913" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.22056159420289856" />
         <entry key="app/src/main/res/layout/activity_user_pref.xml" value="0.22056159420289856" />
         <entry key="app/src/main/res/layout/adapter_request_card.xml" value="0.18697916666666667" />
