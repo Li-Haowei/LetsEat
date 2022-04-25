@@ -46,4 +46,9 @@
             android:exported="false" />
     </application>
 
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="${YELP_API_KEY}"
+        />
+
 </manifest>

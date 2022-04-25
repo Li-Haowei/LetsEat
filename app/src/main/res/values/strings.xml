@@ -9,9 +9,6 @@
     <string name="forgotpass">
         <u>Forgot Password?</u>
     </string>
-    <string name="yelpAPIKey">
-        LRODHsBmKivCuPY8DmDdauyGsR1rCuIwi7bYG9UyisX0hJQtG_Xj9dHNewuqW5F4s04G8hpf7DkBFuPOIW5eD7M6WYD4DX4BWMvRntAzhqW3wuhnLFl4J4BBGpk_YnYx
-    </string>
     <string-array name="editProfileOptions">
         <item>Menu</item>
         <item>Save</item>
