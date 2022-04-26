@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,7 +30,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.letseat.TwitterAPI.TwitterAPI;
 import com.example.letseat.optionsPage.FavoriteFoodCuisine;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -67,8 +65,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import retrofit2.Call;
 
 
 public class EditProfile extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
@@ -290,7 +286,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         linear.addView(scrollView);
 
 
-        profileImageView = findViewById(R.id.profileImageView);
+        profileImageView = findViewById(R.id.img_rest);
         backBtn = findViewById(R.id.backBtn);
         spinner = findViewById(R.id.spinner);
         spinner.setBackground(getResources().getDrawable(R.drawable.round_back_white_10));

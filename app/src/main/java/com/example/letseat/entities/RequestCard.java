@@ -1,11 +1,15 @@
 package com.example.letseat.entities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import com.bumptech.glide.Glide;
+import com.example.letseat.test;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.Resolve;
@@ -24,10 +28,12 @@ import com.sendbird.android.log.Logger;
 
 
 @Layout(R.layout.adapter_request_card)
-public class RequestCard {
+public class RequestCard  {
 
-    @View(R.id.profileImageView)
+    @View(R.id.img_rest)
     private ImageView profileImageView;
+
+    private ImageView img_rest;
 
     @View(R.id.tv_restName)
     private TextView tv_restName;
@@ -61,6 +67,7 @@ public class RequestCard {
 
         mSwipeView = swipeView;
 
+
 //        murl = url;
 //        mrestName = restName;
 //        mrestLabels = restLabels;
@@ -78,6 +85,20 @@ public class RequestCard {
     private void onResolved(){
 
         Glide.with(mContext).load(mProfile.getImageUrl()).into(profileImageView);
+        profileImageView.setOnClickListener(new android.view.View.OnClickListener() {
+            @Override
+            public void onClick(android.view.View view) {
+                Log.d("EVENT", "cliecked");
+                Intent intent = new Intent(mContext, test.class);
+                intent.putExtra("restName",mProfile.getRestName());
+                intent.putExtra("restLabels",mProfile.getRestLabels());
+                intent.putExtra("restAdd",mProfile.getRestAdd());
+                intent.putExtra("InvitedBy",mProfile.getInvitedBy());
+
+                mContext.startActivity(intent);
+
+            }
+        });
         tv_restName.setText(mProfile.getRestName());
         tv_restLabels.setText(mProfile.getRestLabels());
         tv_restAdd.setText(mProfile.getRestAdd());

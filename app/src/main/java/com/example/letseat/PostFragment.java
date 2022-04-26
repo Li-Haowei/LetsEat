@@ -1,6 +1,7 @@
 package com.example.letseat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.letseat.Yelp.YelpSearchResults;
 import com.example.letseat.models.request_profile;
@@ -57,6 +59,7 @@ public class PostFragment extends Fragment {
     private Context mContext;
     private SwipePlaceHolderView mSwipeView;
     private ArrayList<Map<String, Object>> array;
+    private ImageView img_rest;
 
     // Matching
     private boolean isMatchable;
@@ -91,7 +94,7 @@ public class PostFragment extends Fragment {
         btn_accept = (Button)view.findViewById(R.id.btn_accept);
         btn_refresh = (Button)view.findViewById(R.id.btnSecret);
         btn_refresh.setVisibility(View.INVISIBLE);
-
+        img_rest = (ImageView) view.findViewById(R.id.img_rest);
         BackThread bt = new BackThread();
 
         btn_refresh.setOnClickListener(new View.OnClickListener() {
@@ -179,9 +182,20 @@ public class PostFragment extends Fragment {
 //            }
 //        });
 
+//        mSwipeView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.d("EVENT", "cliecked");
+//                Intent intent = new Intent(getActivity(), test.class);
+//                startActivity(intent);
+//
+//            }
+//        });
+
 
         btn_decline.setOnClickListener(v -> {
 //            animateFab(fabSkip);
+            Log.d("EVENT", "cliecked");
             mSwipeView.doSwipe(false);
         });
 

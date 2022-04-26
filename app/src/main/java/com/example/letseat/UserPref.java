@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -211,7 +210,7 @@ public class UserPref extends AppCompatActivity {
         LinearLayout linear = findViewById(R.id.rootContainer);
         linear.addView(scrollView);
 
-        profileImageView = findViewById(R.id.profileImageView);
+        profileImageView = findViewById(R.id.img_rest);
 
         saveBtn.setOnClickListener(view -> {
             if(favoriteFood.getText().toString().isEmpty() || major.getSelectedItem() == null

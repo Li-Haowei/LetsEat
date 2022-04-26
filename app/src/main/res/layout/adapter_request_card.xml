@@ -24,7 +24,7 @@
 
 
         <ImageView
-            android:id="@+id/profileImageView"
+            android:id="@+id/img_rest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="center"

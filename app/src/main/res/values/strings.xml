@@ -33,6 +33,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Twitter -->
-    <string  name="twitter_consumer_key">xxsd469ViYD3frUe9T9wQZDaQ</string>
-    <string  name="twitter_consumer_secret">DnRfq1tXAmuVf4KUTAg8b4lrbNoiIfwb6o7wjiMVkq9PPwcZJn</string>
+    <string name="twitter_consumer_key">xxsd469ViYD3frUe9T9wQZDaQ</string>
+    <string name="twitter_consumer_secret">DnRfq1tXAmuVf4KUTAg8b4lrbNoiIfwb6o7wjiMVkq9PPwcZJn</string>
 </resources>
