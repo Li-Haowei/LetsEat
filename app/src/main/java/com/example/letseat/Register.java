@@ -30,6 +30,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -190,9 +191,11 @@ public class Register extends AppCompatActivity {
                                                 phone : "666-666-6666"
                              */
                             Map<String, Object> user = new HashMap<>();
+                            ArrayList<String> array = new ArrayList<>();
                             user.put("fName", fullName);
                             user.put("email", email);
                             user.put("phone", phone);
+                            user.put("following", array);
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
