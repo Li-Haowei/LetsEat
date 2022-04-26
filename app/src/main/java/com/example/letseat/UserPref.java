@@ -4,13 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,7 +22,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.letseat.optionsPage.FavoriteFoodCuisine;
+import com.example.letseat.optionsPage.FavoriteFoodCuisine_Register;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,23 +37,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserPref extends AppCompatActivity {
-    private EditText favoriteFood, dietaryRestriction, major, preferTime;
-    private String name, email, phone;
+    private String fullName, email, phone, food, user_major, time;
+    private Spinner preferTime, major;
     private Button saveBtn;
+    private TextView favoriteFood;
     private ImageView profileImageView;
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
     private FirebaseUser user;
     private StorageReference storageReference;
+    private final float textSize = 30.0f;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_pref);
 
         Intent data = getIntent();
-        name = data.getStringExtra("fullName");
+        fullName = data.getStringExtra("fullName");
         email = data.getStringExtra("email");
         phone = data.getStringExtra("phone");
+        food = data.getStringExtra("favoriteFood");
+        user_major = data.getStringExtra("major");
+        time = data.getStringExtra("preferTime");
         /*
         FirebaseAuth is what we used to sign in users to our Firebase app
         https://firebase.google.com/docs/reference/android/com/google/firebase/auth/FirebaseAuth
@@ -76,11 +83,55 @@ public class UserPref extends AppCompatActivity {
         /*
         Bind fields to views
          */
+        favoriteFood = new TextView(this);
 
-        favoriteFood = new EditText(this);
-        major = new EditText(this);
-        dietaryRestriction = new EditText(this);
-        preferTime = new EditText(this);
+        major = new Spinner(this);
+        String[] items_major = new String[]{"Computer Science", "Political Science", "Film/TV", "Business"};
+        ArrayAdapter<String> adapter_majors = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items_major);
+        major.setAdapter(adapter_majors);
+        for (int i = 0; i < items_major.length; i++) {
+            if(items_major[i].equals(user_major)){
+                Log.d("creation", items_major[i]);
+                major.setSelection(i);
+                break;
+            }
+        }
+        major.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                user_major = items_major[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        preferTime = new Spinner(this);
+        String[] items_time = new String[]{"Breakfast", "Lunch", "Dinner"};
+        ArrayAdapter<String> adapter_time = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items_time);
+        preferTime.setAdapter(adapter_time);
+        for (int i = 0; i < items_time.length; i++) {
+            if(items_time[i].equals(time)){
+                preferTime.setSelection(i);
+                break;
+            }
+        }
+        //preferTime.setSelection(sharedPref.getInt("times",0));
+        preferTime.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                time = items_time[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
         saveBtn = new Button(this);
         saveBtn.setText("SAVE");
         saveBtn.setHeight(30);
@@ -98,11 +149,6 @@ public class UserPref extends AppCompatActivity {
          */
 
 
-        EditText[] editTextManager = {favoriteFood, major, dietaryRestriction, preferTime};
-        for (int i = 0; i < editTextManager.length; i++) {
-            editTextManager[i].setSingleLine();
-            editTextManager[i].setImeOptions(EditorInfo.IME_ACTION_DONE);
-        }
         ScrollView scrollView = new ScrollView(this);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         scrollView.setLayoutParams(layoutParams);
@@ -112,35 +158,68 @@ public class UserPref extends AppCompatActivity {
         linearLayout.setLayoutParams(linearParams);
         scrollView.addView(linearLayout);
 
+        //Set layout parameters for the input field
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.setMargins(20,0,20, 40);
 
+        LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params1.setMargins(20,0,20, 0);
+
+        LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params2.setMargins(20,0,20, 40);
+
+
+        //Food section
         TextView tv3 = new TextView(this);
-        tv3.setText("Favorite Food");
+        tv3.setText(R.string.user_food);
+        tv3.setTypeface(null, Typeface.BOLD);
+        tv3.setTextColor(getResources().getColor(R.color.white));
+        tv3.setLayoutParams(params1);
         linearLayout.addView(tv3);
         linearLayout.addView(favoriteFood);
+        favoriteFood.setBackground(getResources().getDrawable(R.drawable.round_back_white_10));
+        favoriteFood.setText(food);
+        favoriteFood.setTextSize(textSize);
+        favoriteFood.setTextColor(getResources().getColor(R.color.black));
+        favoriteFood.setLayoutParams(params);
+
+        //Major section
         TextView tv4 = new TextView(this);
-        tv4.setText("Major");
+        tv4.setText(R.string.user_major);
+        tv4.setTypeface(null, Typeface.BOLD);
+        tv4.setTextColor(getResources().getColor(R.color.white));
+        tv4.setLayoutParams(params1);
         linearLayout.addView(tv4);
         linearLayout.addView(major);
+        major.setBackground(getResources().getDrawable(R.drawable.round_back_white_10));
+        major.setLayoutParams(params);
+
+        //Time section
         TextView tv5 = new TextView(this);
-        tv5.setText("Dietary Restriction");
+        tv5.setText(R.string.user_pref_time);
+        tv5.setTypeface(null, Typeface.BOLD);
+        tv5.setTextColor(getResources().getColor(R.color.white));
+        tv5.setLayoutParams(params1);
         linearLayout.addView(tv5);
-        linearLayout.addView(dietaryRestriction);
-        TextView tv6 = new TextView(this);
-        tv6.setText("Prefer Time to Eat");
-        linearLayout.addView(tv6);
         linearLayout.addView(preferTime);
+        preferTime.setBackground(getResources().getDrawable(R.drawable.round_back_white_10));
+        preferTime.setLayoutParams(params);
 
         linearLayout.addView(saveBtn);
 
+        //add scrollable view into rootContainer
         LinearLayout linear = findViewById(R.id.rootContainer);
         linear.addView(scrollView);
 
         profileImageView = findViewById(R.id.profileImageView);
 
         saveBtn.setOnClickListener(view -> {
-            if(favoriteFood.getText().toString().isEmpty() || major.getText().toString().isEmpty()
-                    || dietaryRestriction.getText().toString().isEmpty() || preferTime.getText().toString().isEmpty()){
-                Toast.makeText(UserPref.this, "one or many field are empty", Toast.LENGTH_SHORT).show();
+            if(favoriteFood.getText().toString().isEmpty() || major.getSelectedItem() == null
+                    || preferTime.getSelectedItem() == null) {
+                Log.d("PREFERTIME", preferTime.getSelectedItem().toString());
+                Log.d("MAJOR", major.getSelectedItem().toString());
+                Log.d("FAVFOOD", favoriteFood.getText().toString());
+                Toast.makeText(UserPref.this, "one or many fields are empty", Toast.LENGTH_SHORT).show();
                 return;
             }
             Toast.makeText(UserPref.this, "Loading", Toast.LENGTH_SHORT).show();
@@ -149,10 +228,9 @@ public class UserPref extends AppCompatActivity {
                 public void onSuccess(Void unused) {
                     DocumentReference docRef = fStore.collection("users").document(user.getUid());
                     Map<String,Object> edited = new HashMap<>();
-                    edited.put("favoriteFood",favoriteFood.getText().toString());
-                    edited.put("major",major.getText().toString());
-                    edited.put("dietaryRestriction",dietaryRestriction.getText().toString());
-                    edited.put("preferTime",preferTime.getText().toString());
+                    edited.put("favoriteFood",(Object) food);
+                    edited.put("major",(Object) user_major);
+                    edited.put("preferTime",(Object) time);
                     docRef.update(edited);
                     Toast.makeText(UserPref.this, "Profile Updated", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
@@ -188,5 +266,16 @@ public class UserPref extends AppCompatActivity {
                 startActivityForResult(openGalleryIntent,1000);
             }
         });
+
+        favoriteFood.setOnClickListener(view -> {
+            Intent foodOptionsIntent = new Intent(view.getContext(), FavoriteFoodCuisine_Register.class);
+            foodOptionsIntent.putExtra("email", email);
+            foodOptionsIntent.putExtra("favoriteFood", food);
+            foodOptionsIntent.putExtra("major", user_major);
+            foodOptionsIntent.putExtra("preferTime", time);
+            startActivity(foodOptionsIntent);
+            finish();
+        });
+
     }
 }

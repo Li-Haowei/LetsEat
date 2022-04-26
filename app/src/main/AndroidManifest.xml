@@ -21,6 +21,9 @@
             android:name=".optionsPage.FavoriteFoodCuisine"
             android:exported="false" />
         <activity
+            android:name=".optionsPage.FavoriteFoodCuisine_Register"
+            android:exported="false" />
+        <activity
             android:name=".ChatActivity"
             android:exported="false" />
         <activity

@@ -44,6 +44,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+/*
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.DefaultLogger;
 import com.twitter.sdk.android.core.Result;
@@ -58,7 +59,7 @@ import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 import com.twitter.sdk.android.core.models.User;
 import com.twitter.sdk.android.core.services.AccountService;
-
+*/
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -82,18 +83,18 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     private String fullName, email, phone, food, time, user_major;
     private FirebaseUser user;
     private StorageReference storageReference;
-    private TwitterLoginButton loginButton;
+   // private TwitterLoginButton loginButton;
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        initTwitter();
+        //initTwitter();
         setContentView(R.layout.activity_edit_profile);
 
 
-        twitterButton();
+       // twitterButton();
 
 
         Intent data = getIntent();
@@ -363,9 +364,10 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             }
         }
         // Pass the activity result to the login button.
+        /*
         if(loginButton!=null) {
             loginButton.onActivityResult(requestCode, resultCode, data);
-        }
+        } */
 
     }
     private void uploadImageToFirebase(Uri imageUri) {
@@ -469,6 +471,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     }
 
 //    init twitter
+    /*
     private void initTwitter() {
         String key = getString(R.string.twitter_consumer_key);
         String secret = getString(R.string.twitter_consumer_secret);
@@ -511,7 +514,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             }
         });
     }
-
+*/
     public void storeFollowing (String userId) {
         FirebaseAuth fAuth = FirebaseAuth.getInstance();;
         FirebaseFirestore fStore = FirebaseFirestore.getInstance();
