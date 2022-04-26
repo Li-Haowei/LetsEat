@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
     private String userId;
-    private Button resendCode;
+    private Button resendCode ;
     private ImageView changeProfile, searchRestaurant, btn_chatList;
     private FirebaseUser user;
     private StorageReference storageReference;
