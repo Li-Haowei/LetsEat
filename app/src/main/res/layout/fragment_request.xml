@@ -12,9 +12,11 @@
         android:id="@+id/swipeView"
         android:layout_width="413dp"
         android:layout_height="650dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_decline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
         <Button
             android:id="@+id/btnSecret"
