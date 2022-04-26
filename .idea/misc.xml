@@ -42,8 +42,8 @@
         <entry key="app/src/main/res/layout/activity_post.xml" value="0.3134057971014493" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.22056159420289856" />
         <entry key="app/src/main/res/layout/activity_user_pref.xml" value="0.22056159420289856" />
-        <entry key="app/src/main/res/layout/adapter_request_card.xml" value="0.1708491007486979" />
-        <entry key="app/src/main/res/layout/fragment_request.xml" value="0.2003982543945313" />
+        <entry key="app/src/main/res/layout/adapter_request_card.xml" value="0.3561854044596354" />
+        <entry key="app/src/main/res/layout/fragment_request.xml" value="0.32546081542968763" />
         <entry key="app/src/main/res/layout/friend_adapter_layout.xml" value="0.22056159420289856" />
         <entry key="app/src/main/res/layout/restaurant_adapter_layout.xml" value="0.22056159420289856" />
         <entry key="app/src/main/res/layout/test.xml" value="0.27722663326539865" />

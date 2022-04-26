@@ -106,7 +106,7 @@ public class PostFragment extends Fragment {
 
         mContext = getActivity();
 
-        int bottomMargin = Utils.dpToPx(100);
+        int bottomMargin = Utils.dpToPx(120);
         Point windowSize = Utils.getDisplaySize(getActivity().getWindowManager());
         mSwipeView.getBuilder()
                 .setDisplayViewCount(3)
