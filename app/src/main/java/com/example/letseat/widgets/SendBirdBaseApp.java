@@ -14,7 +14,7 @@ import com.sendbird.uikit.adapter.SendBirdUIKitAdapter;
 import com.sendbird.uikit.interfaces.UserInfo;
 
 public class SendBirdBaseApp extends Application {
-    String App_ID = "44E15C0D-8F8C-46E1-AE5E-746D63CB7619";
+    String App_ID = "5D6062CE-9135-44B3-B186-4B2056BEF4BE";
     String User_ID ;
     String User_Nickname ;
     @Override
