@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -43,22 +44,18 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-/*
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.DefaultLogger;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.Twitter;
-import com.twitter.sdk.android.core.TwitterApiClient;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterAuthToken;
 import com.twitter.sdk.android.core.TwitterConfig;
-import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
-import com.twitter.sdk.android.core.models.User;
-import com.twitter.sdk.android.core.services.AccountService;
-*/
+
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -81,19 +78,19 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     private Uri imageUri;
     private FirebaseUser user;
     private StorageReference storageReference;
-   // private TwitterLoginButton loginButton;
+    private TwitterLoginButton loginButton;
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        //initTwitter();
+        initTwitter();
         setContentView(R.layout.activity_edit_profile);
 
 
-       // twitterButton();
 
+        twitterButton();
 
         Intent data = getIntent();
         fullName = data.getStringExtra("fullName");
@@ -370,10 +367,10 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             }
         }
         // Pass the activity result to the login button.
-        /*
+
         if(loginButton!=null) {
             loginButton.onActivityResult(requestCode, resultCode, data);
-        } */
+        }
 
     }
     private void uploadImageToFirebase(Uri imageUri) {
@@ -478,7 +475,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     }
 
 //    init twitter
-    /*
+
     private void initTwitter() {
         String key = getString(R.string.twitter_consumer_key);
         String secret = getString(R.string.twitter_consumer_secret);
@@ -492,7 +489,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     }
 
     private void twitterButton () {
-        loginButton = (TwitterLoginButton) findViewById(R.id.login_button);
+        loginButton =(TwitterLoginButton) findViewById(R.id.login_button);
         loginButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
@@ -506,22 +503,19 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                 String userName = result.data.getUserName();
                 String userId = result.data.getUserId()+"";
 
-                Log.d("TEST","Token: " + token);
-                Log.d("TEST","Secret: " + tokenSecret);
-                Log.d("TEST","UserName: " + userName);
-                Log.d("TEST","UserId: "+userId);
-
+                Log.i("token",token);
+                Log.i("tokenSecret",tokenSecret);
+                Log.i("userName",userName);
+                Log.i("userId",userId);
                 storeFollowing(userId);
-
             }
-
             @Override
             public void failure(TwitterException exception) { // Do something on failure
                 exception.printStackTrace();
             }
         });
     }
-*/
+
     public void storeFollowing (String userId) {
         FirebaseAuth fAuth = FirebaseAuth.getInstance();;
         FirebaseFirestore fStore = FirebaseFirestore.getInstance();
