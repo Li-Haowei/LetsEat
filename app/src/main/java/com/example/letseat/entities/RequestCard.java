@@ -30,6 +30,9 @@ import com.sendbird.android.log.Logger;
 @Layout(R.layout.adapter_request_card)
 public class RequestCard  {
 
+    // This class is the adapter for the swpie view, the object will contain all the information of
+    // an invite, and the methods that define the behaviors of the swipe view
+
     @View(R.id.img_rest)
     private ImageView profileImageView;
 
@@ -47,44 +50,27 @@ public class RequestCard  {
     @View(R.id.tv_InvitedBy)
     private TextView tv_InvitedBy;
 
-    private User mUser;
     private Context mContext;
     private SwipePlaceHolderView mSwipeView;
-
-//    private String mrestName;
-//    private String mrestLabels;
-//    private String mrestAdd;
-//    private String minvitedBy;
-//    private String murl;
-
     private request_profile mProfile;
 
     //TODO SENDBIRD
     public RequestCard(Context context, request_profile profile , SwipePlaceHolderView swipeView) {
         mContext = context;
-//        mUser = user;
         mProfile = profile;
-
         mSwipeView = swipeView;
-
-
-//        murl = url;
-//        mrestName = restName;
-//        mrestLabels = restLabels;
-//        mrestAdd = restAdd;
-//        minvitedBy = invitedBy;
     }
 
     public request_profile getProfile() {
         return mProfile;
     }
 
-    //END
 
     @Resolve
     private void onResolved(){
 
         Glide.with(mContext).load(mProfile.getImageUrl()).into(profileImageView);
+
         profileImageView.setOnClickListener(new android.view.View.OnClickListener() {
             @Override
             public void onClick(android.view.View view) {
@@ -99,6 +85,8 @@ public class RequestCard  {
 
             }
         });
+
+
         tv_restName.setText(mProfile.getRestName());
         tv_restLabels.setText(mProfile.getRestLabels());
         tv_restAdd.setText(mProfile.getRestAdd());
@@ -106,6 +94,8 @@ public class RequestCard  {
 
     }
 
+
+    //if the invite is swiped left or declined, add it back to the stack of invites
     @SwipeOut
     private void onSwipedOut(){
         Log.d("EVENT", "onSwipedOut");
@@ -117,6 +107,8 @@ public class RequestCard  {
         Log.d("EVENT", "onSwipeCancelState");
     }
 
+    // if the invite is swiped right or accpeted, create a chat channel between the user and the user
+    // who post the invite
     @SwipeIn
     private void onSwipeIn(){
         createChannelWithMatch(mProfile.getEmail());
@@ -134,6 +126,8 @@ public class RequestCard  {
     }
 
     private void createChannelWithMatch(String userId) {
+        // if the invite is swiped right or accpeted, create a chat channel between the user and the user
+        // who post the invite
         GroupChannelParams params = new GroupChannelParams();
         params.setDistinct(true)
                 .addUserId(userId);
