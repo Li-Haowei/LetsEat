@@ -31,6 +31,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.letseat.optionsPage.FavoriteFoodCuisine;
+import com.example.letseat.tools.RealPathUtil;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.storage.UploadTask;
@@ -77,6 +78,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
     private String fullName, email, phone, food, time, user_major;
+    private Uri imageUri;
     private FirebaseUser user;
     private StorageReference storageReference;
    // private TwitterLoginButton loginButton;
@@ -140,7 +142,6 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         major.setAdapter(adapter_majors);
         for (int i = 0; i < items_major.length; i++) {
             if(items_major[i].equals(user_major)){
-                Log.d("creation", items_major[i]);
                 major.setSelection(i);
                 break;
             }
@@ -304,13 +305,26 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 
         More detail please refer to example illustration in Register.java
          */
-        StorageReference profileRef = storageReference.child("users/"+fAuth.getCurrentUser().getUid()+"profile.jpg");
+
+        StorageReference profileRef = storageReference.child("users/"+fAuth.getCurrentUser().getUid()+"/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri).into(profileImageView);
             }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                Log.d("creation",e.toString());
+            }
         });
+        //if there is a saved profile image, load it into image view
+        //if(profileImg!=null) {
+            //profileImageView.setImageURI(Uri.parse(profileImg));
+        //}
+
+
 
         profileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -350,13 +364,10 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1000){
             if(resultCode == Activity.RESULT_OK){
-                Uri imageUri = data.getData();
-
-                //profileImage.setImageURI(imageUri);
-
+                imageUri = data.getData();
+                //Log.d("creation", String.valueOf(imageUri));
+                profileImageView.setImageURI(imageUri);
                 uploadImageToFirebase(imageUri);
-
-
             }
         }
         // Pass the activity result to the login button.
@@ -383,6 +394,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                Log.d("creation",e.toString());
             }
         });
 
@@ -414,6 +426,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                     edited.put("favoriteFood",(Object) food);
                     edited.put("major",(Object) user_major);
                     edited.put("preferTime",(Object) time);
+                    edited.put("profileImg",imageUri.toString());
                     docRef.update(edited);
                     Toast.makeText(EditProfile.this, "Profile Updated", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
@@ -626,5 +639,4 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 //            }
 //        });
 //    }
-
 }
