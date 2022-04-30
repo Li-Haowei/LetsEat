@@ -123,26 +123,24 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         /*
         Bind fields to views
          */
-
         profileFullName = new EditText(this);
         profileEmail = new EditText(this);
         profilePhone = new EditText(this);
         favoriteFood = new TextView(this);
-        //favoriteFood = new Spinner(this);
 
-        //create a list of items for the spinner.
-
-
+        // create a list of items for the major spinner
         major = new Spinner(this);
-        String[] items_major = new String[]{"Computer Science", "Political Science", "Film/TV", "Business"};
+        String[] items_major = new String[]{"Acting", "Advertising","Anthropology", "Art", "Astronomy", "Biology", "Business", "Chemistry", "Computer Engineering", "Computer Science", "Film/TV", "History", "International Relations", "Journalism", "Math", "Neuroscience", "Philosophy", "Political Science", "Religion"};
         ArrayAdapter<String> adapter_majors = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items_major);
         major.setAdapter(adapter_majors);
+        // to be able to display user specific preferences for each account
         for (int i = 0; i < items_major.length; i++) {
             if(items_major[i].equals(user_major)){
                 major.setSelection(i);
                 break;
             }
         }
+        // listener to save user-selected spinner value
         major.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -155,17 +153,19 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             }
         });
 
+        // create a list of items for the preferred time spinner
         preferTime = new Spinner(this);
         String[] items_time = new String[]{"Breakfast", "Lunch", "Dinner"};
         ArrayAdapter<String> adapter_time = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items_time);
         preferTime.setAdapter(adapter_time);
+        // to be able to display user specific preferences for each account
         for (int i = 0; i < items_time.length; i++) {
             if(items_time[i].equals(time)){
                 preferTime.setSelection(i);
                 break;
             }
         }
-        //preferTime.setSelection(sharedPref.getInt("times",0));
+        // listener to save user-selected spinner value
         preferTime.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -186,7 +186,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             editTextManager[i].setSingleLine();
             editTextManager[i].setImeOptions(EditorInfo.IME_ACTION_DONE);
         }
-        //Programmatically creating views for name, phone, email, and etc.
+        // Programmatically creating views for name, phone, email, and etc.
         ScrollView scrollView = new ScrollView(this);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         scrollView.setLayoutParams(layoutParams);
@@ -196,7 +196,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         linearLayout.setLayoutParams(linearParams);
         scrollView.addView(linearLayout);
 
-        //Set layout parameters for the input field
+        // Set layout parameters for the input field
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(20,0,20, 40);
 
@@ -347,13 +347,6 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         profileEmail.setText(email);
         profileFullName.setText(fullName);
         profilePhone.setText(phone);
-        //int positionFood = adapter_cuisines.getPosition(food);
-       // favoriteFood.setSelection(positionFood);
-        //int positionMajor = adapter_majors.getPosition(user_major);
-      //  major.setSelection(positionMajor);
-        //int positionTime = adapter_time.getPosition(time);
-      //  preferTime.setSelection(positionTime);
-
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @androidx.annotation.Nullable Intent data) {
