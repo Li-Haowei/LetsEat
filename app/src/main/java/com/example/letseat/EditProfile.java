@@ -315,7 +315,6 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
                 Log.d("creation",e.toString());
             }
         });
@@ -426,7 +425,6 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                     edited.put("favoriteFood",(Object) food);
                     edited.put("major",(Object) user_major);
                     edited.put("preferTime",(Object) time);
-                    edited.put("profileImg",imageUri.toString());
                     docRef.update(edited);
                     Toast.makeText(EditProfile.this, "Profile Updated", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
