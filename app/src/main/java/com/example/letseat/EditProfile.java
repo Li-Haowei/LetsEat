@@ -575,7 +575,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             public Map<String, String> getHeaders(){
                 HashMap<String, String> params = new HashMap<>();
 
-                params.put("Authorization", "Bearer AAAAAAAAAAAAAAAAAAAAADpcbAEAAAAAHSn7%2BNKeGBspyjD%2Fft4TEKCqrro%3Dvr9oJ1uIII8CMyT4p6qjRFvkTPKetxSZ0R4yWZdFvdyMFdoO06");
+                params.put("Authorization", BuildConfig.TWITTER_API_KEY);
 
                 return params;
             }
