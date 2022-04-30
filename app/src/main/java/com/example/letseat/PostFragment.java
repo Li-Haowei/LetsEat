@@ -1,6 +1,7 @@
 package com.example.letseat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.letseat.Yelp.YelpSearchResults;
 import com.example.letseat.models.request_profile;
@@ -57,6 +59,7 @@ public class PostFragment extends Fragment {
     private Context mContext;
     private SwipePlaceHolderView mSwipeView;
     private ArrayList<Map<String, Object>> array;
+    private ImageView img_rest;
 
     // Matching
     private boolean isMatchable;
@@ -75,7 +78,6 @@ public class PostFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        // Inflate the layout for this fragment
         rootLayout = inflater.inflate(R.layout.fragment_request, container, false);
 
         return rootLayout;
@@ -91,7 +93,7 @@ public class PostFragment extends Fragment {
         btn_accept = (Button)view.findViewById(R.id.btn_accept);
         btn_refresh = (Button)view.findViewById(R.id.btnSecret);
         btn_refresh.setVisibility(View.INVISIBLE);
-
+        img_rest = (ImageView) view.findViewById(R.id.img_rest);
         BackThread bt = new BackThread();
 
         btn_refresh.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +108,8 @@ public class PostFragment extends Fragment {
 
         mContext = getActivity();
 
-        int bottomMargin = Utils.dpToPx(100);
+        //setting the layout of the swipeview
+        int bottomMargin = Utils.dpToPx(120);
         Point windowSize = Utils.getDisplaySize(getActivity().getWindowManager());
         mSwipeView.getBuilder()
                 .setDisplayViewCount(3)
@@ -118,88 +121,26 @@ public class PostFragment extends Fragment {
                         );
 
 
-        /**
-         * TODO SENDBIRD
-         */
-
-//        ApplicationUserListQuery query = SendBird.createApplicationUserListQuery();
-//        query.setLimit(100); //Whatever you want
-////        query.setMetaDataFilter("dating", Collections.singletonList("True")); //Can be used if you set your own metadata on your created users.
-////        query.setMetaDataFilter("sex", Collections.singletonList("female"));
-//
-//        query.next((list, e) -> {
-//            if (e != null) {
-////                Log.e(SWIPE_FRAGMENT, e.getMessage());
-//                return;
-//            }
-//
-//            for (User user : list) {
-//                if (!user.getUserId().equals(SendBird.getCurrentUser().getUserId())) {
-//                    mSwipeView.addView(new RequestCard(mContext, user, mSwipeView));
-//                }
-//            }
-//
-//        });
-
-        //mSwipeView.addView(new RequestCard(mContext, "1", "2", "3","4", mSwipeView));
-//        for(request_profile profile : Utils.loadProfiles(getActivity().getApplicationContext())){
-//            mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
-//        }
-//        FirebaseAuth fAuth = FirebaseAuth.getInstance();;
-//        FirebaseFirestore fStore = FirebaseFirestore.getInstance();
-//        Log.d("TAG", "Getting Post");
-//
-//        String currUserId = fAuth.getCurrentUser().getUid();
-
-//        fStore.collection("post").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    for (QueryDocumentSnapshot document : task.getResult()) {
-//                        String img = document.getData().get("ResturantImgUrl").toString();
-//                        String restName =  document.getData().get("ResturantName").toString();
-//                        String userId =  document.getData().get("UserID").toString();
-//                        String email = document.getData().get("UserEmail").toString();
-//
-//                        // Match not working due to async.
-//                        Match match = new Match(currUserId, userId);
-//                        if (match.getIsMatchable()) {
-//                            request_profile profile = new request_profile(restName, "label", "address", userId, img, email);
-//                            mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
-//                        }
-//
-////                        request_profile profile = new request_profile(restName, "label", "address",userId, img, email);
-////                        mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
-//                        //Log.d("TAG","Array: " + array);
-//                        //Log.d("TAG", document.getId() + " => " + document.getData().getClass().toString());
-//                    }
-//                } else {
-//                    Log.d("TAG", "Error getting documents: ", task.getException());
-//                }
-//            }
-//        });
 
 
+        //If the decline button is clicked, it will have the same effect with swipe left
         btn_decline.setOnClickListener(v -> {
-//            animateFab(fabSkip);
             mSwipeView.doSwipe(false);
         });
 
+        //If the accept button is clicked, it will have the same effect with swipe right
         btn_accept.setOnClickListener(v -> {
-//            animateFab(fabLike);
-
-            //TODO SENDBIRD IMPL
+            //equal to swipe right, accept invite
             RequestCard user = (RequestCard) mSwipeView.getAllResolvers().get(0);
             request_profile profile = user.getProfile();
             createChannelWithMatch(profile.getEmail());
-            //END
-
             mSwipeView.doSwipe(true);
         });
 
     }
 
     private void createChannelWithMatch(String userId) {
+        //This method will create a chat channel between users, the provieded string parameter is the user's id in sendbird chat server
         GroupChannelParams params = new GroupChannelParams();
         params.setDistinct(true)
                 .addUserId(userId);
@@ -258,13 +199,7 @@ public class PostFragment extends Fragment {
                             String time = document.getData().get("DinningTime").toString();
                             String message = document.getData().get("Message").toString();
 
-                            // Match not working due to async.
-//                            Match match = new Match(currUserId, userId);
-//
-//                            if (match.getIsMatchable()) {
-//                                request_profile profile = new request_profile(restName, "label", "address", userId, img, email);
-//                                mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
-//                            }
+
                             // Retrieve data of the poster and match him/her with current user
                             DocumentReference documentReference2 = fStore.collection("users").document(userId);
                             documentReference2.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -289,6 +224,7 @@ public class PostFragment extends Fragment {
                                             common.add("You both like " + favoriteFood1);
                                         }
                                         if (isMatchable) {
+                                            //Load the information of the invitations to the swipeviews
                                             request_profile profile = new request_profile(restName, "label", restLocation, name2, img, email);
                                             mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
                                         }
@@ -303,10 +239,7 @@ public class PostFragment extends Fragment {
                                 }
                             });
 
-//                        request_profile profile = new request_profile(restName, "label", "address",userId, img, email);
-//                        mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
-                            //Log.d("TAG","Array: " + array);
-                            //Log.d("TAG", document.getId() + " => " + document.getData().getClass().toString());
+
                         }
                     } else {
                         Log.d("TAG", "Error getting documents: ", task.getException());

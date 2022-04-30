@@ -9,6 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.letseat.BuildConfig;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterSession;
 
@@ -46,15 +47,14 @@ public class TwitterAPI {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Response", "No REsponding ("); //debug purpose
+                Log.d("Response", "No Responding ("); //debug purpose
             }
 
         }){
             // Add authorization token to our request
             public Map<String, String> getHeaders(){
                 HashMap<String, String> params = new HashMap<>();
-
-                params.put("Authorization", "Bearer AAAAAAAAAAAAAAAAAAAAADpcbAEAAAAAHSn7%2BNKeGBspyjD%2Fft4TEKCqrro%3Dvr9oJ1uIII8CMyT4p6qjRFvkTPKetxSZ0R4yWZdFvdyMFdoO06");
+                params.put("Authorization", BuildConfig.TWITTER_API_KEY);
 
                 return params;
             }
@@ -85,7 +85,7 @@ public class TwitterAPI {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("Response", "No REsponding ("); //debug purpose
+                Log.d("Response", "No Responding ("); //debug purpose
             }
 
         }){
@@ -93,7 +93,7 @@ public class TwitterAPI {
             public Map<String, String> getHeaders(){
                 HashMap<String, String> params = new HashMap<>();
 
-                params.put("Authorization", "Bearer AAAAAAAAAAAAAAAAAAAAADpcbAEAAAAAHSn7%2BNKeGBspyjD%2Fft4TEKCqrro%3Dvr9oJ1uIII8CMyT4p6qjRFvkTPKetxSZ0R4yWZdFvdyMFdoO06");
+                params.put("Authorization", BuildConfig.TWITTER_API_KEY);
 
                 return params;
             }

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 
+import com.example.letseat.BuildConfig;
 import com.sendbird.android.OpenChannel;
 import com.sendbird.android.SendBird;
 import com.sendbird.android.SendBirdException;
@@ -14,7 +15,7 @@ import com.sendbird.uikit.adapter.SendBirdUIKitAdapter;
 import com.sendbird.uikit.interfaces.UserInfo;
 
 public class SendBirdBaseApp extends Application {
-    String App_ID = "44E15C0D-8F8C-46E1-AE5E-746D63CB7619";
+    String App_ID = BuildConfig.SENDBIRD_API_KEY;
     String User_ID ;
     String User_Nickname ;
     @Override

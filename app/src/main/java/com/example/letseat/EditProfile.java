@@ -31,8 +31,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.letseat.TwitterAPI.TwitterAPI;
 import com.example.letseat.optionsPage.FavoriteFoodCuisine;
+import com.example.letseat.tools.RealPathUtil;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.storage.UploadTask;
@@ -44,22 +44,18 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-/*
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.DefaultLogger;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.Twitter;
-import com.twitter.sdk.android.core.TwitterApiClient;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterAuthToken;
 import com.twitter.sdk.android.core.TwitterConfig;
-import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
-import com.twitter.sdk.android.core.models.User;
-import com.twitter.sdk.android.core.services.AccountService;
-*/
+
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -67,8 +63,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import retrofit2.Call;
 
 
 public class EditProfile extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
@@ -81,21 +75,22 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
     private String fullName, email, phone, food, time, user_major;
+    private Uri imageUri;
     private FirebaseUser user;
     private StorageReference storageReference;
-   // private TwitterLoginButton loginButton;
+    private TwitterLoginButton loginButton;
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        //initTwitter();
+        initTwitter();
         setContentView(R.layout.activity_edit_profile);
 
 
-       // twitterButton();
 
+        twitterButton();
 
         Intent data = getIntent();
         fullName = data.getStringExtra("fullName");
@@ -144,7 +139,6 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         major.setAdapter(adapter_majors);
         for (int i = 0; i < items_major.length; i++) {
             if(items_major[i].equals(user_major)){
-                Log.d("creation", items_major[i]);
                 major.setSelection(i);
                 break;
             }
@@ -290,7 +284,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         linear.addView(scrollView);
 
 
-        profileImageView = findViewById(R.id.profileImageView);
+        profileImageView = findViewById(R.id.img_rest);
         backBtn = findViewById(R.id.backBtn);
         spinner = findViewById(R.id.spinner);
         spinner.setBackground(getResources().getDrawable(R.drawable.round_back_white_10));
@@ -308,13 +302,25 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 
         More detail please refer to example illustration in Register.java
          */
-        StorageReference profileRef = storageReference.child("users/"+fAuth.getCurrentUser().getUid()+"profile.jpg");
+
+        StorageReference profileRef = storageReference.child("users/"+fAuth.getCurrentUser().getUid()+"/profile.jpg");
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri).into(profileImageView);
             }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("creation",e.toString());
+            }
         });
+        //if there is a saved profile image, load it into image view
+        //if(profileImg!=null) {
+            //profileImageView.setImageURI(Uri.parse(profileImg));
+        //}
+
+
 
         profileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -354,20 +360,17 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1000){
             if(resultCode == Activity.RESULT_OK){
-                Uri imageUri = data.getData();
-
-                //profileImage.setImageURI(imageUri);
-
+                imageUri = data.getData();
+                //Log.d("creation", String.valueOf(imageUri));
+                profileImageView.setImageURI(imageUri);
                 uploadImageToFirebase(imageUri);
-
-
             }
         }
         // Pass the activity result to the login button.
-        /*
+
         if(loginButton!=null) {
             loginButton.onActivityResult(requestCode, resultCode, data);
-        } */
+        }
 
     }
     private void uploadImageToFirebase(Uri imageUri) {
@@ -387,6 +390,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                Log.d("creation",e.toString());
             }
         });
 
@@ -471,7 +475,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     }
 
 //    init twitter
-    /*
+
     private void initTwitter() {
         String key = getString(R.string.twitter_consumer_key);
         String secret = getString(R.string.twitter_consumer_secret);
@@ -485,7 +489,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     }
 
     private void twitterButton () {
-        loginButton = (TwitterLoginButton) findViewById(R.id.login_button);
+        loginButton =(TwitterLoginButton) findViewById(R.id.login_button);
         loginButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
@@ -499,22 +503,19 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                 String userName = result.data.getUserName();
                 String userId = result.data.getUserId()+"";
 
-                Log.d("TEST","Token: " + token);
-                Log.d("TEST","Secret: " + tokenSecret);
-                Log.d("TEST","UserName: " + userName);
-                Log.d("TEST","UserId: "+userId);
-
+                Log.i("token",token);
+                Log.i("tokenSecret",tokenSecret);
+                Log.i("userName",userName);
+                Log.i("userId",userId);
                 storeFollowing(userId);
-
             }
-
             @Override
             public void failure(TwitterException exception) { // Do something on failure
                 exception.printStackTrace();
             }
         });
     }
-*/
+
     public void storeFollowing (String userId) {
         FirebaseAuth fAuth = FirebaseAuth.getInstance();;
         FirebaseFirestore fStore = FirebaseFirestore.getInstance();
@@ -568,7 +569,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             public Map<String, String> getHeaders(){
                 HashMap<String, String> params = new HashMap<>();
 
-                params.put("Authorization", "Bearer AAAAAAAAAAAAAAAAAAAAADpcbAEAAAAAHSn7%2BNKeGBspyjD%2Fft4TEKCqrro%3Dvr9oJ1uIII8CMyT4p6qjRFvkTPKetxSZ0R4yWZdFvdyMFdoO06");
+                params.put("Authorization", BuildConfig.TWITTER_API_KEY);
 
                 return params;
             }
@@ -630,5 +631,4 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 //            }
 //        });
 //    }
-
 }

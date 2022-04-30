@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="416dp"
-        android:layout_height="79dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,22 +27,26 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="128dp"
             android:layout_marginBottom="25dp"
-            android:text="Decline" />
+            android:layout_weight="1"
+            android:text="Decline"
+            android:textSize="8sp" />
 
         <Button
             android:id="@+id/btn_accept"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="56dp"
+            android:layout_marginEnd="39dp"
             android:layout_marginBottom="25dp"
-            android:text="accept" />
+            android:layout_weight="1"
+            android:text="accept"
+            android:textSize="8sp" />
     </LinearLayout>
 
     <com.mindorks.placeholderview.SwipePlaceHolderView
         android:id="@+id/swipeView"
-        android:layout_width="413dp"
-        android:layout_height="650dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
     private String userId;
-    private Button resendCode;
+    private Button resendCode ;
     private ImageView changeProfile, searchRestaurant, btn_chatList;
     private FirebaseUser user;
     private StorageReference storageReference;
@@ -128,6 +128,8 @@ public class MainActivity extends AppCompatActivity {
                         major = documentSnapshot.getString("major");
                         preferTime = documentSnapshot.getString("preferTime");
 
+                        // Registering to the sendbird chat server with user's information with the methods defined in the base application
+                        // If user is already registered in sendbird server, application will log in user to sendbird chat server
                         ((SendBirdBaseApp)getApplication()).setUserId(documentSnapshot.getString("email"));
                         ((SendBirdBaseApp)getApplication()).setUserNickname(documentSnapshot.getString("fName"));
 
@@ -194,12 +196,10 @@ public class MainActivity extends AppCompatActivity {
                         return;
                     }
 
-//                    createChannelWithMatch("Wanzhi");
                     //If a connection is successfully built, the app will move to the mainAcitivity where the
                     // chat interface is implemented
                     Intent intent = new Intent(MainActivity.this, ChatActivity.class);
                     startActivity(intent);
-//                    Toast.makeText(MainActivity.this, "Password reset successfully", Toast.LENGTH_SHORT).show();
 
                 });
 
@@ -207,20 +207,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void createChannelWithMatch(String userId) {
-        GroupChannelParams params = new GroupChannelParams();
-        params.setDistinct(true)
-                .addUserId(userId);
 
-        GroupChannel.createChannel(params, (groupChannel, e) -> {
-            if (e != null) {
-                Logger.e(e.getMessage());
-                return;
-            }
-            Logger.d(groupChannel.getUrl() + ": Channel Created");
-
-        });
-    }
 
 
 

@@ -32,6 +32,8 @@ public class ChatActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //Creating a channel list interface using sendbird library function
         ChannelListFragment Fragment = createChannelListFragment();
 
         if (savedInstanceState == null) {
@@ -43,7 +45,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     protected ChannelListFragment createChannelListFragment() {
-
+        //Getting users chat channels back from sendbird chat channel and arragn them in chronological order
         GroupChannelListQuery query = GroupChannel.createMyGroupChannelListQuery();
         query.setIncludeEmpty(true);
         query.setOrder(GroupChannelListQuery.Order.CHRONOLOGICAL);

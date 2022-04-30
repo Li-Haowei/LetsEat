@@ -19,7 +19,7 @@
             android:gravity="center"/>
 
         <ImageView
-            android:id="@+id/profileImageView"
+            android:id="@+id/img_rest"
             android:layout_width="131dp"
             android:layout_height="143dp"
             android:layout_centerInParent="true"
