@@ -152,6 +152,8 @@ public class MainActivity extends AppCompatActivity {
         UserInfoHandler handler = new UserInfoHandler();
         Log.d("TEST", "FName: " + handler.getName());
 
+        //changeProfile is a button that goes to event EditProfile.java
+        // where users make changes to their personal information
         changeProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -166,7 +168,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
+        //searchRestaurant is a button that goes to event RestaurantSearch
+        // where users can search restaurants to make a post to others
         searchRestaurant.setOnClickListener(view ->{
             Toast.makeText(this,"Restaurants loading",Toast.LENGTH_SHORT).show();
             Intent i = new Intent(view.getContext(), RestaurantSearch.class);
@@ -177,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
             i.putExtra("email", email);
             startActivity(i);
         });
+        //This serves the same purpose as searchRestaurant
         titleMain.setOnClickListener(view ->{
             Toast.makeText(this,"Restaurants loading",Toast.LENGTH_SHORT).show();
             Intent i = new Intent(view.getContext(), RestaurantSearch.class);
@@ -187,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
             i.putExtra("email", email);
             startActivity(i);
         });
-
+        //This goes to ChatActivity
         btn_chatList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

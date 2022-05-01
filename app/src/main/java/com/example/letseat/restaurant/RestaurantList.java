@@ -2,6 +2,10 @@ package com.example.letseat.restaurant;
 
 import com.example.letseat.Yelp.YelpCategory;
 
+/*
+This is the class that holds information for each restaurant search result,
+their function names are as intuitive as possible hence no further explanations needed
+ */
 public class RestaurantList {
     private String name, imgUrl, price, rating, location;
     private YelpCategory[] categories;
