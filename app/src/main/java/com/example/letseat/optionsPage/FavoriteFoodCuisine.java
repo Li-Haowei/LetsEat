@@ -19,7 +19,7 @@ import com.example.letseat.R;
 
 public class FavoriteFoodCuisine extends AppCompatActivity {
     private final float textSize = 20.0f;
-    private String fullName, email, food, phone, user_major, time;
+    private String fullName, email, food, phone, user_major, time, hobby;
     private ImageView backBtn;
     private LinearLayout linear;
     @Override
@@ -36,6 +36,7 @@ public class FavoriteFoodCuisine extends AppCompatActivity {
         food = data.getStringExtra("favoriteFood");
         user_major = data.getStringExtra("major");
         time = data.getStringExtra("preferTime");
+        hobby = data.getStringExtra("hobby");
 
         // Programmatically creating views for name, phone, email, and etc.
         ScrollView scrollView = new ScrollView(this);
@@ -160,6 +161,7 @@ public class FavoriteFoodCuisine extends AppCompatActivity {
             i.putExtra("favoriteFood", foodType);
             i.putExtra("major", user_major);
             i.putExtra("preferTime", time);
+            i.putExtra("hobby", hobby);
             startActivity(i);
             finish();
         });

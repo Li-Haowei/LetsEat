@@ -370,7 +370,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             foodOptionsIntent.putExtra("favoriteFood", food);
             foodOptionsIntent.putExtra("major", user_major);
             foodOptionsIntent.putExtra("preferTime", time);
-            foodOptionsIntent.putExtra("user_hobbies", user_hobbies);
+            foodOptionsIntent.putExtra("hobby", user_hobbies);
             startActivity(foodOptionsIntent);
             finish();
         });
