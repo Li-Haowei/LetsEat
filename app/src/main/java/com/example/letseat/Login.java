@@ -92,14 +92,14 @@ public class Login extends AppCompatActivity {
 
             }
         });
-
+        //This goes to Register event
         mCreateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), Register.class));
             }
         });
-
+        //This allows user to reset password
         forgotTextLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

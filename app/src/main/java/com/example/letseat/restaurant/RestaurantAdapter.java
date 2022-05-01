@@ -25,6 +25,9 @@ import com.example.letseat.userMatching.Post;
 
 import java.util.List;
 
+/*
+This is the class that loads views, restaurant search results dynamically
+ */
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.MyViewHolder> {
     private List<RestaurantList> restaurantLists;
     private final Context context;
@@ -45,7 +48,9 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
     public RestaurantAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new MyViewHolder((LayoutInflater.from(parent.getContext())).inflate(R.layout.restaurant_adapter_layout, null));
     }
-
+    /*
+    This method creates view for each individual restaurants dynamically
+     */
     @Override
     public void onBindViewHolder(@NonNull RestaurantAdapter.MyViewHolder holder, int position) {
         RestaurantList list2 = restaurantLists.get(position);
@@ -88,7 +93,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
     public int getItemCount() {
         return restaurantLists.size();
     }
-
+    //update is used every time there is a change
     public void updateRestaurantList(List<RestaurantList> restaurantLists){
         this.restaurantLists= restaurantLists;
         notifyDataSetChanged();

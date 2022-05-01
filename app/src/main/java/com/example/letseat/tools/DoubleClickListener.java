@@ -1,7 +1,9 @@
 package com.example.letseat.tools;
 
 import android.view.View;
-
+/*
+This is customized double tab listener and it is used in RestaurantSearch
+ */
 public abstract class DoubleClickListener implements View.OnClickListener {
     private static final long DOUBLE_CLICK_TIME_DELTA = 300;//milliseconds
 

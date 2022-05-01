@@ -8,7 +8,9 @@ import android.widget.ImageView;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
+/*
+This class is used in Restaurant Adapter class to load online url into local imageView
+ */
 public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
     //call this like new ImageLoadTask(url, imageView).execute();
     /*

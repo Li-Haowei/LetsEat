@@ -37,7 +37,7 @@ public class FavoriteFoodCuisine extends AppCompatActivity {
         user_major = data.getStringExtra("major");
         time = data.getStringExtra("preferTime");
 
-        //Programmatically creating views for name, phone, email, and etc.
+        // Programmatically creating views for name, phone, email, and etc.
         ScrollView scrollView = new ScrollView(this);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         scrollView.setLayoutParams(layoutParams);
@@ -48,14 +48,14 @@ public class FavoriteFoodCuisine extends AppCompatActivity {
         scrollView.addView(linearLayout);
 
 
-        //Set layout parameters for the input field
+        // Set layout parameters for the input field
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(20,0,20, 40);
 
         LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params1.setMargins(20,0,20, 0);
 
-        //American section
+        // American section
         TextView tv0 = new TextView(this);
         tv0.setText(R.string.American);
         tv0.setTypeface(null, Typeface.BOLD);
@@ -66,7 +66,7 @@ public class FavoriteFoodCuisine extends AppCompatActivity {
         imgv0.setBackgroundResource(R.drawable.americanfood);
         linearLayout.addView(imgv0);
 
-        //Korean section
+        // Korean section
         TextView tv1 = new TextView(this);
         tv1.setText(R.string.Korean);
         tv1.setTypeface(null, Typeface.BOLD);
@@ -77,7 +77,7 @@ public class FavoriteFoodCuisine extends AppCompatActivity {
         imgv1.setBackgroundResource(R.drawable.koreanfood);
         linearLayout.addView(imgv1);
 
-        //Chinese section
+        // Chinese section
         TextView tv2 = new TextView(this);
         tv2.setText(R.string.Chinese);
         tv2.setTypeface(null, Typeface.BOLD);
@@ -89,7 +89,7 @@ public class FavoriteFoodCuisine extends AppCompatActivity {
         linearLayout.addView(imgv2);
 
 
-        //Thai section
+        // Thai section
         TextView tv3 = new TextView(this);
         tv3.setText(R.string.Thai);
         tv3.setTypeface(null, Typeface.BOLD);
@@ -101,7 +101,7 @@ public class FavoriteFoodCuisine extends AppCompatActivity {
         linearLayout.addView(imgv3);
 
 
-        //Japanese section
+        // Japanese section
         TextView tv4 = new TextView(this);
         tv4.setText(R.string.Japanese);
         tv4.setTypeface(null, Typeface.BOLD);
@@ -113,7 +113,7 @@ public class FavoriteFoodCuisine extends AppCompatActivity {
         linearLayout.addView(imgv4);
 
 
-        //Italian section
+        // Italian section
         TextView tv5 = new TextView(this);
         tv5.setText(R.string.Italian);
         tv5.setTypeface(null, Typeface.BOLD);
@@ -124,7 +124,7 @@ public class FavoriteFoodCuisine extends AppCompatActivity {
         imgv5.setBackgroundResource(R.drawable.italianfood);
         linearLayout.addView(imgv5);
 
-        //French section
+        // French section
         TextView tv6 = new TextView(this);
         tv6.setText(R.string.French);
         tv6.setTypeface(null, Typeface.BOLD);
@@ -144,7 +144,7 @@ public class FavoriteFoodCuisine extends AppCompatActivity {
             setImageViewOnclickListener(allTextViews[i].getText().toString(), allImageViews[i]);
         }
 
-        //add scrollable view into rootContainer
+        // add scrollable view into rootContainer
         linear.addView(scrollView);
 
         backBtn.setOnClickListener(view -> {
