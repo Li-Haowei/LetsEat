@@ -96,7 +96,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         phone = data.getStringExtra("phone");
         food = data.getStringExtra("favoriteFood");
         user_major = data.getStringExtra("major");
-        user_hobbies = data.getStringExtra("hobbies");
+        user_hobbies = data.getStringExtra("hobby");
         time = data.getStringExtra("preferTime");
 
         /*
@@ -449,7 +449,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                     edited.put("favoriteFood",(Object) food);
                     edited.put("major",(Object) user_major);
                     edited.put("preferTime",(Object) time);
-                    edited.put("user_hobbies",(Object) user_hobbies);
+                    edited.put("hobby",(Object) user_hobbies);
                     docRef.update(edited);
                     Toast.makeText(EditProfile.this, "Profile Updated", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));

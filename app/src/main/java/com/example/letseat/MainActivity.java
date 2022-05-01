@@ -45,7 +45,7 @@ and tasks bar, the action bar we have now is a customizable relative layout
 public class MainActivity extends AppCompatActivity {
 
     private static final int GALLERY_INTENT_CODE = 1023 ;
-    private String name, number, email, favoriteFood, dietaryRestriction, major, preferTime;
+    private String name, number, email, favoriteFood, dietaryRestriction, major, preferTime, hobby;
     private LinearLayout pleaseVerify;
     private TextView titleMain;
     private FirebaseAuth fAuth;
@@ -127,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
                         dietaryRestriction = documentSnapshot.getString("dietaryRestriction");
                         major = documentSnapshot.getString("major");
                         preferTime = documentSnapshot.getString("preferTime");
+                        hobby = documentSnapshot.getString("hobby");
 
                         // Registering to the sendbird chat server with user's information with the methods defined in the base application
                         // If user is already registered in sendbird server, application will log in user to sendbird chat server
@@ -165,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra("dietaryRestriction", dietaryRestriction);
                 i.putExtra("major", major);
                 i.putExtra("preferTime", preferTime);
+                i.putExtra("hobby", hobby);
                 startActivity(i);
             }
         });
