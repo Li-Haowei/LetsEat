@@ -36,8 +36,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserPref extends AppCompatActivity {
-    private String fullName, email, phone, food, user_major, time;
-    private Spinner preferTime, major;
+    private String fullName, email, phone, food, user_major, time, hobby;
+    private Spinner preferTime, major, hobbies;
     private Button saveBtn;
     private TextView favoriteFood;
     private ImageView profileImageView;
@@ -59,6 +59,7 @@ public class UserPref extends AppCompatActivity {
         food = data.getStringExtra("favoriteFood");
         user_major = data.getStringExtra("major");
         time = data.getStringExtra("preferTime");
+        hobby = data.getStringExtra("hobby");
         /*
         FirebaseAuth is what we used to sign in users to our Firebase app
         https://firebase.google.com/docs/reference/android/com/google/firebase/auth/FirebaseAuth
@@ -135,6 +136,32 @@ public class UserPref extends AppCompatActivity {
             }
         });
 
+        // create a list of items for the hobby spinner
+        hobbies = new Spinner(this);
+        String[] items_hobby = new String[]{"Sport", "Car", "Gaming", "Photography", "Anime", "Movies", "Travel", "Programming"};
+        ArrayAdapter<String> adapter_hobby = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items_hobby);
+        hobbies.setAdapter(adapter_hobby);
+        // to be able to display user specific preferences for each account
+        for (int i = 0; i < items_hobby.length; i++) {
+            if(items_hobby[i].equals(hobby)){
+                hobbies.setSelection(i);
+                break;
+            }
+        }
+        // listener to save user-selected spinner value
+        hobbies.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                hobby= items_hobby[i];
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
 
         saveBtn = new Button(this);
         saveBtn.setText("SAVE");
@@ -198,6 +225,17 @@ public class UserPref extends AppCompatActivity {
         preferTime.setBackground(getResources().getDrawable(R.drawable.round_back_white_10));
         preferTime.setLayoutParams(params);
 
+        //Hobby section
+        TextView tv6 = new TextView(this);
+        tv6.setText(R.string.user_hobby);
+        tv6.setTypeface(null, Typeface.BOLD);
+        tv6.setTextColor(getResources().getColor(R.color.white));
+        tv6.setLayoutParams(params1);
+        linearLayout.addView(tv6);
+        linearLayout.addView(hobbies);
+        hobbies.setBackground(getResources().getDrawable(R.drawable.round_back_white_10));
+        hobbies.setLayoutParams(params);
+
         linearLayout.addView(saveBtn);
 
         //add scrollable view into rootContainer
@@ -224,6 +262,7 @@ public class UserPref extends AppCompatActivity {
                     edited.put("favoriteFood",(Object) food);
                     edited.put("major",(Object) user_major);
                     edited.put("preferTime",(Object) time);
+                    edited.put("hobby",(Object) hobby);
                     docRef.update(edited);
                     Toast.makeText(UserPref.this, "Profile Updated", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
