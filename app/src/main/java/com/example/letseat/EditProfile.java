@@ -68,11 +68,11 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     private ImageView profileImageView, backBtn;
     private final int SAVE=1,RESET_PASSWORD=2,LOGOUT=3;
     private final float textSize = 30.0f;
-    private Spinner spinner, preferTime, major;
+    private Spinner spinner, preferTime, major, hobbies;
     private TextView favoriteFood;
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
-    private String fullName, email, phone, food, time, user_major;
+    private String fullName, email, phone, food, time, user_major, user_hobbies;
     private Uri imageUri;
     private FirebaseUser user;
     private StorageReference storageReference;
@@ -96,6 +96,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         phone = data.getStringExtra("phone");
         food = data.getStringExtra("favoriteFood");
         user_major = data.getStringExtra("major");
+        user_hobbies = data.getStringExtra("hobbies");
         time = data.getStringExtra("preferTime");
 
         /*
@@ -176,7 +177,30 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             }
         });
 
+        // create a list of items for the major spinner
+        hobbies = new Spinner(this);
+        String[] items_hobbies = new String[]{"Sport", "Car", "Gaming", "Photography", "Anime", "Movies", "Travel", "Programming"};
+        ArrayAdapter<String> adapter_hobbies = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items_hobbies);
+        hobbies.setAdapter(adapter_hobbies);
+        // to be able to display user specific preferences for each account
+        for (int i = 0; i < items_hobbies.length; i++) {
+            if(items_hobbies[i].equals(user_hobbies)){
+                hobbies.setSelection(i);
+                break;
+            }
+        }
+        // listener to save user-selected spinner value
+        hobbies.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                user_hobbies = items_hobbies[i];
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         //This makes every text input field can escape with enter key
         EditText[] editTextManager = {profileFullName, profileEmail, profilePhone};
@@ -276,6 +300,17 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         preferTime.setBackground(getResources().getDrawable(R.drawable.round_back_white_10));
         preferTime.setLayoutParams(params);
 
+        //Hobby section
+        TextView tv6 = new TextView(this);
+        tv6.setText(R.string.user_hobby);
+        tv6.setTypeface(null, Typeface.BOLD);
+        tv6.setTextColor(getResources().getColor(R.color.white));
+        tv6.setLayoutParams(params1);
+        linearLayout.addView(tv6);
+        linearLayout.addView(hobbies);
+        hobbies.setBackground(getResources().getDrawable(R.drawable.round_back_white_10));
+        hobbies.setLayoutParams(params);
+
 
         //add scrollable view into rootContainer
         LinearLayout linear = findViewById(R.id.rootContainer);
@@ -335,6 +370,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
             foodOptionsIntent.putExtra("favoriteFood", food);
             foodOptionsIntent.putExtra("major", user_major);
             foodOptionsIntent.putExtra("preferTime", time);
+            foodOptionsIntent.putExtra("user_hobbies", user_hobbies);
             startActivity(foodOptionsIntent);
             finish();
         });
@@ -413,6 +449,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                     edited.put("favoriteFood",(Object) food);
                     edited.put("major",(Object) user_major);
                     edited.put("preferTime",(Object) time);
+                    edited.put("user_hobbies",(Object) user_hobbies);
                     docRef.update(edited);
                     Toast.makeText(EditProfile.this, "Profile Updated", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));

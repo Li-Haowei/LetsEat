@@ -22,6 +22,7 @@
     <string name="user_food">Favorite Food Cuisine</string>
     <string name="user_major">Major</string>
     <string name="user_pref_time">Preferred Time to Eat</string>
+    <string name="user_hobby">Hobby</string>
     <string name="American">American</string>
     <string name="Korean">Korean</string>
     <string name="Thai">Thai</string>
