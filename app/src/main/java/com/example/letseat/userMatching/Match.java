@@ -27,18 +27,56 @@ public class Match {
     public Match(String user1, String user2){
         u1 = new UserInfoHandler(user1);
         u2 = new UserInfoHandler(user2);
-        isMatchable = (!user1.equals(user2));
+        checkIsMatchable();
         calcMatch();
+    }
+
+    public void checkIsMatchable(){
+        if (u1.getID().equals(u2.getID())){
+            isMatchable = false;
+        }
+        else{
+            isMatchable = true;
+        }
     }
 
     public void calcMatch(){
         if (u1.getMajor().equals(u2.getMajor())){
             matchRate += 0.3;
-            Log.d("JERRY", "You guys are both " + u1.getMajor());
-            //common.add("You guys are both " + major1 + " Major");
+            common.add("You guys are both " + u1.getMajor() + " Major");
         }
-        if (u1.getFavoriteFood().equals(u1.getFavoriteFood())){
-            matchRate += 0.4;
+        else{
+            common.add("Majors in " + u2.getMajor());
+        }
+        if (u1.getFavoriteFood().equals(u2.getFavoriteFood())){
+            matchRate += 4;
+            common.add("You both like " + u1.getFavoriteFood() + " food");
+        }
+        else{
+            common.add("Likes " + u2.getFavoriteFood() + " food");
+        }
+        if (u1.getHobby() != null && u1.getHobby().equals(u2.getHobby())){
+            matchRate += 4;
+            common.add("You both like " + u1.getHobby());
+        }
+        else{
+            common.add("Likes " + u2.getHobby());
+        }
+        boolean hasCommon = false;
+        String line = "";
+        if (u1.getFollowing() != null){
+            for (int i = 0; i < u1.getFollowing().size(); i++){
+                if (u2.getFollowing() != null && u2.getFollowing().contains(u1.getFollowing().get(i))) {
+                    matchRate += 2;
+                    if (!hasCommon){
+                        line =  "You guys both followed " + u1.getFollowing();
+                        hasCommon = true;
+                    }
+                    else{
+                        line += ", " + u2.getFollowing();
+                    }
+                }
+            }
         }
     }
 

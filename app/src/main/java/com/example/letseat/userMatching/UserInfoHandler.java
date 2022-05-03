@@ -37,6 +37,8 @@ import com.sendbird.android.GroupChannelParams;
 import com.sendbird.android.log.Logger;
 import com.sendbird.uikit.SendBirdUIKit;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,9 +51,10 @@ public class UserInfoHandler {
     private String userId;
     private FirebaseAuth fAuth;
     private FirebaseFirestore fStore;
-    private String name, number, email, favoriteFood, dietaryRestriction, major, preferTime;
+    private String name, number, email, Hobby, favoriteFood, dietaryRestriction, major, preferTime;
     private DocumentReference documentReference;
     private Map<String, String> map;
+    private ArrayList<String> following;
 
 
     // default construct method, construct a handler for current login user
@@ -86,6 +89,7 @@ public class UserInfoHandler {
                     String number1 = document.getString("phone");
                     String name1 = document.getString("fName");
                     String email1 = document.getString("email");
+                    String hobby = document.getString("hobby");
                     String favoriteFood1 = document.getString("favoriteFood");
                     String dietaryRestriction1 = document.getString("dietaryRestriction");
                     String major1 = document.getString("major");
@@ -134,6 +138,8 @@ public class UserInfoHandler {
         return this.number;
     }
 
+    public String getID() { return this.userId; }
+
     // get user's email
     public String getEmail() {
         return this.email;
@@ -154,10 +160,16 @@ public class UserInfoHandler {
         return this.major;
     }
 
+    // get user's hobby
+    public String getHobby() { return Hobby; }
+
     // get user's prefer time
     public String getPreferTime() {
         return this.preferTime;
     }
+
+    // get user's following list
+    public ArrayList<String> getFollowing(){ return this.following; }
 
     public void setName (String name) {
         this.name = name;
