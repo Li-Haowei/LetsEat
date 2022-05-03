@@ -64,12 +64,12 @@ public class test extends AppCompatActivity {
         btn_accept2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createChannelWithMatch(InvitedEmail);
 
                 SendBirdUIKit.connect((sb_user, e) -> {
                     if (e != null) {
                         return;
                     }
+                    createChannelWithMatch(InvitedEmail);
 
                     //If a connection is successfully built, the app will move to the mainAcitivity where the
                     // chat interface is implemented

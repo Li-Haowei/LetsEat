@@ -57,7 +57,6 @@ public class RequestCard  {
     private SwipePlaceHolderView mSwipeView;
     private request_profile mProfile;
 
-    //TODO SENDBIRD
     public RequestCard(Context context, request_profile profile , SwipePlaceHolderView swipeView) {
         mContext = context;
         mProfile = profile;

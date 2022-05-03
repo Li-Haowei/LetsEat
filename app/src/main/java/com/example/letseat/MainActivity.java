@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
         userId = fAuth.getCurrentUser().getUid();
         user = fAuth.getCurrentUser();
 
+        // Placing the post fragment in the main activity
         getSupportFragmentManager().beginTransaction().replace(R.id.request_fragment_in_main, new PostFragment(), "RequestFragment").commit();
 
         if (!user.isEmailVerified()) {

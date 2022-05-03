@@ -4,28 +4,15 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class request_profile {
-    @SerializedName("restName")
-    @Expose
+
     private String restName;
-
-    @SerializedName("restLabels")
-    @Expose
     private String restLabels;
-
-    @SerializedName("restAdd")
-    @Expose
     private String restAdd;
-
-    @SerializedName("invitedBy")
-    @Expose
     private String invitedBy;
-
-    @SerializedName("url")
-    @Expose
     private String imageUrl;
-
     private String email;
     private String fileId;
+
     public request_profile (String restName, String restLabels, String restAdd, String invitedBy, String imageUrl, String email, String fileId) {
         this.restName = restName;
         this.restAdd = restAdd;
