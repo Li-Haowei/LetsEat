@@ -231,21 +231,21 @@ public class PostFragment extends Fragment {
                                             common.add("You both are " + major1 + " Major");
                                         }
                                         else{
-                                            common.add("Major in " + major1);
+                                            common.add("Majors in " + major1);
                                         }
                                         if (favoriteFood1.equals(favoriteFood2)){
                                             matchRate += 4;
                                             common.add("You both like " + favoriteFood1 + " food");
                                         }
                                         else{
-                                            common.add("Like " + favoriteFood1 + " food");
+                                            common.add("Likes " + favoriteFood1 + " food");
                                         }
                                         if (hobby1 != null && hobby1.equals(hobby2)){
                                             matchRate += 4;
                                             common.add("You both like " + hobby1);
                                         }
                                         else{
-                                            common.add("Like " + hobby1);
+                                            common.add("Likes " + hobby1);
                                         }
                                         boolean hasCommon = false;
                                         String line = "";

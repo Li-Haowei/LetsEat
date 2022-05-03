@@ -10,7 +10,7 @@
         android:id="@+id/imRest"
         android:layout_width="match_parent"
         android:layout_height="311dp"
-        android:layout_marginTop="-20sp"
+        android:layout_marginTop="-40sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -184,7 +184,7 @@
                         android:id="@+id/btn_accept2"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:layout_marginLeft="70sp"
+                        android:layout_marginLeft="90sp"
                         android:background="@drawable/check" />
 
                 </LinearLayout>

@@ -71,9 +71,7 @@ public class PostPage extends AppCompatActivity {
         // Meals
         times.add("Breakfast");
         times.add("Lunch");
-        times.add("Tea");
         times.add("Dinner");
-        times.add("Late Snack");
         ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, times);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spTime.setAdapter(adapter);
