@@ -249,18 +249,21 @@ public class PostFragment extends Fragment {
                                         }
                                         boolean hasCommon = false;
                                         String line = "";
-                                        for (int i = 0; i < following1.size(); i++){
-                                            if (following2 != null && following2.contains(following1.get(i))) {
-                                                matchRate += 2;
-                                                if (!hasCommon){
-                                                    line =  "You guys both followed " + following1;
-                                                    hasCommon = true;
-                                                }
-                                                else{
-                                                    line += ", " + following2;
+                                        if (following1 != null){
+                                            for (int i = 0; i < following1.size(); i++){
+                                                if (following2 != null && following2.contains(following1.get(i))) {
+                                                    matchRate += 2;
+                                                    if (!hasCommon){
+                                                        line =  "You guys both followed " + following1;
+                                                        hasCommon = true;
+                                                    }
+                                                    else{
+                                                        line += ", " + following2;
+                                                    }
                                                 }
                                             }
                                         }
+
                                         if (hasCommon){
                                             line += " in your account";
                                             common.add(line);
