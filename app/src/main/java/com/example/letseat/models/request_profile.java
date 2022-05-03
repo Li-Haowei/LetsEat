@@ -25,14 +25,15 @@ public class request_profile {
     private String imageUrl;
 
     private String email;
-
-    public request_profile (String restName, String restLabels, String restAdd, String invitedBy, String imageUrl, String email) {
+    private String fileId;
+    public request_profile (String restName, String restLabels, String restAdd, String invitedBy, String imageUrl, String email, String fileId) {
         this.restName = restName;
         this.restAdd = restAdd;
         this.restLabels = restLabels;
         this.invitedBy = invitedBy;
         this.imageUrl = imageUrl;
         this.email = email;
+        this.fileId = fileId;
     }
 
     public String getRestName() {
@@ -83,6 +84,12 @@ public class request_profile {
         this.invitedBy = invitedBy;
     }
 
+    public String getFileId () {
+        return fileId;
+    }
+    public void setFileId (String id) {
+        this.fileId = fileId;
+    }
 
 }
 

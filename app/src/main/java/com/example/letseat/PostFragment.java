@@ -134,6 +134,10 @@ public class PostFragment extends Fragment {
             RequestCard user = (RequestCard) mSwipeView.getAllResolvers().get(0);
             request_profile profile = user.getProfile();
             createChannelWithMatch(profile.getEmail());
+            String fileId = profile.getFileId();
+            Log.d("TEST1", "FileId: " + fileId);
+            FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+            fStore.collection("post").document(fileId).delete();
             mSwipeView.doSwipe(true);
         });
 
@@ -198,7 +202,7 @@ public class PostFragment extends Fragment {
                             String email = document.getData().get("UserEmail").toString();
                             String time = document.getData().get("DinningTime").toString();
                             String message = document.getData().get("Message").toString();
-
+                            String fileId = document.getId();
 
                             // Retrieve data of the poster and match him/her with current user
                             DocumentReference documentReference2 = fStore.collection("users").document(userId);
@@ -225,7 +229,7 @@ public class PostFragment extends Fragment {
                                         }
                                         if (isMatchable) {
                                             //Load the information of the invitations to the swipeviews
-                                            request_profile profile = new request_profile(restName, "label", restLocation, name2, img, email);
+                                            request_profile profile = new request_profile(restName, "label", restLocation, name2, img, email, fileId);
                                             mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
                                         }
                                         if (document.exists()) {
