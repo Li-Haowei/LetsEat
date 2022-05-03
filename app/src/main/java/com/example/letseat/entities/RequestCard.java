@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.letseat.ChatActivity;
 import com.example.letseat.test;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.Resolve;
@@ -83,6 +84,7 @@ public class RequestCard  {
                 intent.putExtra("restAdd",mProfile.getRestAdd());
                 intent.putExtra("InvitedBy",mProfile.getInvitedBy());
                 intent.putExtra("InvitedEmail", mProfile.getEmail());
+                intent.putExtra("FileId", mProfile.getFileId());
                 mContext.startActivity(intent);
 
             }
@@ -127,7 +129,10 @@ public class RequestCard  {
             mContext.startActivity(intent);
 
         });
-
+        String fileId = mProfile.getFileId();
+        Log.d("TEST1", "FileId: " + fileId);
+        FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+        fStore.collection("post").document(fileId).delete();
     }
 
     @SwipeInState

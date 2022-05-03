@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.sendbird.android.GroupChannel;
 import com.sendbird.android.GroupChannelParams;
 import com.sendbird.android.log.Logger;
@@ -45,6 +47,7 @@ public class test extends AppCompatActivity {
         String restAdd = data.getStringExtra("restAdd");
         String InvitedBy = data.getStringExtra("InvitedBy");
         String InvitedEmail = data.getStringExtra("InvitedEmail");
+        String FileId = data.getStringExtra("FileId");
         info1.setText(restName);
         info2.setText(restLabels);
         info3.setText(restAdd);
@@ -74,8 +77,11 @@ public class test extends AppCompatActivity {
                     startActivity(intent);
 
                 });
-
+                Log.d("TEST1", "FileId: " + FileId);
+                FirebaseFirestore fStore = FirebaseFirestore.getInstance();
+                fStore.collection("post").document(FileId).delete();
             }
+
         });
     }
 
