@@ -45,6 +45,7 @@ import com.sendbird.android.User;
 import com.sendbird.android.log.Logger;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 ///**
@@ -206,8 +207,19 @@ public class PostFragment extends Fragment {
                             String email = document.getData().get("UserEmail").toString();
                             String time = document.getData().get("DinningTime").toString();
                             String message = document.getData().get("Message").toString();
-                            String fileId = document.getId();
+                            String labels;
+                            String labels2;
+                            if(document.contains("RestaurantLabel")){
+                                 labels = document.getData().get("RestaurantLabel").toString();
+                                 labels2 = labels.substring(1, labels.length()-1);
+                            }else{
+                                 labels ="";
+                                 labels2="";
+                            }
 
+                            String fileId = document.getId();
+                            Log.d("TAG", "DocumentSnapshot data: " + document.getData());
+                            Log.d("TAG", "DocumentSnapshot data: " + labels);
                             // Retrieve data of the poster and match him/her with current user
                             DocumentReference documentReference2 = fStore.collection("users").document(userId);
                             documentReference2.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -263,7 +275,6 @@ public class PostFragment extends Fragment {
                                                 }
                                             }
                                         }
-
                                         if (hasCommon){
                                             line += " in your account";
                                             common.add(line);
@@ -274,7 +285,7 @@ public class PostFragment extends Fragment {
 
                                         if (isMatchable) {
                                             //Load the information of the invitations to the swipeviews
-                                            request_profile profile = new request_profile(restName, "label", restLocation, name2, img, email, time, message, matchRate, common, fileId);
+                                            request_profile profile = new request_profile(restName, labels2, restLocation, name2, img, email, time, message, matchRate, common, fileId);
                                             mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
                                         }
                                         if (document.exists()) {
