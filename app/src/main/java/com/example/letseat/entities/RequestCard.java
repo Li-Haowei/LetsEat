@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.letseat.ChatActivity;
 import com.example.letseat.test;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Layout;
@@ -25,6 +26,7 @@ import com.sendbird.android.User;
 import com.example.letseat.R;
 import com.example.letseat.models.request_profile;
 import com.sendbird.android.log.Logger;
+import com.sendbird.uikit.SendBirdUIKit;
 
 
 @Layout(R.layout.adapter_request_card)
@@ -80,7 +82,7 @@ public class RequestCard  {
                 intent.putExtra("restLabels",mProfile.getRestLabels());
                 intent.putExtra("restAdd",mProfile.getRestAdd());
                 intent.putExtra("InvitedBy",mProfile.getInvitedBy());
-
+                intent.putExtra("InvitedEmail", mProfile.getEmail());
                 mContext.startActivity(intent);
 
             }
@@ -113,6 +115,19 @@ public class RequestCard  {
     private void onSwipeIn(){
         createChannelWithMatch(mProfile.getEmail());
         Log.d("EVENT", "onSwipedIn");
+
+        SendBirdUIKit.connect((sb_user, e) -> {
+            if (e != null) {
+                return;
+            }
+
+            //If a connection is successfully built, the app will move to the mainAcitivity where the
+            // chat interface is implemented
+            Intent intent = new Intent(mContext, ChatActivity.class);
+            mContext.startActivity(intent);
+
+        });
+
     }
 
     @SwipeInState
