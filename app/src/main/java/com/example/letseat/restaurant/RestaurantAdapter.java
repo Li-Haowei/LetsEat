@@ -23,6 +23,7 @@ import com.example.letseat.Yelp.YelpCategory;
 import com.example.letseat.tools.ImageLoadTask;
 import com.example.letseat.userMatching.Post;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -74,12 +75,13 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.My
             i.putExtra("restaurantImg", list2.getImgUrl());
             i.putExtra("restaurantName",list2.getName());
             i.putExtra("restaurantLocation",list2.getLocation());
-            /*
             YelpCategory[] categories = list2.getCategories();
+            ArrayList<String> labels = new ArrayList<>();
             for (int j = 0; j < categories.length; j++) {
-                i.putExtra("restaurantCategories", categories[j].getTitle());
+                labels.add(categories[j].getTitle());
             }
-             */
+            i.putStringArrayListExtra("restaurantLabel",labels);
+
 
             // Temp Solution: pass user email to post
             // Added by Zack

@@ -6,10 +6,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,9 +25,9 @@ public class PostPage extends AppCompatActivity {
     private TextView tvRest, tvPosting;
     private ImageView ivRest;
     private Spinner spTime;
-    private Button btnConfirm, btnCancel;
+    private ImageButton btnConfirm, btnCancel;
     private EditText etMessage;
-    private RelativeLayout lp, lpSuccess;
+    private RelativeLayout lp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +43,6 @@ public class PostPage extends AppCompatActivity {
         etMessage = findViewById(R.id.etMessage);
         lp = findViewById(R.id.lp);
         lp.setVisibility(View.INVISIBLE);
-        lpSuccess = findViewById(R.id.lpSuccess);
-        lpSuccess.setVisibility(View.INVISIBLE);
 
         String restImg = getIntent().getStringExtra("restaurantImg");
         String restName = getIntent().getStringExtra("restaurantName");
@@ -50,6 +50,7 @@ public class PostPage extends AppCompatActivity {
         // Temp Solution: pass user email to post
         // Added by Zack
         String userEmail = getIntent().getStringExtra("userEmail");
+        ArrayList<String> restLabel = getIntent().getStringArrayListExtra(("restaurantLabel"));
 
         tvRest.setText(restName);
 
@@ -78,7 +79,6 @@ public class PostPage extends AppCompatActivity {
         spTime.setAdapter(adapter);
 
         new ImageLoadTask(restImg, ivRest).execute();
-        ivRest.setMaxHeight(400);
 
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,15 +96,8 @@ public class PostPage extends AppCompatActivity {
                 findViewById(R.id.tvTime).animate().alpha(0.0f);
                 lp.setVisibility(View.VISIBLE);
 
-                Post.makePost(restImg, restName, restLocation, userEmail, spTime.getSelectedItem().toString(), etMessage.getText().toString());
+                Post.makePost(restImg, restName, restLocation, userEmail, spTime.getSelectedItem().toString(), etMessage.getText().toString(), restLabel);
 
-                Handler h =new Handler();
-                h.postDelayed(new Runnable() {
-                    public void run() {
-                        lp.animate().alpha(0.0f);
-                        lpSuccess.setVisibility(View.VISIBLE);
-                    }
-                }, 2000);
 
                 Handler h2 =new Handler();
                 h2.postDelayed(new Runnable() {

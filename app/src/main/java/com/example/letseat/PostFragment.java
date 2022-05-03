@@ -62,11 +62,12 @@ public class PostFragment extends Fragment {
     private ImageView img_rest;
 
     // Matching
-    private boolean isMatchable;
-    private double matchRate;
-    private ArrayList<String> common = new ArrayList<String>();
+//    private boolean isMatchable;
+//    private int matchRate = 0;
+//    private ArrayList<String> common = new ArrayList<String>();
     // Personal data of current user
-    private String name1, number1, email1, favoriteFood1, major1, preferTime1;
+    private String name1, number1, email1, favoriteFood1, major1, preferTime1, hobby1;
+    private ArrayList<String> following1;
 
     public PostFragment() {
         // Required empty public constructor
@@ -179,6 +180,8 @@ public class PostFragment extends Fragment {
                         favoriteFood1 = document.getString("favoriteFood");
                         major1 = document.getString("major");
                         preferTime1 = document.getString("preferTime");
+                        hobby1 = document.getString("hobby");
+                        following1 = (ArrayList<String>) document.get("followings");
                         if (document.exists()) {
                             Log.d("TAG", "DocumentSnapshot data: " + document.getData());
                         } else {
@@ -198,6 +201,7 @@ public class PostFragment extends Fragment {
                             String img = document.getData().get("RestaurantImgUrl").toString();
                             String restName =  document.getData().get("RestaurantName").toString();
                             String restLocation =  document.getData().get("RestaurantLocation").toString();
+                            ArrayList<String> restLabel =  (ArrayList<String>) document.getData().get("RestaurantLabel");
                             String userId =  document.getData().get("UserID").toString();
                             String email = document.getData().get("UserEmail").toString();
                             String time = document.getData().get("DinningTime").toString();
@@ -216,20 +220,58 @@ public class PostFragment extends Fragment {
                                         String email2 = document.getString("email");
                                         String favoriteFood2 = document.getString("favoriteFood");
                                         String major2 = document.getString("major");
-                                        String preferTime2 = document.getString("preferTime");
-                                        isMatchable = (!currUserId.equals(userId));
+                                        String hobby2 = document.getString("hobby");
+                                        ArrayList<String> following2 = (ArrayList<String>) document.get("followings");
+                                        boolean isMatchable = (!currUserId.equals(userId)) && (time.equals(preferTime1));
                                         // Calc match rate & generate commons
+                                        int matchRate = 0;
+                                        ArrayList<String> common = new ArrayList<>();
                                         if (major1.equals(major2)){
-                                            matchRate += 0.3;
-                                            common.add("You guys are both " + major1 + " Major");
+                                            matchRate += 3;
+                                            common.add("You both are " + major1 + " Major");
+                                        }
+                                        else{
+                                            common.add("Major in " + major1);
                                         }
                                         if (favoriteFood1.equals(favoriteFood2)){
-                                            matchRate += 0.4;
-                                            common.add("You both like " + favoriteFood1);
+                                            matchRate += 4;
+                                            common.add("You both like " + favoriteFood1 + " food");
                                         }
+                                        else{
+                                            common.add("Like " + favoriteFood1 + " food");
+                                        }
+                                        if (hobby1 != null && hobby1.equals(hobby2)){
+                                            matchRate += 4;
+                                            common.add("You both like " + hobby1);
+                                        }
+                                        else{
+                                            common.add("Like " + hobby1);
+                                        }
+                                        boolean hasCommon = false;
+                                        String line = "";
+                                        for (int i = 0; i < following1.size(); i++){
+                                            if (following2 != null && following2.contains(following1.get(i))) {
+                                                matchRate += 2;
+                                                if (!hasCommon){
+                                                    line =  "You guys both followed " + following1;
+                                                    hasCommon = true;
+                                                }
+                                                else{
+                                                    line += ", " + following2;
+                                                }
+                                            }
+                                        }
+                                        if (hasCommon){
+                                            line += " in your account";
+                                            common.add(line);
+                                        }
+                                        else{
+                                            common.add("");
+                                        }
+
                                         if (isMatchable) {
                                             //Load the information of the invitations to the swipeviews
-                                            request_profile profile = new request_profile(restName, "label", restLocation, name2, img, email, fileId);
+                                            request_profile profile = new request_profile(restName, "label", restLocation, name2, img, email, time, message, matchRate, common, fileId);
                                             mSwipeView.addView(new RequestCard(mContext, profile, mSwipeView));
                                         }
                                         if (document.exists()) {

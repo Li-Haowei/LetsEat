@@ -56,7 +56,7 @@ public class Post {
     * This function generates a post including poster and the restaurant info. The post will
     * be stored in the database for other users to receive and choose whether to accept or not.
     * */
-    public static void makePost(String restaurantImgUrl, String restaurantName, String restaurantLocation, String userEmail, String time, String message){
+    public static void makePost(String restaurantImgUrl, String restaurantName, String restaurantLocation, String userEmail, String time, String message, ArrayList<String> label){
         FirebaseAuth fAuth = FirebaseAuth.getInstance();;
         FirebaseFirestore fStore = FirebaseFirestore.getInstance();
         String userId = fAuth.getCurrentUser().getUid();
@@ -67,6 +67,7 @@ public class Post {
         post.put("RestaurantName", restaurantName);
         post.put("RestaurantImgUrl", restaurantImgUrl);
         post.put("RestaurantLocation", restaurantLocation);
+        post.put("RestaurantLabel", label);
         post.put("DinningTime", time);
         post.put("Message", message);
         fStore.collection("post").add(post).addOnSuccessListener(new OnSuccessListener() {

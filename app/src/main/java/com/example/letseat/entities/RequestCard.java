@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.letseat.ChatActivity;
-import com.example.letseat.test;
+import com.example.letseat.PostDetailed;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.mindorks.placeholderview.SwipePlaceHolderView;
 import com.mindorks.placeholderview.annotations.Layout;
@@ -23,11 +23,13 @@ import com.mindorks.placeholderview.annotations.swipe.SwipeOut;
 import com.mindorks.placeholderview.annotations.swipe.SwipeOutState;
 import com.sendbird.android.GroupChannel;
 import com.sendbird.android.GroupChannelParams;
-import com.sendbird.android.User;
 import com.example.letseat.R;
 import com.example.letseat.models.request_profile;
 import com.sendbird.android.log.Logger;
 import com.sendbird.uikit.SendBirdUIKit;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 
 @Layout(R.layout.adapter_request_card)
@@ -77,11 +79,16 @@ public class RequestCard  {
             @Override
             public void onClick(android.view.View view) {
                 Log.d("EVENT", "cliecked");
-                Intent intent = new Intent(mContext, test.class);
+                Intent intent = new Intent(mContext, PostDetailed.class);
                 intent.putExtra("restName",mProfile.getRestName());
                 intent.putExtra("restLabels",mProfile.getRestLabels());
+                intent.putExtra("restImg", mProfile.getImageUrl());
                 intent.putExtra("restAdd",mProfile.getRestAdd());
                 intent.putExtra("InvitedBy",mProfile.getInvitedBy());
+                intent.putExtra("time", mProfile.getTime());
+                intent.putExtra("message", mProfile.getMessage());
+                intent.putExtra("matchRate", mProfile.getMatchRate());
+                intent.putStringArrayListExtra("common", mProfile.getCommon());
                 intent.putExtra("InvitedEmail", mProfile.getEmail());
                 intent.putExtra("FileId", mProfile.getFileId());
                 mContext.startActivity(intent);

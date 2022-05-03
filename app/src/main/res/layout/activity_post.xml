@@ -5,54 +5,106 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/lpSuccess"
+    <ImageView
+        android:id="@+id/ivRest"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="120dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
-        <TextView
-            android:id="@+id/tvSuccess"
-            android:layout_width="251dp"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Success!"
-            android:textAlignment="center"
-            android:textSize="30sp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/lp"
-        android:layout_width="413dp"
-        android:layout_height="730dp"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="328dp"
+        android:background="#FFFFFF"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ProgressBar
-            android:layout_width="334dp"
-            android:layout_height="78dp"
-            android:indeterminate="true" />
-
-        <TextView
-            android:id="@+id/tvPosting"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Posting your request..."
-            android:textSize="30sp"
-            android:translationX="19dp"
-            android:translationY="-35dp" />
-    </RelativeLayout>
+            android:layout_marginLeft="13sp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvRestaurant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Resturant:"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvRest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24sp"
+                android:text="test"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5sp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13sp"
+                android:text="Time:"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spTime"
+                android:layout_width="145dp"
+                android:layout_height="34dp"
+                android:layout_marginLeft="73sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13sp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Message:"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/etMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:layout_marginLeft="30sp"
+                android:ems="10"
+                android:hint="Type Message"
+                android:inputType="textPersonName" />
+        </LinearLayout>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvIntro2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="29dp"
+        android:layout_marginTop="16dp"
         android:text="You are about to post"
         android:textSize="34sp"
         android:textStyle="bold"
@@ -63,111 +115,61 @@
         android:id="@+id/tvIntro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
+        android:layout_marginStart="16dp"
         android:text="following info..."
         android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/tvIntro2"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvIntro2" />
 
-    <ImageView
-        android:id="@+id/ivRest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="152dp"
-        android:adjustViewBounds="true"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="182dp"
+        android:background="#FFFFFF"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        tools:layout_editor_absoluteX="0dp">
+
+        <ImageButton
+            android:id="@+id/btnCancel"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/cross" />
+
+        <ImageButton
+            android:id="@+id/btnConfirm"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="50sp"
+            android:background="@drawable/check" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/lp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/adaptive_icon" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tvRestaurant"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:text="Resturant:"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivRest"
-        app:layout_constraintVertical_bias="0.075" />
+        <TextView
+            android:id="@+id/tvPosting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-100sp"
+            android:gravity="center"
+            android:text="Posting your request..."
+            android:textSize="30sp" />
 
-    <TextView
-        android:id="@+id/tvMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="8dp"
-        android:text="Message:"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTime" />
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="78dp"
+            android:layout_marginTop="40sp"
+            android:indeterminate="true" />
 
-    <TextView
-        android:id="@+id/tvTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="8dp"
-        android:text="Time:"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvRestaurant" />
-
-    <Spinner
-        android:id="@+id/spTime"
-        android:layout_width="145dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="68dp"
-        app:layout_constraintStart_toEndOf="@+id/tvTime"
-        app:layout_constraintTop_toTopOf="@+id/tvTime" />
-
-    <TextView
-        android:id="@+id/tvRest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="19dp"
-        android:text="test"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/tvRestaurant"
-        app:layout_constraintTop_toTopOf="@+id/tvRestaurant" />
-
-    <EditText
-        android:id="@+id/etMessage"
-        android:layout_width="0dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="24dp"
-        android:ems="10"
-        android:hint="Type Message"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toEndOf="@+id/tvMessage"
-        app:layout_constraintTop_toTopOf="@+id/tvMessage" />
-
-    <Button
-        android:id="@+id/btnCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Cancel"
-        app:layout_constraintEnd_toStartOf="@+id/btnConfirm"
-        app:layout_constraintHorizontal_bias="0.432"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvMessage" />
-
-    <Button
-        android:id="@+id/btnConfirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="68dp"
-        android:text="Confirm"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etMessage" />
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

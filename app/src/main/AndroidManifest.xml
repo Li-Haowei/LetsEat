@@ -32,7 +32,7 @@
         android:theme="@style/Theme.LetsEat"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".test"
+            android:name=".PostDetailed"
             android:exported="false"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
