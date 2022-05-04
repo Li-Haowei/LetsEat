@@ -20,6 +20,6 @@ Users are able to chat with others after they match, to discuss the details of t
 3. Once you swipe right or accept a dining experience, the app will automatically jump to the chat list activity and a chat channel between you and the person who made the invitation will be created
 4. Please note that once you swipe right or accept and invite, that restaurant invitation will be permanently deleted from the database. We try to leave as many restaurant invitations in the database 
    as we can, but if you accept too many invitations, it is possible that you would delete all the invitations in the database and there will be no invitation to show on the main page. 
-5. We purposefully hide our api keys, and we will include the file containing all the . Theoretically, you should be able to compile the code right out of the box,but if you encounter any problem while
+5. We purposefully hide our api keys, and we will include the file containing all the api keys inside the zip file. Theoretically, you should be able to compile the code right out of the box,but if you encounter any problem while
    compiling, please send a email to us and we will try our best to help you.
 6. Hope you enjoy the app.
