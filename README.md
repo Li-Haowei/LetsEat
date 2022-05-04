@@ -1,6 +1,6 @@
 # LetsEat
 LetsEat app is design for lonely BU students to dine out with other lonely BU students.<br>
-We will match users based on their majors, preference types of cuisine, prefer time to eat, and twitter . Users can choose to accept (swipe right) or dicline other users' dining invitations(swipe left or right) just like tinder. <br>
+We will match users based on their majors, preference types of cuisine, prefer time to eat, and twitter . Users can choose to accept (swipe right) or decline other users' dining invitations(swipe left or right) just like tinder. <br>
 Users are able to chat with others after they match, to discuss the details of the dining experience. We are planning to use three apis for our app.<br>
 
 # API used 
