@@ -15,7 +15,7 @@ Users are able to chat with others after they match, to discuss the details of t
        src="sendbird.png" ><br>
 
 # Instructions For Grader
-1. Feel free to register your own accoun. The app does have email verification function, but you can choose to not verify your email, it will not affect your experience except  
+1. Feel free to register your own account. The app does have email verification function, but you can choose to not verify your email, it will not affect your experience except  
 2. After registering an account, we encourage you to bind your twitter account in profile page, which will help the matching algorithm to work better
 3. Once you swipe right or accept a dining experience, the app will automatically jump to the chat list activity and a chat channel between you and the person who made the invitation will be created
 4. Please note that once you swipe right or accept and invite, that restaurant invitation will be permanently deleted from the database. We try to leave as many restaurant invitations in the database 
