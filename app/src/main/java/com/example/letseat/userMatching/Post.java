@@ -70,6 +70,7 @@ public class Post {
         post.put("RestaurantLabel", label);
         post.put("DinningTime", time);
         post.put("Message", message);
+        // get all post information from firebase
         fStore.collection("post").add(post).addOnSuccessListener(new OnSuccessListener() {
             @Override
             public void onSuccess(Object o) {
@@ -81,24 +82,7 @@ public class Post {
     @NonNull
     public ArrayList<Map<String, Object>> getPost () {
         this.array = new ArrayList<>();
-//        FirebaseAuth fAuth = FirebaseAuth.getInstance();;
-//        FirebaseFirestore fStore = FirebaseFirestore.getInstance();
-//        Log.d("TAG", "Getting Post");
-//        fStore.collection("post").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    for (QueryDocumentSnapshot document : task.getResult()) {
-//                        array.add(document.getData());
-//                        //Log.d("TAG","Array: " + array);
-//                        //Log.d("TAG", document.getId() + " => " + document.getData().getClass().toString());
-//                    }
-//                } else {
-//                    Log.d("TAG", "Error getting documents: ", task.getException());
-//                }
-//            }
-//        });
-
+        // using self-created callback function to read data
         readData(new FirestoreCallback() {
             @Override
             public void onCallback(ArrayList<Map<String, Object>> array) {
@@ -119,8 +103,6 @@ public class Post {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         array.add(document.getData());
-                        //Log.d("TAG","Array: " + array);
-                        //Log.d("TAG", document.getId() + " => " + document.getData().getClass().toString());
                     }
                     firestoreCallback.onCallback(array);
                 } else {

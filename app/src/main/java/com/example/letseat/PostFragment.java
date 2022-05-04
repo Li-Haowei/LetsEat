@@ -238,6 +238,7 @@ public class PostFragment extends Fragment {
                                         // Calc match rate & generate commons
                                         int matchRate = 0;
                                         ArrayList<String> common = new ArrayList<>();
+                                        // increase match rate if they have same major
                                         if (major1.equals(major2)){
                                             matchRate += 3;
                                             common.add("You both are " + major1 + " Major");
@@ -245,6 +246,7 @@ public class PostFragment extends Fragment {
                                         else{
                                             common.add("Majors in " + major2);
                                         }
+                                        // increase match rate if they have same favorite food
                                         if (favoriteFood1.equals(favoriteFood2)){
                                             matchRate += 4;
                                             common.add("You both like " + favoriteFood1 + " food");
@@ -252,6 +254,7 @@ public class PostFragment extends Fragment {
                                         else{
                                             common.add("Likes " + favoriteFood2 + " food");
                                         }
+                                        // increase match rate if they have same interest
                                         if (hobby1 != null && hobby1.equals(hobby2)){
                                             matchRate += 4;
                                             common.add("You both like " + hobby1);
@@ -261,6 +264,7 @@ public class PostFragment extends Fragment {
                                         }
                                         boolean hasCommon = false;
                                         String line = "";
+                                        // check if they are following same account on twitter
                                         if (following1 != null){
                                             for (int i = 0; i < following1.size(); i++){
                                                 if (following2 != null && following2.contains(following1.get(i))) {
@@ -275,6 +279,7 @@ public class PostFragment extends Fragment {
                                                 }
                                             }
                                         }
+                                        // show common following list
                                         if (hasCommon){
                                             line += " in your account";
                                             common.add(line);
@@ -282,7 +287,7 @@ public class PostFragment extends Fragment {
                                         else{
                                             common.add("");
                                         }
-
+                                        // load all the posts that matches current user
                                         if (isMatchable) {
                                             //Load the information of the invitations to the swipeviews
                                             request_profile profile = new request_profile(restName, labels2, restLocation, name2, img, email, time, message, matchRate, common, fileId);

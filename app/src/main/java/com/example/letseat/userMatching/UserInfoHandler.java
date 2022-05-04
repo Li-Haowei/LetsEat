@@ -46,7 +46,8 @@ import java.util.Map;
 
 
 
-// This class is unusable due to async issue, will try to fix the issue to increase code reusability.
+// This class is unusable due to async issue, will try to fix the issue to increase code reusability. We create a call back interface and function
+// It somehow works, but we find that calling data within onCompleteListener is more useful.
 public class UserInfoHandler {
     private String userId;
     private FirebaseAuth fAuth;
@@ -80,6 +81,7 @@ public class UserInfoHandler {
         });
     }
 
+    // callback function for userInfoHandler. Read data we need here
     private void readData (FirestoreCallback firestoreCallback) {
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -115,6 +117,7 @@ public class UserInfoHandler {
 
     }
 
+    // self-created callback interface
     private interface FirestoreCallback {
         void onCallback (Map<String, String> list);
     }
